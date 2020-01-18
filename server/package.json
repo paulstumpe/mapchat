@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Geolocation Messaging App",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/White-Mouses/mapchat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/White-Mouses/mapchat/issues"
+  },
+  "homepage": "https://github.com/White-Mouses/mapchat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
