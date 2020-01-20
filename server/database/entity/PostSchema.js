@@ -16,6 +16,11 @@ module.exports = new EntitySchema({
     },
     text: {
       type: "text"
+    },
+    createdAt : {
+      name: 'created_at',
+      type: 'timestamp',
+      createDate: true,
     }
   },
   relations: {

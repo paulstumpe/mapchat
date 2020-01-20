@@ -1,7 +1,6 @@
 const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
 const Post = require("./model/Post").Post; // import {Post} from "./model/Post";
 const Category = require("./model/Category").Category; // import {Category} from "./model/Category";
-
 typeorm.createConnection({
   type: "mysql",
   host: "localhost",
@@ -13,7 +12,8 @@ typeorm.createConnection({
   logging: false,
   entities: [
     require("./entity/PostSchema"),
-    require("./entity/CategorySchema")
+    require("./entity/CategorySchema"),
+    require("./entity/UserSchema"),
   ]
 }).then(function (connection) {
 
@@ -33,16 +33,18 @@ typeorm.createConnection({
       let postRepository = connection.getRepository(Post);
       postRepository.save(post)
         .then(function (savedPost) {
-          console.log("Post has been saved: ", savedPost);
-          console.log("Now lets load all posts: ");
+          // console.log("Post has been saved: ", savedPost);
+          // console.log("Now lets load all posts: ");
 
           return postRepository.find();
         })
         .then(function (allPosts) {
-          console.log("All posts: ", allPosts);
+          // console.log("All posts: ", allPosts);
         });
     });
 
 }).catch(function (error) {
   console.log("Error: ", error);
 });
+require('./Connection')
+
