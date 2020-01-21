@@ -4,6 +4,8 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
 
 import AppNavigator from './navigation/AppNavigator';
 
@@ -25,6 +27,18 @@ export default function App(props) {
         <AppNavigator />
       </View>
     );
+  }
+}
+
+async function getLocationAsync() {
+  // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
+  const { status, permissions } = await Permissions.askAsync(
+    Permissions.LOCATION,
+  );
+  if (status === 'granted') {
+    return Location.getCurrentPositionAsync({ enableHighAccuracy: true });
+  } else {
+    throw new Error('Location permission not granted');
   }
 }
 
@@ -52,6 +66,7 @@ function handleLoadingError(error) {
 
 function handleFinishLoading(setLoadingComplete) {
   setLoadingComplete(true);
+  getLocationAsync();
 }
 
 const styles = StyleSheet.create({
