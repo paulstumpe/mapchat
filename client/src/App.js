@@ -11,20 +11,26 @@ import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+  const [location, setLocation] = useState('');
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
+        onFinish={() => {
+          getLocationAsync().then(currentLocation =>
+            setLocation(currentLocation),
+          );
+          return handleFinishLoading(setLoadingComplete);
+        }}
       />
     );
   } else {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
+        <AppNavigator screenProps={location}/>
       </View>
     );
   }
@@ -36,7 +42,10 @@ async function getLocationAsync() {
     Permissions.LOCATION,
   );
   if (status === 'granted') {
-    return Location.getCurrentPositionAsync({ enableHighAccuracy: true });
+    return Location.getCurrentPositionAsync({
+      enableHighAccuracy: true,
+    });
+    // console.log(currentLocation);
   } else {
     throw new Error('Location permission not granted');
   }
@@ -66,7 +75,6 @@ function handleLoadingError(error) {
 
 function handleFinishLoading(setLoadingComplete) {
   setLoadingComplete(true);
-  getLocationAsync();
 }
 
 const styles = StyleSheet.create({
