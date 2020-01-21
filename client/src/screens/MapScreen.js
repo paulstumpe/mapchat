@@ -2,14 +2,15 @@ import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, ScrollView, Dimensions } from 'react-native';
 
-export default function MapScreen() {
+export default function MapScreen({ screenProps }) {
+  const { latitude, longitude } = screenProps.coords;
   return (
     <ScrollView style={styles.container}>
       <MapView
         style={styles.mapStyle}
         initialRegion={{
-          latitude: 29.9499,
-          longitude: -90.0701,
+          latitude,
+          longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
