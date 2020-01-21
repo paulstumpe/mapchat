@@ -8,19 +8,25 @@ module.exports = new EntitySchema({
     id: {
       primary: true,
       type: "int",
-      generated: "true",
+      generated: true,
+    },
+    lat:{
+      type: "int"
+    },
+    long:{
+      type:"int"
     },
   }
 });
 
-/*export */ class Locations {
-  constructor(id, lat, long) {
-    this.id= id;
-    this.lat= lat;
-    this.long= long;
-  }
-}
+// /*export */ class Locations {
+//   constructor(id, lat, long) {
+//     this.id= id;
+//     this.lat= lat;
+//     this.long= long;
+//   }
+// }
 
-module.exports = {
-  Locations: Locations
-};
+// module.exports = {
+//   Locations: Locations
+// };

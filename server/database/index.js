@@ -14,6 +14,9 @@ typeorm.createConnection({
     require("./entity/PostSchema"),
     require("./entity/CategorySchema"),
     require("./entity/UserSchema"),
+    require("./entity/LocationsSchema"),
+    require("./entity/PostsSchema"),
+    require("./entity/PostsSchema"),
   ]
 }).then(function (connection) {
 
