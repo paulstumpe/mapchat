@@ -9,5 +9,5 @@
 }
 
 module.exports = {
-  Post: Post
+  Business: Business
 };
