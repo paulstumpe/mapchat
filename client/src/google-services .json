@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "848261102357",
+    "firebase_url": "https://mapchat-38998.firebaseio.com",
+    "project_id": "mapchat-38998",
+    "storage_bucket": "mapchat-38998.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848261102357:android:0b9eab0d74765daedf471c",
+        "android_client_info": {
+          "package_name": "com.whitemouses.mapchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848261102357-fcurfr8lts0t5hnfui8a7n83g121i0qe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.whitemouses.mapchat",
+            "certificate_hash": "42b2085338544fe3d7d752db5a41305de56004eb"
+          }
+        },
+        {
+          "client_id": "848261102357-mb7eohrs74ol1k2g6ogsvcj3ttao3qav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMW6ziBgIyVPcCCOrFBpdxxI8v6pFNPrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848261102357-mb7eohrs74ol1k2g6ogsvcj3ttao3qav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
