@@ -1,19 +1,23 @@
 import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, Text, ScrollView, Dimensions } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function MapScreen({ screenProps }) {
   const { latitude, longitude } = screenProps.coords;
+  const region = {
+    latitude,
+    longitude,
+    latitudeDelta: 0.001,
+    longitudeDelta: 0.001,
+  };
   return (
     <ScrollView style={styles.container}>
       <MapView
         style={styles.mapStyle}
-        initialRegion={{
-          latitude,
-          longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        initialRegion={region}
+        showsUserLocation={true}
+        userTrackingMode={true}
       />
     </ScrollView>
   );
