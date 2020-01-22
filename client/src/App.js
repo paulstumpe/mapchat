@@ -30,7 +30,7 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator screenProps={location}/>
+        <AppNavigator screenProps={location} />
       </View>
     );
   }
@@ -45,7 +45,6 @@ async function getLocationAsync() {
     return Location.getCurrentPositionAsync({
       enableHighAccuracy: true,
     });
-    // console.log(currentLocation);
   } else {
     throw new Error('Location permission not granted');
   }
