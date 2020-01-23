@@ -24,21 +24,27 @@ name:"Posts",
       type:"bit"
     },
     time_created:{
-      type:"timestamp"
+      type:"timestamp",
+      default: () =>{return 'CURRENT_TIMESTAMP'},
     },
     time_expires:{
-      type:'datetime'
+      type:'datetime',
+      createDate: true,
     },
     post_anonymous:{
       type:"bit"
-    }
+    },
   },
   relations: {
-    id_Locations:{
+    Locations:{
       target: "Locations",
-      type: "many-to-one"
+      type: "many-to-one",
+      inverseSide: 'postmaybeline42',
+      nullable: false
+      
     }
-  }
+  },
+
 });
 
 // /*export */ class Posts {

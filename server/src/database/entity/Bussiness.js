@@ -10,7 +10,7 @@ module.exports = new EntitySchema({
       type:"int",
       generated:"true",
     },
-    
+
   }
 });
 
@@ -26,5 +26,5 @@ module.exports = new EntitySchema({
 }
 
 module.exports = {
-  Bus: Bus
+  Business: Business
 };

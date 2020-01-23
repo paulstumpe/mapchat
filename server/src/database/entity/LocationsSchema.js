@@ -1,5 +1,7 @@
 const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
 const Locations = require("../model/Locations").Locations; // import {Post} from "../model/Post";
+const Posts = require("../model/Posts").Posts; // import {Post} from "../model/Post";
+
 
 module.exports = new EntitySchema({
   name: "Locations",
@@ -16,6 +18,16 @@ module.exports = new EntitySchema({
     long:{
       type:"int"
     },
+  },
+  relations:{
+    Posts:{
+      target:"Posts",
+      type: "one-to-many",
+      cascade: true,
+      inverseSide: 'firstEntity',
+      eager: true,
+      nullable: false,
+    }
   }
 });
 
