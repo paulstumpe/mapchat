@@ -1,6 +1,6 @@
 // import React from 'react';
 import PropTypes from 'prop-types'
-import { StyleSheet, Text, ScrollView, Dimensions, Modal, View, React } from 'react-native';
+import { React } from 'react-native';
 import t from 'tcomb-form-native';
 const { AppRegistry, StyleSheet, Text, View, TouchableHighlight } = React;
 
@@ -10,7 +10,7 @@ const DocumentFormStruct = t.struct({
   message: t.String,
 });
 
-var AwesomeProject = React.createClass({
+const MessageItem = React.createClass({
 
   onPress: function () {
     // call getValue() to get the values of the form
@@ -29,6 +29,30 @@ var AwesomeProject = React.createClass({
       </TouchableHighlight> 
       </View>
     );
+  }
+});
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    marginTop: 50,
+    padding: 20,
+    backgroundColor: '#ffffff',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
   }
 });
 
@@ -60,3 +84,5 @@ var AwesomeProject = React.createClass({
 MessageItem.navigationOptions = {
   title: 'app.json',
 };
+
+module.exports.MessageItem = MessageItem;
