@@ -3,24 +3,6 @@ import PropTypes from 'prop-types'
 import { StyleSheet, Text, ScrollView, Dimensions, Modal, View } from 'react-native';
 // import { ToastAndroid } from 'react-native';
 
-// ToastAndroid.show(
-//   'A pikachu appeared nearby !', 
-//   ToastAndroid.LONG, 
-//   ToastAndroid.CENTER,
-//   );
-// ToastAndroid.showWithGravity(
-//   'Individual Message here',
-//   ToastAndroid.LONG,
-//   ToastAndroid.CENTER, 
-// );
-// ToastAndroid.showWithGravityAndOffset(
-//   'A wild Post appeared!',
-//   ToastAndroid.LONG, 
-//   ToastAndroid.CENTER, 
-//   25,
-//   50,
-// );
-
 export default function MessageItem( isVisible, onBackDropPress) {
   /**
    * Go ahead and delete ExpoConfigView and replace it with your content;
