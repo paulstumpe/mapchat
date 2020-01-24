@@ -1,6 +1,5 @@
 const express = require('express');
-const db = require('./database/Controllers');
-const connection = require('./database/Controllers');
+const connection = require('./database/Connection');
 const controllers = require('./database/Controllers')
 const app = express();
 const port = 8080;

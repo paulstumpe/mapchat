@@ -27,6 +27,20 @@ const createPost = (postValues:any, location:any)=>{
     return x;
   })
 }
+const createLocation = (locationValues:any)=>{
+  const {long, lat} = locationValues;
+  const location = new Locations();
+  const entityManager = getManager(); // you can also get it via getConnection().manager
+  location.long = long;
+  location.lat = lat;
+  return entityManager.save(Locations, location)
+  .then(location=>{
+    console.log(location, ' was saved');
+  })
+  .catch(err=>{
+    console.log(err, 'error on createLocation')
+  })
+}
 
 const post = new Posts()
 post.title = "hmm"
@@ -36,5 +50,7 @@ post.post_local = false;
 post.time_expires = "da"
 post.post_anonymous = false;
 setTimeout(()=>{
-  createPost(post, new Locations())
+  createLocation({long:'lol', lat:'worked'})
+    .then(()=>createPost(post, new Locations()))
+  
 }, 300);

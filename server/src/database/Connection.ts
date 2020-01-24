@@ -20,3 +20,4 @@ createConnection({
   synchronize: true,
   logging: false
 })
+.then(()=>{}).catch(()=>{})
