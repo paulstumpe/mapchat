@@ -23,7 +23,7 @@ const MessageItem = React.createClass({
   render: function () {
     return ( 
       <View style = { styles.container}> 
-        <Form ref = "form" type = { Person } options = { options }/> 
+        <Form ref = "form" type = { DocumentFormStruct } options = { options }/> 
         <TouchableHighlight style = { styles.button } onPress = { this.onPress } underlayColor = '#99d9f4' >
       <Text style = { styles.buttonText } > Save </Text> 
       </TouchableHighlight> 
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
   }
 });
 
+AppRegistry.registerComponent('MessageItem', () => MessageItem);
 // export default function MessageItem( isVisible, onBackDropPress) {
 
 //   return (
