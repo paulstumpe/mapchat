@@ -7,7 +7,7 @@ const { AppRegistry, StyleSheet, Text, View, TouchableHighlight } = React;
 const Form = t.form.Form;
 const DocumentFormStruct = t.struct({
   name: t.String,
-  mesage: t.String,
+  message: t.String,
 });
 
 var AwesomeProject = React.createClass({
