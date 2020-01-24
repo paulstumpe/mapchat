@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
-import MessageItemScreen from '../screens/MessageItemScreen';
+import MessageItem from '../screens/MessageItem';
 import MapScreen from '../screens/MapScreen';
 
 const config = Platform.select({
@@ -58,7 +58,7 @@ LinksStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: MessageItemScreen,
+    Settings: MessageItem,
   },
   config,
 );
