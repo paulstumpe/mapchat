@@ -20,10 +20,10 @@ const createPost = (postValues:any, location:any)=>{
     post.location = location;
     return entityManager.save(Posts, post)
   }).catch(x=>{
-    console.log(x);
+    console.log(x, 'error on making post');
   })
   .then(x=>{
-    console.log(x)
+    console.log(x, 'succesfully saved post')
     return x;
   })
 }
