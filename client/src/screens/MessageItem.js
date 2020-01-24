@@ -6,8 +6,8 @@ import t from 'tcomb-form-native'; // 0.6.9
 import { List } from 'react-native-paper';
 
 const MessageItem = () => ( <
-  List.Item title = "First Item"
-  description = "Item description"
+  List.Item title = "First Message Item"
+  description = "Message Item description"
   left = {
     props => < List.Icon {
       ...props
