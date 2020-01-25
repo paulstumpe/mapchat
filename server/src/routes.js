@@ -16,7 +16,6 @@ import { getPost, getAllPosts, createPost } from "./database/Controllers";
 apiRouter.get('/messages/all', (req, res)=>{
   getAllPosts()
   .then(allPosts=>{
-    console.log(x);
     res.send(allPosts);
   })
   .catch(err=>{
