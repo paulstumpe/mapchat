@@ -7,7 +7,8 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
-export default function NewPostScreen() {
+export default function NewPostScreen({ screenProps }) {
+  console.log(screenProps);
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
@@ -33,7 +34,7 @@ export default function NewPostScreen() {
           onChangeText={title => setTitle(title)}
           />
         <TextInput
-          label='Location'
+          label='Current Location'
           placeholder='location'
           mode='outlined'
           value={location}
@@ -48,7 +49,13 @@ export default function NewPostScreen() {
           value={message}
           onChangeText={message => setMessage(message)}
           />
-        <Button icon="send" mode="contained" onPress={() => postMessage() }>
+        <Button
+          icon="send" mode="contained"
+          style={{
+            margin: 10,
+            height: 50,
+          }}
+          onPress={() => postMessage() }>
             Drop Message
         </Button>
       </View>
