@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import NewPostScreen from '../screens/NewPostScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import MapScreen from '../screens/MapScreen';
 
@@ -37,24 +37,24 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+const NewPostStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    NewPost: NewPostScreen,
   },
   config,
 );
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+NewPostStack.navigationOptions = {
+  tabBarLabel: 'New Post',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'}
     />
   ),
 };
 
-LinksStack.path = '';
+NewPostStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -96,7 +96,7 @@ MapStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
+  NewPostStack,
   SettingsStack,
   MapStack,
 });
