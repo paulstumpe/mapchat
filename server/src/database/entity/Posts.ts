@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Locations} from "./Locations";
 
@@ -31,7 +32,9 @@ export class Posts {
   @Column()
   post_anonymous: boolean;
 
-  @ManyToOne(type => Locations)
-  @JoinColumn({ name: "Location_id" })
-  location: Locations;
+  @ManyToOne(type => Locations, (locations:Locations)=> locations, {
+    eager: true
+  },)
+  coordinate: Locations;
+
 }
