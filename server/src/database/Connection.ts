@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { createConnection, Connection } from "typeorm";
 import { Photo } from "./entity/Photo";
 import { Locations } from "./entity/Locations";
-import { Posts } from "./entity/PostsSchema";
+import { Posts } from "./entity/Posts";
 
 
 createConnection({
@@ -18,6 +18,6 @@ createConnection({
     Posts
   ],
   synchronize: true,
-  logging: false
+  logging: false,
 })
 .then(()=>{}).catch(()=>{})

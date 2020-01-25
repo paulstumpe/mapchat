@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn } from "typeorm";
-// import { Posts } from "./PostsSchema";
+import { Posts } from "./Posts";
 
 @Entity()
 export class Locations {
@@ -13,7 +13,7 @@ export class Locations {
   @Column()
   long: string;
 
-  // @OneToMany(type => Posts)
-  // @JoinColumn({ name: "cat_id" })
-  // category: Category;
+  @OneToMany(() => Posts, (post: Posts) => post.coordinate)
+  public posts: Posts[];
+
 }
