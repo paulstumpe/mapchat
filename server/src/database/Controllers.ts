@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { getManager, EntityManager } from "typeorm";
+import { getManager, EntityManager, Between } from "typeorm";
 import { Locations } from "./entity/Locations";
 import { Posts} from "./entity/Posts";
 const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
@@ -45,11 +45,33 @@ const getPost = (postValues:object)=>{
 }
 const getAllPosts = ()=>{
   return entityManager.find(Posts, { relations: ["coordinate"] })
-.then(allPosts=>console.log(allPosts))
+// .then(allPosts=>console.log(allPosts))
 .catch(x=>console.log(x))
 }
 
-
+const getAllPostsInRadius = (location:Locations, radius:number)=>{
+  let minLong = location.long - radius;
+  let maxLong = location.long + radius;
+  let minLat = location.lat - radius;
+  let maxLat = location.lat + radius;
+    return entityManager
+    .createQueryBuilder()
+    .leftJoinAndSelect("posts.coordinate","coordinate")
+    // .from(Locations, "locations")
+    // .where("location.lat = :lat", { lat: location.lat })
+    // .andWhere("location.long = :long", { long: location.long})
+    .getMany();
+  // return entityManager.find(Locations, {
+  //   join: {
+  //     alias: "post",
+  //     leftJoinAndSelect: {
+  //       video: "post.title"
+  //     }
+  //   },    
+  //   long: Between(minLong, maxLong),
+  //   lat: Between(minLat, maxLat),
+  // })
+}
 
 const createLocationOrFindLocation = (locationValues:any)=>{
   const location = new Locations();
@@ -70,7 +92,7 @@ const getLocation = (locationValues:any)=>{
   Object.assign(location, locationValues);
   const entityManager = getManager();
   return entityManager.findOne(Locations, location)
-  // .then(x=>console.log(x, "HEREEEEEEEEEE"))
+  .then(x=>console.log(x, "HEREEEEEEEEEE"))
 }
 
 setTimeout(()=>{
@@ -84,15 +106,17 @@ setTimeout(()=>{
   post.post_anonymous = false;
 
   let location = new Locations();
-  location.long = 'new'
-  location.lat = 'haa'
+  location.long = 20
+  location.lat = -100
   createPost(post, location)
 
   getPost({post: { long: 'new', lat: 'haa' },});
   let newLocation = new Locations();
   location.long
-  getLocation(newLocation);
+  // getLocation(newLocation);
   getAllPosts();
+  getAllPostsInRadius(location, 200)
+  .then(x=>console.log(x));
 
   
 }, 300);

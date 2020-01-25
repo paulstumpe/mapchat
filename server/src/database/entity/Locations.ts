@@ -8,10 +8,10 @@ export class Locations {
   id: number;
 
   @Column()
-  lat: string;
+  lat: number;
 
   @Column()
-  long: string;
+  long: number;
 
   @OneToMany(() => Posts, (post: Posts) => post.coordinate)
   public posts: Posts[];
