@@ -34,14 +34,8 @@ const createPost = (postValues:object, locationValues:object)=>{
 
 const getPost = (postValues:object)=>{
   const post = new Posts();
-  debugger;
   Object.assign(post, postValues)
-  entityManager.findOne(Posts, post)
-  .then((x)=>{
-    // console.log('success')
-  })
-  .catch(x=>{console.log('error');})
-
+  return entityManager.findOne(Posts, post)
 }
 const getAllPosts = ()=>{
   return entityManager.find(Posts, { relations: ["coordinate"] })
@@ -97,26 +91,27 @@ const getLocation = (locationValues:any)=>{
 
 setTimeout(()=>{
 
-  const post = new Posts()
-  post.title = "hmm"
-  post.text = "hmm"
-  post.post_public = false;
-  post.post_local = false;
-  post.time_expires = "da"
-  post.post_anonymous = false;
+  // const post = new Posts()
+  // post.title = "hmm"
+  // post.text = "hmm"
+  // post.post_public = false;
+  // post.post_local = false;
+  // post.time_expires = "da"
+  // post.post_anonymous = false;
 
-  let location = new Locations();
-  location.long = 20
-  location.lat = -100
-  createPost(post, location)
+  // let location = new Locations();
+  // location.long = 20
+  // location.lat = -100
+  // createPost(post, location)
 
-  getPost({post: { long: 'new', lat: 'haa' },});
-  let newLocation = new Locations();
-  location.long
-  // getLocation(newLocation);
-  getAllPosts();
-  getAllPostsInRadius(location, 200)
-  .then(x=>console.log(x));
+  // getPost({post: { long: 'new', lat: 'haa' },});
+  // let newLocation = new Locations();
+  // location.long
+  // // getLocation(newLocation);
+  // getAllPosts();
+  // getAllPostsInRadius(location, 200)
+  // .then(x=>console.log(x));
 
   
 }, 300);
+export {getLocation, createLocationOrFindLocation, getAllPosts, getPost, createPost}
