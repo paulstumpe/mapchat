@@ -20,4 +20,5 @@ createConnection({
   synchronize: true,
   logging: false,
 })
-.then(()=>{}).catch(()=>{})
+.then(()=>{}).catch((err)=>{console.log(err, 'didnt establish connection')
+})

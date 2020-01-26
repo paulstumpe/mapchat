@@ -7,10 +7,18 @@ export class Locations {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    type: "decimal",
+    precision: 10, 
+    scale: 8
+  })
   lat: number;
 
-  @Column()
+  @Column({
+    type: "decimal",
+    precision: 11,
+    scale: 8
+  })
   long: number;
 
   @OneToMany(() => Posts, (post: Posts) => post.coordinate)

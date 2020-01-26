@@ -7,11 +7,13 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import { postMessageHelper} from '../Helper'
+
 export default function NewPostScreen({ screenProps }) {
-  console.log(screenProps);
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
+
   const clearFields = () => {
     setTitle('')
     setLocation('')
@@ -19,7 +21,14 @@ export default function NewPostScreen({ screenProps }) {
   }
 
   const postMessage = () => {
-    console.log(`Title - ${title}, Location - ${location}, Message - ${message}`);
+    postMessageHelper({ title, message }, screenProps.coords)
+      .then((data) => {
+        data;
+        console.log("success", data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     clearFields();
   }
 
