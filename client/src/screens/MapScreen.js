@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import MapView, { Marker, View } from 'react-native-maps';
 import { StyleSheet, Text, ScrollView, Dimensions, Image } from 'react-native';
+import { getAll } from '../Helper'
+
 
 export default function MapScreen({ screenProps }) {
+  getAll().then(({data})=>{
+    const allMessages = data.map((message)=>{
+      message.longitude = message.coordinate.long;
+      message.latitude = message.coordinate.lat;
+      return message;
+    })
+    // console.log(allMessages);
+  })
   const { latitude, longitude } = screenProps.coords;
   const region = {
     latitude,
@@ -12,7 +22,7 @@ export default function MapScreen({ screenProps }) {
   };
 
   const messages = [
-    { latitude: 29.971426, longitude: -90.072672 },
+    { latitude: 29.971426, longitude: -90.072072 },
     { latitude: 29.965022, longitude: -90.072675 },
     { latitude: 29.967577, longitude: -90.070677 },
   ];
