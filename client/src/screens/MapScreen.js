@@ -5,14 +5,18 @@ import { getAll } from '../Helper'
 
 
 export default function MapScreen({ screenProps }) {
-  getAll().then(({data})=>{
+  const[messages, setMessages] = useState([]);
+  getAll()
+  .then(({data})=>{
     const allMessages = data.map((message)=>{
-      message.longitude = message.coordinate.long;
-      message.latitude = message.coordinate.lat;
+      message.longitude = parseFloat(message.coordinate.long);
+      message.latitude = parseFloat(message.coordinate.lat);
       return message;
     })
-    // console.log(allMessages);
+    console.log(typeof allMessages[0].latitude);
+    setMessages(allMessages);
   })
+  .catch(err=>console.log(err));
   const { latitude, longitude } = screenProps.coords;
   const region = {
     latitude,
@@ -21,11 +25,11 @@ export default function MapScreen({ screenProps }) {
     longitudeDelta: 0.001,
   };
 
-  const messages = [
-    { latitude: 29.971426, longitude: -90.072072 },
-    { latitude: 29.965022, longitude: -90.072675 },
-    { latitude: 29.967577, longitude: -90.070677 },
-  ];
+  // const messages = [
+  //   { latitude: 29.971426, longitude: -90.072072 },
+  //   { latitude: 29.965022, longitude: -90.072675 },
+  //   { latitude: 29.967577, longitude: -90.070677 },
+  // ];
 
   const [dropMarker, setDropMarker] = useState({});
   return (
