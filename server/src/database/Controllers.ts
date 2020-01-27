@@ -5,7 +5,6 @@ import { Posts} from "./entity/Posts";
 const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
 const entityManager = getManager(); // you can also get it via getConnection().manager
 
-// console.log(connection)
 const createPost = (postValues:object, locationValues:object)=>{
   let post = new Posts();
   Object.assign(post, postValues)
@@ -39,7 +38,6 @@ const getPost = (postValues:object)=>{
 }
 const getAllPosts = ()=>{
   return entityManager.find(Posts, { relations: ["coordinate"] })
-// .then(allPosts=>console.log(allPosts))
 .catch(x=>console.log(x))
 }
 
@@ -51,20 +49,7 @@ const getAllPostsInRadius = (location:Locations, radius:number)=>{
     return entityManager
     .createQueryBuilder()
     .leftJoinAndSelect("posts.coordinate","coordinate")
-    // .from(Locations, "locations")
-    // .where("location.lat = :lat", { lat: location.lat })
-    // .andWhere("location.long = :long", { long: location.long})
     .getMany();
-  // return entityManager.find(Locations, {
-  //   join: {
-  //     alias: "post",
-  //     leftJoinAndSelect: {
-  //       video: "post.title"
-  //     }
-  //   },    
-  //   long: Between(minLong, maxLong),
-  //   lat: Between(minLat, maxLat),
-  // })
 }
 
 const createLocationOrFindLocation = (locationValues:any)=>{
@@ -88,30 +73,9 @@ const getLocation = (locationValues:any)=>{
   return entityManager.findOne(Locations, location)
   .then(x=>console.log(x, "HEREEEEEEEEEE"))
 }
+//testing area
+setTimeout(()=>{ 
 
-setTimeout(()=>{
-
-  // const post = new Posts()
-  // post.title = "hmm"
-  // post.text = "hmm"
-  // post.post_public = false;
-  // post.post_local = false;
-  // post.time_expires = "da"
-  // post.post_anonymous = false;
-
-  // let location = new Locations();
-  // location.long = 20
-  // location.lat = -100
-  // createPost(post, location)
-
-  // getPost({post: { long: 'new', lat: 'haa' },});
-  // let newLocation = new Locations();
-  // location.long
-  // // getLocation(newLocation);
-  // getAllPosts();
-  // getAllPostsInRadius(location, 200)
-  // .then(x=>console.log(x));
-
-  
 }, 300);
+//end of testing area
 export {getLocation, createLocationOrFindLocation, getAllPosts, getPost, createPost}
