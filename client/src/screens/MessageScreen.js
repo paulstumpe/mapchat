@@ -36,6 +36,18 @@ const MessageScreen = () => (
           // value={message}
           // onChangeText={message => setMessage(message)}
         />
+        <Button
+          icon='send'
+          mode='contained'
+          style={{
+            marginTop: 10,
+            marginRight: 220,
+            height: 40,
+          }}
+          // onPress={() => postMessage()}
+        >
+          Comment
+        </Button>
       </Card.Content>
     </Card>
   </View>
