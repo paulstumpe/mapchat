@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
-import { postMessageHelper} from '../Helper'
+import { postMessageHelper } from '../Helper';
 
 export default function NewPostScreen({ screenProps }) {
   const [title, setTitle] = useState('');
@@ -15,22 +15,22 @@ export default function NewPostScreen({ screenProps }) {
   const [message, setMessage] = useState('');
 
   const clearFields = () => {
-    setTitle('')
-    setLocation('')
-    setMessage('')
-  }
+    setTitle('');
+    setLocation('');
+    setMessage('');
+  };
 
   const postMessage = () => {
     postMessageHelper({ title, message }, screenProps.coords)
-      .then((data) => {
+      .then(data => {
         data;
-        console.log("success", data);
+        console.log('success', data);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
-      })
+      });
     clearFields();
-  }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -41,14 +41,14 @@ export default function NewPostScreen({ screenProps }) {
           mode='outlined'
           value={title}
           onChangeText={title => setTitle(title)}
-          />
+        />
         <TextInput
           label='Current Location'
           placeholder='location'
           mode='outlined'
           value={location}
           onChangeText={location => setLocation(location)}
-          />
+        />
         <TextInput
           label='Message'
           placeholder='message'
@@ -57,15 +57,17 @@ export default function NewPostScreen({ screenProps }) {
           numberOfLines={6}
           value={message}
           onChangeText={message => setMessage(message)}
-          />
+        />
         <Button
-          icon="send" mode="contained"
+          icon='send'
+          mode='contained'
           style={{
             margin: 10,
             height: 50,
           }}
-          onPress={() => postMessage() }>
-            Drop Message
+          onPress={() => postMessage()}
+        >
+          Drop Message
         </Button>
       </View>
     </ScrollView>
@@ -79,7 +81,7 @@ NewPostScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 25,
     padding: 20,
     backgroundColor: '#fff',
   },
