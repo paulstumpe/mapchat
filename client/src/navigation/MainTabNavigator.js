@@ -56,9 +56,9 @@ NewPostStack.navigationOptions = {
 
 NewPostStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const MessageStack = createStackNavigator(
   {
-    Settings: MessageScreen,
+    Message: MessageScreen,
   },
   config,
 );
@@ -68,7 +68,7 @@ MessageStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-message' : 'md-message'}
+      name={Platform.OS === 'ios' ? 'ios-mail' : 'md-mail'}
     />
   ),
 };
