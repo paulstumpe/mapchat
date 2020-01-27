@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import NewPostScreen from '../screens/NewPostScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import MessageScreen from '../screens/MessageScreen';
 import MapScreen from '../screens/MapScreen';
 
 const config = Platform.select({
@@ -56,24 +56,24 @@ NewPostStack.navigationOptions = {
 
 NewPostStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const MessageStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Message: MessageScreen,
   },
   config,
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+MessageStack.navigationOptions = {
+  tabBarLabel: 'Message',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name={Platform.OS === 'ios' ? 'ios-mail' : 'md-mail'}
     />
   ),
 };
 
-SettingsStack.path = '';
+MessageStack.path = '';
 
 const MapStack = createStackNavigator(
   {
@@ -97,7 +97,7 @@ MapStack.path = '';
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   NewPostStack,
-  SettingsStack,
+  MessageStack,
   MapStack,
 });
 
