@@ -44,15 +44,16 @@ apiRouter.get('/messages', (req, res)=>{
 apiRouter.post('/messages',(req, res)=>{
   const { title, text, post_public, post_local, time_created, updated_at, time_expires, post_anonymous, coordinate } = req.body;
   let post = {
-    title,
-    text,
-    post_public,
-    post_local,
-    time_created,
-    updated_at,
-    time_expires,
-    post_anonymous,
+    title :title,
+    text : text,
+    post_public : true,
+    post_local : true,
+    // time_created,
+    // updated_at,
+    time_expires : "unfinshed",
+    post_anonymous : false,
   };
+  console.log('this is the text', req.body)
   createPost(post, coordinate).then(post=>{
     res.send(post);
   })
