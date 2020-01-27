@@ -1,11 +1,13 @@
 import React, { Component, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import {
+  Avatar,
   Button,
   Card,
   Divider,
   Headline,
   Paragraph,
+  Subheading,
   TextInput,
   Title,
 } from 'react-native-paper';
@@ -15,6 +17,12 @@ const message = {
   title: 'Delivery',
   text: 'Pizza delivery for I.C. Weiner',
 };
+
+const comments = [
+  { username: 'Bender', text: 'Bite my shiny metal ass' },
+  { username: 'Professor', text: 'Good news everyone' },
+  { username: 'Leela', text: `That isn't a real name, Fry` },
+];
 
 const MessageItem = () => {
   const [comment, setComment] = useState('');
@@ -31,15 +39,36 @@ const MessageItem = () => {
     setComment('');
   };
   return (
-    <View>
+    <KeyboardAvoidingView style={styles.container} behavior='position' enabled>
       <Card>
-        <Card.Content>
-          <Title style={styles.name}>{message.username}</Title>
-          <Divider />
+        <Card.Title
+          title={message.username}
+          subtitle={message.title}
+          left={props => <Avatar.Text size={48} label='PJF' />}
+        />
+        <Divider />
+        <Card.Content style={{ paddingTop: 10 }}>
           <Paragraph>{message.text}</Paragraph>
         </Card.Content>
       </Card>
-      <Card>
+      {comments &&
+        comments.map(comment => (
+          <Card style={{ marginTop: 10 }}>
+            <Subheading> {comment.username}</Subheading>
+            <Divider />
+            <Card.Content style={{ paddingTop: 10 }}>
+              <Paragraph>{comment.text}</Paragraph>
+            </Card.Content>
+          </Card>
+        ))}
+      <Card
+        style={{
+          borderRadius: 10,
+          position: 'relative',
+          zIndex: 2,
+          marginTop: 10,
+        }}
+      >
         <Card.Content>
           <TextInput
             label='Comment'
@@ -64,7 +93,7 @@ const MessageItem = () => {
           </Button>
         </Card.Content>
       </Card>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -74,7 +103,6 @@ MessageItem.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginTop: 10,
     padding: 20,
     backgroundColor: '#fff',
