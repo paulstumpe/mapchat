@@ -5,8 +5,8 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-// import NewPostScreen from '../screens/NewPostScreen';
 import ListScreen from '../screens/ListScreen';
+import NewPostScreen from '../screens/NewPostScreen';
 import MapScreen from '../screens/MapScreen';
 
 const config = Platform.select({
@@ -59,11 +59,40 @@ HomeStack.path = '';
 const ListStack = createStackNavigator(
   {
     List: ListScreen,
+  }
+);
+
+const NewPostStack = createStackNavigator(
+  {
+    NewPost: NewPostScreen,
   },
   config,
 );
 
-ListStack.navigationOptions = {
+// ListStack.navigationOptions = {
+//   tabBarLabel: 'Message List',
+// };
+
+NewPostStack.navigationOptions = {
+  tabBarLabel: 'New Post',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'}
+    />
+  ),
+};
+
+NewPostStack.path = '';
+
+const SettingsStack = createStackNavigator(
+  {
+    Settings: ListScreen,
+  },
+  config,
+);
+
+SettingsStack.navigationOptions = {
   tabBarLabel: 'Message List',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -97,6 +126,8 @@ MapStack.path = '';
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   ListStack,
+  NewPostStack,
+  SettingsStack,
   MapStack,
 });
 
