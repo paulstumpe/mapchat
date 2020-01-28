@@ -55,7 +55,8 @@ apiRouter.post('/messages',(req, res)=>{
     post_anonymous : false,
   };
   console.log('this is the text', req.body)
-  createPost(post, coordinate).then(post=>{
+  createPost(post, coordinate)
+  .then(post=>{
     res.send(post);
   })
   .catch(err=>{
@@ -70,7 +71,7 @@ apiRouter.get('/users',(req, res)=>{
   for (let key in req.body) {
     user[key] = req.body[key];
   }
-  createUser(user)
+  getUser(user)
   .then(user => {
     res.status = 200;
     res.send(user);
@@ -87,7 +88,7 @@ apiRouter.post('/users',(req, res)=>{
   for (let key in req.body) {
     user[key] = req.body[key];
   }
-  getUser(user)
+  createUser(user)
   .then(user => {
     res.status = 200;
     res.send(user);

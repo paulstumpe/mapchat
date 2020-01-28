@@ -96,6 +96,12 @@ const createUser = (userValues:any)=>{
   return entityManager.save(Users, user);
 }
 
+const getUser = (userValues: any) => {
+  let user = new Users();
+  Object.assign(user, userValues);
+  return entityManager.find(Users, user);
+}
+
 const createLocationOrFindLocation = (locationValues:any)=>{
   const location = new Locations();
   Object.assign(location, locationValues)
@@ -118,7 +124,8 @@ const getLocation = (locationValues:any)=>{
   .then(x=>console.log(x, "HEREEEEEEEEEE"))
 }
 
-export {getLocation,
+export {
+  getLocation,
   createLocationOrFindLocation,
   getAllPosts,
   getPost,
@@ -127,4 +134,5 @@ export {getLocation,
   removeLike,
   createUser,
   createComment,
+  getUser,
 }

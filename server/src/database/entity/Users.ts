@@ -44,7 +44,6 @@ export class Users {
   //photo : string //or something like this
 
   @OneToMany(() => Comments, (post: Comments) => post.post, {
-    eager: true
   })
   public comments: Comments[];
   
