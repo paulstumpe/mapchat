@@ -18,6 +18,7 @@ const array = [blah,blah,blah,blah,blah];
 //     );
 // }
 
+// Get yourself an axios request so that you can work with some real data instead of dummy data
 const ListScreen = ({screenProps}) => (
 <List.Section>
   <ScrollView>
@@ -28,7 +29,7 @@ const ListScreen = ({screenProps}) => (
       subtitle={post.text}
       left={props => <Avatar.Icon {...props} icon="folder" />}
     />
-    {/* <Card.Cover source={{ uri: "https://picsum.photos/350" }} /> */}
+    <Card.Cover source={{ uri: "https://picsum.photos/350" }} />
     <Card.Content>
       <Title>Test Message</Title>
       <Paragraph>Cue the Lorem Ipsum</Paragraph>
