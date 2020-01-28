@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { getManager, EntityManager, Between } from "typeorm";
 import { Locations } from "./entity/Locations";
 import { Posts} from "./entity/Posts";
+import { Comments} from "./entity/Comments";
 const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
 const entityManager = getManager(); // you can also get it via getConnection().manager
 
@@ -21,7 +22,6 @@ const createPost = (postValues:object, locationValues:object)=>{
   } else {
     return entityManager.save(Posts, post)
       .then(x=>{
-        console.log('succesfully saved post')
         return x;
       })
       .catch(x => {
@@ -51,6 +51,16 @@ const getAllPostsInRadius = (location:Locations, radius:number)=>{
     .leftJoinAndSelect("posts.coordinate","coordinate")
     .getMany();
 }
+const createComment = (commentValues:any, postId:number)=>{
+  const comment = new Comments();
+  Object.assign(comment, commentValues);
+  return getPost({postId}).then((post:any)=>{
+    console.log(post)
+    comment.post = post;
+    return entityManager.save(Comments, comment);
+  })
+
+}
 
 const createLocationOrFindLocation = (locationValues:any)=>{
   const location = new Locations();
@@ -75,7 +85,25 @@ const getLocation = (locationValues:any)=>{
 }
 //testing area
 setTimeout(()=>{ 
+  //make post and location
+  // const post = new Posts();
+  // const location = new Locations();
+  // post.coordinate = location;
+  // post.post_anonymous = false;
+  // post.post_local = false;
+  // post.post_public = false;
+  // post.text = "post text";
+  // post.time_expires = "unfinished feature";
+  // post.title = "post title";
+  // location.long = 0.0;
+  // location.lat = 0.0;
+  // createPost(post, location)
+  // const comment = new Comments();
+  // comment.text = "lolol";
+  // //make comment
+  // createComment(comment, 1).then(x=>console.log(x)).catch(x=>console.error(x))
 
+  getAllPosts().then((posts:any)=>console.log(posts));
 }, 300);
 //end of testing area
 export {getLocation, createLocationOrFindLocation, getAllPosts, getPost, createPost}

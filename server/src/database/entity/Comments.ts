@@ -1,3 +1,27 @@
+import "reflect-metadata";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Posts } from "./Posts";
+
+@Entity()
+export class Comments {
+
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  text: string;
+
+  @CreateDateColumn()
+  time_created: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @ManyToOne(type => Posts, (posts: Posts) => posts, {
+  })
+  post: Posts;
+
+}
 // const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
 // const Comments = require("../model/Comments").Comments; // import {Post} from "../model/Post";
 

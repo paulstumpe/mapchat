@@ -3,6 +3,7 @@ import { createConnection, Connection } from "typeorm";
 import { Photo } from "./entity/Photo";
 import { Locations } from "./entity/Locations";
 import { Posts } from "./entity/Posts";
+import { Comments } from "./entity/Comments";
 
 
 createConnection({
@@ -15,6 +16,7 @@ createConnection({
   entities: [
     Photo,
     Locations,
+    Comments,
     Posts
   ],
   synchronize: true,
