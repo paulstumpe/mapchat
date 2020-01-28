@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const apiRouter = Router();
-import { getPost, getAllPosts, createPost } from "./database/Controllers";
+import { getPost, getAllPosts, createPost, removeLike, addLike, createUser, getUser, createComment } from "./database/Controllers";
+require('./database/databaseTestingFunctions');
 
 // apiRouter.get('/apple', (req, res) => {
 //   console.log('hit')
@@ -62,8 +63,86 @@ apiRouter.post('/messages',(req, res)=>{
     console.log(err, 'error')
     res.send("error")
   });
-
 })
+
+apiRouter.get('/users',(req, res)=>{
+  let user = {};
+  for (let key in req.body) {
+    user[key] = req.body[key];
+  }
+  createUser(user)
+  .then(user => {
+    res.status = 200;
+    res.send(user);
+  })
+  .catch(err => {
+    console.log(err)
+    res.status = 404;
+    res.send()
+  })
+})
+
+apiRouter.post('/users',(req, res)=>{
+  let user = {};
+  for (let key in req.body) {
+    user[key] = req.body[key];
+  }
+  getUser(user)
+  .then(user => {
+    res.status = 200;
+    res.send(user);
+  })
+  .catch(err => {
+    console.log(err)
+    res.status = 404;
+    res.send()
+  })
+})
+
+apiRouter.post('/like',(req, res) => {
+  const {userId, postId} = req.body
+  addLike(userId, postId)
+  .then(like=>{
+    res.status=200;
+    res.send(like);
+  })
+  .catch(err=>{
+    console.log(err)
+    res.status = 404;
+    res.send('there was an error adding this like')
+  })
+})
+apiRouter.delete('/like',(req, res)=>{
+  const { userId, postId } = req.body
+  removeLike(userId, postId)
+  .then(like=>{
+    res.status=200;
+    res.send(like)
+  })
+  .catch(err=>{
+    console.log(err)
+    res.status = 404;
+    res.send('there was an error adding this like')
+  })
+})
+
+apiRouter.post('/comments', (req, res) => {
+  let comment = {};
+  for (let key in req.body) {
+    comment[key] = req.body[key];
+  }
+  getUser(comment)
+  .then(comment=>{
+    res.status = 200;
+    res.send(comment);
+  })
+  .catch(err=>{
+    console.log(err)
+    res.status= 404;
+    res.send()
+  })
+})
+
 
 //endpoints we will need
 //get: messages within x proximity of location
