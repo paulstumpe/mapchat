@@ -17,13 +17,13 @@ const array = [blah,blah,blah];
 //     );
 // }
 
-
-
-const ListScreen = () => (
+const ListScreen = ({screenProps}) => (
+<List.Section>
+  {array.map(post=> (
   <Card>
     <Card.Title
-      title="Marc-y Marc & da Funky Bunch"
-      subtitle="Subtitle Text"
+      title={post.username}
+      subtitle={post.text}
       left={props => <Avatar.Icon {...props} icon="folder" />}
     />
     {/* <Card.Cover source={{ uri: "https://picsum.photos/350" }} /> */}
@@ -36,6 +36,8 @@ const ListScreen = () => (
       <Button>Cancel</Button>
     </Card.Actions>
   </Card>
+  ))}
+</List.Section>
 );
 
 export default ListScreen;
