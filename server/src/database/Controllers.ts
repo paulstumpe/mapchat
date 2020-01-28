@@ -3,6 +3,8 @@ import { getManager, EntityManager, Between } from "typeorm";
 import { Locations } from "./entity/Locations";
 import { Posts} from "./entity/Posts";
 import { Comments} from "./entity/Comments";
+import { Likes } from "./entity/Likes";
+import { Users } from "./entity/Users";
 const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
 const entityManager = getManager(); // you can also get it via getConnection().manager
 
@@ -61,6 +63,38 @@ const createComment = (commentValues:any, postId:(number))=>{
   })
 
 }
+//adds like from user to post
+const addLike = (userId:number, postId:number)=>{
+  const like = new Likes();
+  const post = new Posts()
+  const user = new Users();
+  user.id = userId
+  post.id = postId;
+  like.post = post;
+  like.user = user;
+
+
+
+  return entityManager.save(Likes, like)
+}
+const removeLike = (userId: number, postId: number) => {
+  const like = new Likes();
+  const post = new Posts()
+  const user = new Users();
+  user.id = userId
+  post.id = postId;
+  like.post = post;
+  like.user = user;
+  return entityManager.findOne(Likes, like).then(like=>{
+    return entityManager.remove(like);
+  })
+}
+
+const createUser = (userValues:any)=>{
+  let user = new Users();
+  Object.assign(user,userValues);
+  return entityManager.save(Users, user);
+}
 
 const createLocationOrFindLocation = (locationValues:any)=>{
   const location = new Locations();
@@ -102,8 +136,24 @@ setTimeout(()=>{
   // comment.text = "lolol";
   // //make comment
   // createComment(comment, 1).then(x=>console.log(x)).catch(x=>console.error(x))
+  // const user = new Users();
+  // user.bio = "bio"
+  // user.email = "email";
+  // user.name_first = "paul"
+  // user.name_last = "Stumpe"
+  // user.password = 'lala'
+  // user.public = true;
+  // user.status = "status";
+  // user.username = 'jerkey2';
+  // createUser(user);
+  removeLike(1,1).then(x=>console.log(x)).catch(x=>console.log(x))
+  getAllPosts().then((posts:any)=>console.log(posts[0]));
 
-  getAllPosts().then((posts:any)=>console.log(posts));
+  // addLike(1, 1).then(x=>console.log(x)).catch(x=>{console.log(x)})
+  // addLike(1, 2).then(x => console.log(x)).catch(x => { console.log(x) })
+  // addLike(1, 3).then(x => console.log(x)).catch(x => { console.log(x) })
+
+
 }, 300);
 //end of testing area
 export {getLocation, createLocationOrFindLocation, getAllPosts, getPost, createPost}
