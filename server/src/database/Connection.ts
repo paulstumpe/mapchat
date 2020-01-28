@@ -4,6 +4,9 @@ import { Photo } from "./entity/Photo";
 import { Locations } from "./entity/Locations";
 import { Posts } from "./entity/Posts";
 import { Comments } from "./entity/Comments";
+import { Likes } from "./entity/Likes";
+import { Users } from "./entity/Users";
+
 
 
 createConnection({
@@ -17,7 +20,9 @@ createConnection({
     Photo,
     Locations,
     Comments,
-    Posts
+    Posts,
+    Users,
+    Likes,
   ],
   synchronize: true,
   logging: false,
