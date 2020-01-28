@@ -51,7 +51,7 @@ const getAllPostsInRadius = (location:Locations, radius:number)=>{
     .leftJoinAndSelect("posts.coordinate","coordinate")
     .getMany();
 }
-const createComment = (commentValues:any, postId:number)=>{
+const createComment = (commentValues:any, postId:(number))=>{
   const comment = new Comments();
   Object.assign(comment, commentValues);
   return getPost({postId}).then((post:any)=>{
