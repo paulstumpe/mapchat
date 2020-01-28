@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Avatar, Button, Card, Title, List, Subheading, Paragraph } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const blah ={text:"lol",username:"user", timestamp:"later", description:"lol"};
-const array = [blah,blah,blah];
+const array = [blah,blah,blah,blah,blah];
 
 // export default function ListScreen({screenProps}){
 //     return ( 
@@ -19,6 +20,7 @@ const array = [blah,blah,blah];
 
 const ListScreen = ({screenProps}) => (
 <List.Section>
+  <ScrollView>
   {array.map(post=> (
   <Card>
     <Card.Title
@@ -37,6 +39,7 @@ const ListScreen = ({screenProps}) => (
     </Card.Actions>
   </Card>
   ))}
+  </ScrollView>
 </List.Section>
 );
 
