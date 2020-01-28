@@ -100,7 +100,7 @@ apiRouter.post('/users',(req, res)=>{
   })
 })
 
-apiRouter.post('/like',(req, res) => {
+apiRouter.post('/likes',(req, res) => {
   const {userId, postId} = req.body
   addLike(userId, postId)
   .then(like=>{
@@ -113,7 +113,7 @@ apiRouter.post('/like',(req, res) => {
     res.send('there was an error adding this like')
   })
 })
-apiRouter.delete('/like',(req, res)=>{
+apiRouter.delete('/likes',(req, res)=>{
   const { userId, postId } = req.body
   removeLike(userId, postId)
   .then(like=>{
@@ -128,11 +128,10 @@ apiRouter.delete('/like',(req, res)=>{
 })
 
 apiRouter.post('/comments', (req, res) => {
-  let comment = {};
-  for (let key in req.body) {
-    comment[key] = req.body[key];
-  }
-  getUser(comment)
+  console.log (req.body)
+  const {postId, text, userId}= req.body
+  let comment = {text: text};
+  createComment(comment, postId, userId)
   .then(comment=>{
     res.status = 200;
     res.send(comment);

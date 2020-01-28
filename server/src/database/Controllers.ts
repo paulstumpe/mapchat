@@ -53,13 +53,21 @@ const getAllPostsInRadius = (location:Locations, radius:number)=>{
     .leftJoinAndSelect("posts.coordinate","coordinate")
     .getMany();
 }
-const createComment = (commentValues:any, postId:(number))=>{
+const createComment = (commentValues:any, postId:(number), userId:(number))=>{
   const comment = new Comments();
+  console.log(commentValues)
   Object.assign(comment, commentValues);
-  return getPost({postId}).then((post:any)=>{
+  let post = new Posts()
+  return getPost({id:postId})
+  .then((post:any)=>{
     console.log(post)
     comment.post = post;
-    return entityManager.save(Comments, comment);
+    // return entityManager.save(Comments, comment);
+    return getUser({id:userId})
+  })
+  .then((user:any)=>{
+    comment.user = user;
+    return entityManager.save(comment);
   })
 
 }
@@ -72,9 +80,6 @@ const addLike = (userId:number, postId:number)=>{
   post.id = postId;
   like.post = post;
   like.user = user;
-
-
-
   return entityManager.save(Likes, like)
 }
 const removeLike = (userId: number, postId: number) => {

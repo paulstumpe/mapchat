@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Posts } from "./Posts";
+import { Users } from "./Users";
 
 @Entity()
 export class Comments {
@@ -21,7 +22,13 @@ export class Comments {
   })
   post: Posts;
 
+  @ManyToOne(type => Users, (users: Users) => users, {
+  })
+  user: Users;
+
 }
+
+
 // const EntitySchema = require("typeorm").EntitySchema; // import {EntitySchema} from "typeorm";
 // const Comments = require("../model/Comments").Comments; // import {Post} from "../model/Post";
 
