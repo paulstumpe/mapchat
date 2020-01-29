@@ -3,6 +3,7 @@ const connection = require('./database/Connection');
 const controllers = require('./database/Controllers')
 const app = express();
 const port = 8080;
+// require('../services/googlePlaces');
 const { apiRouter } = require('./routes');
 
 app.use(express.json()); //Used to parse JSON bodies

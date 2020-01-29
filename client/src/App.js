@@ -8,10 +8,20 @@ import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 
 import AppNavigator from './navigation/AppNavigator';
+import MessageItem from './components/MessageItem';
 
 export default function App(props) {
+  // console.log(props);
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [location, setLocation] = useState('');
+  const [username, setUsername] = useState('');
+
+  const screenProps = { location, username };
+
+  if (!username) {
+    setUsername('Philip J. Fry');
+  }
+  // console.log(username);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -29,8 +39,8 @@ export default function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator screenProps={location} />
+        {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+        <AppNavigator screenProps={screenProps} />
       </View>
     );
   }

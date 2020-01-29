@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import ListScreen from '../screens/ListScreen';
 import NewPostScreen from '../screens/NewPostScreen';
 import MessageScreen from '../screens/MessageScreen';
 import MapScreen from '../screens/MapScreen';
@@ -36,6 +37,25 @@ HomeStack.navigationOptions = {
 };
 
 HomeStack.path = '';
+
+// const ListStack = createStackNavigator(
+//   {
+//     List: ListScreen,
+//   },
+//   config,
+// );
+
+// ListStack.navigationOptions = {
+//   tabBarLabel: 'New Post',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === 'ios' ? 'ios-list' : 'md-list'}
+//     />
+//   ),
+// };
+
+// ListStack.path = '';
 
 const NewPostStack = createStackNavigator(
   {
@@ -96,6 +116,7 @@ MapStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
+  // ListStack,
   NewPostStack,
   MessageStack,
   MapStack,
