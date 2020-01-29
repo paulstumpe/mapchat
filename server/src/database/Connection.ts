@@ -1,8 +1,12 @@
 import "reflect-metadata";
 import { createConnection, Connection } from "typeorm";
-import { Photo } from "./entity/Photo";
+import { Photos } from "./entity/Photos";
 import { Locations } from "./entity/Locations";
 import { Posts } from "./entity/Posts";
+import { Comments } from "./entity/Comments";
+import { Likes } from "./entity/Likes";
+import { Users } from "./entity/Users";
+
 
 
 createConnection({
@@ -13,9 +17,12 @@ createConnection({
   password: "",
   database: "test",
   entities: [
-    Photo,
+    Photos,
     Locations,
-    Posts
+    Comments,
+    Posts,
+    Users,
+    Likes,
   ],
   synchronize: true,
   logging: false,
