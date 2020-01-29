@@ -7,10 +7,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ListScreen from '../screens/ListScreen';
 import NewPostScreen from '../screens/NewPostScreen';
-<<<<<<< HEAD
-=======
 import MessageScreen from '../screens/MessageScreen';
->>>>>>> 59b55de1442272915e654f1a602e7d72f508ad76
 import MapScreen from '../screens/MapScreen';
 
 const config = Platform.select({
@@ -41,30 +38,24 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-// const LinksStack = createStackNavigator(
+// const ListStack = createStackNavigator(
 //   {
-//     NewPost: NewPostScreen,
+//     List: ListScreen,
 //   },
 //   config,
 // );
 
-// LinksStack.navigationOptions = {
+// ListStack.navigationOptions = {
 //   tabBarLabel: 'New Post',
 //   tabBarIcon: ({ focused }) => (
 //     <TabBarIcon
 //       focused={focused}
-//       name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+//       name={Platform.OS === 'ios' ? 'ios-list' : 'md-list'}
 //     />
 //   ),
 // };
 
-// LinksStack.path = '';
-
-const ListStack = createStackNavigator(
-  {
-    List: ListScreen,
-  }
-);
+// ListStack.path = '';
 
 const NewPostStack = createStackNavigator(
   {
@@ -72,10 +63,6 @@ const NewPostStack = createStackNavigator(
   },
   config,
 );
-
-// ListStack.navigationOptions = {
-//   tabBarLabel: 'Message List',
-// };
 
 NewPostStack.navigationOptions = {
   tabBarLabel: 'New Post',
@@ -91,22 +78,13 @@ NewPostStack.path = '';
 
 const MessageStack = createStackNavigator(
   {
-<<<<<<< HEAD
-    Settings: ListScreen,
-=======
     Message: MessageScreen,
->>>>>>> 59b55de1442272915e654f1a602e7d72f508ad76
   },
   config,
 );
 
-<<<<<<< HEAD
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Message List',
-=======
 MessageStack.navigationOptions = {
   tabBarLabel: 'Message',
->>>>>>> 59b55de1442272915e654f1a602e7d72f508ad76
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -115,11 +93,7 @@ MessageStack.navigationOptions = {
   ),
 };
 
-<<<<<<< HEAD
-ListStack.path = '';
-=======
 MessageStack.path = '';
->>>>>>> 59b55de1442272915e654f1a602e7d72f508ad76
 
 const MapStack = createStackNavigator(
   {
@@ -142,7 +116,7 @@ MapStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  ListStack,
+  // ListStack,
   NewPostStack,
   MessageStack,
   MapStack,

@@ -1,13 +1,6 @@
-import React, { Component, useState } from 'react';
-import {
-  View,
-  ScrollView,
-  Text,
-  StyleSheet,
-  TouchableHighlight,
-} from 'react-native';
-
-import { Button, TextInput, Subheading, Title } from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { Button, Text, Title, TextInput, Switch } from 'react-native-paper';
 import { postMessageHelper } from '../Helper';
 
 export default function NewPostScreen({ screenProps }) {
@@ -15,16 +8,22 @@ export default function NewPostScreen({ screenProps }) {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
+  const [anon, setAnon] = useState(false);
+  const [global, setGlobal] = useState(false);
+  const [comments, setComments] = useState(true);
+
   const clearFields = () => {
-    setTitle('')
-    setLocation('')
-    setMessage('')
-  }
+    setTitle('');
+    setLocation('');
+    setMessage('');
+  };
 
   const postMessage = () => {
-    console.log(`Title - ${title}, Location - ${location}, Message - ${message}`);
+    console.log(
+      `Title - ${title}, Location - ${location}, Message - ${message}`,
+    );
     clearFields();
-  }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -36,14 +35,14 @@ export default function NewPostScreen({ screenProps }) {
           mode='outlined'
           value={title}
           onChangeText={title => setTitle(title)}
-          />
+        />
         <TextInput
           label='Current Location'
           placeholder='location'
           mode='outlined'
           value={location}
           onChangeText={location => setLocation(location)}
-          />
+        />
         <TextInput
           label='Message'
           placeholder='message'
@@ -52,15 +51,20 @@ export default function NewPostScreen({ screenProps }) {
           numberOfLines={6}
           value={message}
           onChangeText={message => setMessage(message)}
-          />
+        />
+        <Switch value={anon} onValueChange={() => setAnon(!anon)} />
+        <Switch value={global} onValueChange={() => setGlobal(!global)} />
+        <Switch value={comments} onValueChange={() => setComments(!comments)} />
         <Button
-          icon="send" mode="contained"
+          icon='send'
+          mode='contained'
           style={{
             margin: 10,
             height: 50,
           }}
-          onPress={() => postMessage() }>
-            Drop Message
+          onPress={() => postMessage()}
+        >
+          Drop Message
         </Button>
       </View>
     </ScrollView>
@@ -94,3 +98,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
