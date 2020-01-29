@@ -1,20 +1,36 @@
 import * as React from 'react';
-import {
-  List,
-  Subheading,
-  Paragraph,
-} from 'react-native-paper';
-const blah ={text:"lol",username:"user", timestamp:"later", description:"lol"};
-const array = [blah,blah,blah];
-export default function ListScreen({screenProps}){
-    return ( 
-      <List.Section>
-      {array.map(post=>(<List.Section >
-          < Subheading >{post.text}</Subheading>
-            < Paragraph >{post.username}</Paragraph>
-            < Paragraph >{post.timestamp}</Paragraph>
-            < Paragraph >{post.description}</Paragraph>
-      </List.Section>))}
-      </List.Section>
-    );
-}
+import { View } from 'react-native';
+import MessagePreview from '../components/MessagePreview';
+
+const messages = [
+  {
+    username: 'Zoidberg',
+    title: 'Need a friend?',
+    text:
+      'Why not Zoidberg? I have so many things to say. They will take up more than one line.',
+  },
+  {
+    username: 'Bender',
+    title: 'Can it, meatbag',
+    text: 'Bite my shiny metal ass',
+  },
+  {
+    username: 'Professor Farnsworth',
+    title: 'Bad news, nobody',
+    text: `I still don't understand why you wouldn't let me graft a laser cannon on your chest, to crush those who disobey you! But I guess we're just two different people.`,
+  },
+];
+
+const ListScreen = screenProps => {
+  return (
+    <View>
+      <MessagePreview messages={messages} />
+    </View>
+  );
+};
+
+ListScreen.navigationOptions = {
+  title: 'List',
+};
+
+export default ListScreen;

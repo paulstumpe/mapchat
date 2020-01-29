@@ -38,24 +38,24 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-// const ListStack = createStackNavigator(
-//   {
-//     List: ListScreen,
-//   },
-//   config,
-// );
+const ListStack = createStackNavigator(
+  {
+    List: ListScreen,
+  },
+  config,
+);
 
-// ListStack.navigationOptions = {
-//   tabBarLabel: 'New Post',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? 'ios-list' : 'md-list'}
-//     />
-//   ),
-// };
+ListStack.navigationOptions = {
+  tabBarLabel: 'List',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-list' : 'md-list'}
+    />
+  ),
+};
 
-// ListStack.path = '';
+ListStack.path = '';
 
 const NewPostStack = createStackNavigator(
   {
@@ -116,7 +116,7 @@ MapStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  // ListStack,
+  ListStack,
   NewPostStack,
   MessageStack,
   MapStack,

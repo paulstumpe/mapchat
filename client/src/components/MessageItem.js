@@ -11,11 +11,9 @@ import {
   Button,
   Card,
   Divider,
-  Headline,
   Paragraph,
   Subheading,
   TextInput,
-  Title,
 } from 'react-native-paper';
 
 const message = {
@@ -24,9 +22,6 @@ const message = {
 };
 
 const comments = [
-  { username: 'Bender', text: 'Bite my shiny metal ass' },
-  { username: 'Professor', text: 'Good news everyone' },
-  { username: 'Leela', text: `That isn't a real name, Fry` },
   { username: 'Bender', text: 'Bite my shiny metal ass' },
   { username: 'Professor', text: 'Good news everyone' },
   { username: 'Leela', text: `That isn't a real name, Fry` },
