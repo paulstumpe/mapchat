@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
-import {
-  Button,
-  Text,
-  Title,
-  TextInput,
-  Switch,
-  Divider,
-} from 'react-native-paper';
+import { Button, Title, TextInput, Switch, Divider } from 'react-native-paper';
 import { postMessageHelper } from '../Helper';
 
 export default function NewPostScreen({ screenProps }) {
   console.log(screenProps, 'post');
+  const username = screenProps.username;
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
@@ -27,14 +21,14 @@ export default function NewPostScreen({ screenProps }) {
 
   const postMessage = () => {
     console.log(
-      `Title - ${title}, Location - ${location}, Message - ${message}`,
+      `User - ${username}, Title - ${title}, Location - ${location}, Message - ${message}`,
     );
     clearFields();
   };
 
   return (
     <ScrollView style={styles.container}>
-      <Title>{screenProps.username}</Title>
+      <Title>{username}</Title>
       <View>
         <TextInput
           label='Title'
