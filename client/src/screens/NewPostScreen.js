@@ -1,18 +1,15 @@
-import React, { Component, useState } from 'react';
-import {
-  View,
-  ScrollView,
-  Text,
-  StyleSheet,
-  TouchableHighlight,
-} from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import React, { useState } from 'react';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { Button, Text, TextInput, Switch } from 'react-native-paper';
 import { postMessageHelper } from '../Helper';
 
 export default function NewPostScreen({ screenProps }) {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
+  const [anon, setAnon] = useState(false);
+  const [global, setGlobal] = useState(false);
+  const [comments, setComments] = useState(true);
 
   const clearFields = () => {
     setTitle('');
@@ -58,6 +55,9 @@ export default function NewPostScreen({ screenProps }) {
           value={message}
           onChangeText={message => setMessage(message)}
         />
+        <Switch value={anon} onValueChange={() => setAnon(!anon)} />
+        <Switch value={global} onValueChange={() => setGlobal(!global)} />
+        <Switch value={comments} onValueChange={() => setComments(!comments)} />
         <Button
           icon='send'
           mode='contained'
