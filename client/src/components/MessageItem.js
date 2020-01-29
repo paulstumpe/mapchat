@@ -19,7 +19,7 @@ import {
 } from 'react-native-paper';
 
 const message = {
-  username: 'Fry',
+  // username: 'Fry',
   title: 'Delivery',
   text: 'Pizza delivery for I.C. Weiner',
 };
@@ -33,8 +33,9 @@ const comments = [
   { username: 'Leela', text: `That isn't a real name, Fry` },
 ];
 
-const MessageItem = props => {
-  console.log(props.username);
+const MessageItem = ({ screenProps }) => {
+  const { username } = screenProps.screenProps;
+  // console.log(username, 'message');
   const [comment, setComment] = useState('');
   const postComment = () => {
     console.log(comment);
@@ -47,7 +48,7 @@ const MessageItem = props => {
         <KeyboardAvoidingView behavior='position' enabled>
           <Card>
             <Card.Title
-              title={message.username}
+              title={username}
               subtitle={message.title}
               left={() => <Avatar.Text size={48} label='PJF' />}
             />
