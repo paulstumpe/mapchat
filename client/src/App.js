@@ -9,9 +9,9 @@ import * as Location from 'expo-location';
 
 import AppNavigator from './navigation/AppNavigator';
 import MessageItem from './components/MessageItem';
-import postUser from './Helper';
 
 export default function App(props) {
+  // console.log(props);
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [location, setLocation] = useState('');
   const [username, setUsername] = useState('');
