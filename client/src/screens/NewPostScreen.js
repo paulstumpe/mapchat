@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
-import { Button, Text, Title, TextInput, Switch } from 'react-native-paper';
+import { Button, Title, TextInput, Switch, Divider } from 'react-native-paper';
 import { postMessageHelper } from '../Helper';
 
 export default function NewPostScreen({ screenProps }) {
   console.log(screenProps, 'post');
+  const username = screenProps.username;
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
@@ -20,14 +21,14 @@ export default function NewPostScreen({ screenProps }) {
 
   const postMessage = () => {
     console.log(
-      `Title - ${title}, Location - ${location}, Message - ${message}`,
+      `User - ${username}, Title - ${title}, Location - ${location}, Message - ${message}`,
     );
     clearFields();
   };
 
   return (
     <ScrollView style={styles.container}>
-      <Title>{screenProps.username}</Title>
+      <Title>{username}</Title>
       <View>
         <TextInput
           label='Title'
@@ -52,9 +53,33 @@ export default function NewPostScreen({ screenProps }) {
           value={message}
           onChangeText={message => setMessage(message)}
         />
-        <Switch value={anon} onValueChange={() => setAnon(!anon)} />
-        <Switch value={global} onValueChange={() => setGlobal(!global)} />
-        <Switch value={comments} onValueChange={() => setComments(!comments)} />
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Title style={{ padding: 5 }}>Anonymous</Title>
+          <Switch
+            value={anon}
+            style={{ justifyContent: 'flex-end' }}
+            onValueChange={() => setAnon(!anon)}
+          />
+        </View>
+        <Divider />
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Title style={{ padding: 5 }}>Global</Title>
+          <Switch
+            value={global}
+            style={{ justifyContent: 'flex-end' }}
+            onValueChange={() => setGlobal(!global)}
+          />
+        </View>
+        <Divider />
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Title style={{ padding: 5 }}>Comments On</Title>
+          <Switch
+            value={comments}
+            style={{ justifyContent: 'flex-end' }}
+            onValueChange={() => setComments(!comments)}
+          />
+        </View>
+        <Divider />
         <Button
           icon='send'
           mode='contained'
@@ -98,4 +123,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-

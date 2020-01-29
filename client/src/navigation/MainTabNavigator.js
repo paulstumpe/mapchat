@@ -46,7 +46,7 @@ const ListStack = createStackNavigator(
 );
 
 ListStack.navigationOptions = {
-  tabBarLabel: 'Message List',
+  tabBarLabel: 'List',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
