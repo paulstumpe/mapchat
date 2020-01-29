@@ -4,8 +4,11 @@ import { Avatar, Button, Card, Title, List, Subheading, Paragraph } from 'react-
 import { ScrollView } from 'react-native-gesture-handler';
 import { getAll } from '../Helper'
 
-const blah ={text:"lol",username:"user", timestamp:"later", description:"lol"};
-const array = [blah,blah,blah,blah,blah];
+const blah ={text:"lol",username:"dave", timestamp:"later", description:"lol"};
+const blah2 = {text: "not funny",username: "billy",timestamp: "later",description: "lol"}
+const blah3 = {text: "huh",username: "mike",timestamp: "later",description: "lol"}
+const array = [blah,blah2,blah3,blah,blah2];
+
 
 // export default function ListScreen({screenProps}){
 //     return ( 
@@ -22,41 +25,36 @@ const array = [blah,blah,blah,blah,blah];
 
 // Get yourself an axios request so that you can work with some real data instead of dummy data
 const ListScreen = ({screenProps}) => {
+  let users;
   const [messages, setMessages] = useState([]);
-  getAll()
+  getAll(users)
     .then(({
       data
     }) => {
       console.log(data);
+      users = data;
       const allMessages = data.map((message) => {
-        message.longitude = parseFloat(message.coordinate.long);
-        message.latitude = parseFloat(message.coordinate.lat);
-        return message;
+ 
+        setMessages(allMessages);        
       })
-      console.log(typeof allMessages[0].latitude);
-      setMessages(allMessages);
     })
     .catch(err => console.log(err));
-
+    console.log(users);
   return (
+    
 <List.Section>
   <ScrollView>
-  {messages.map(post=> (
+  {array.map(post=> (
   <Card>
     <Card.Title
       title={post.username}
       subtitle={post.text}
       left={props => <Avatar.Icon {...props} icon="folder" />}
     />
-    <Card.Cover source={{ uri: "https://picsum.photos/350" }} />
     <Card.Content>
       <Title>Test Message</Title>
       <Paragraph>Cue the Lorem Ipsum</Paragraph>
     </Card.Content>
-    <Card.Actions>
-      <Button>Confirm</Button>
-      <Button>Cancel</Button>
-    </Card.Actions>
   </Card>
   ))}
   </ScrollView>
