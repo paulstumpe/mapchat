@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import MessageItem from '../components/MessageItem';
 
