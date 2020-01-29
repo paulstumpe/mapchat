@@ -1,6 +1,10 @@
 import "reflect-metadata";
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { Locations} from "./Locations";
+import { Comments} from "./Comments";
+import { Users } from "./Users";
+import { Likes } from "./Likes";
+
 
 @Entity()
 export class Posts {
@@ -36,5 +40,20 @@ export class Posts {
     eager: true
   },)
   coordinate: Locations;
+
+  @ManyToOne(type => Users, (users: Users) => users, {
+    eager: true
+  })
+  user: Users;
+
+  @OneToMany(() => Comments, (post: Comments) => post.post, {
+    eager:true
+  })
+  public comments: Comments[];
+
+  @OneToMany(() => Likes, (post: Likes) => post.post, {
+    eager: true
+  })
+  public likes: Likes[];
 
 }

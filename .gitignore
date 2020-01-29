@@ -22,3 +22,7 @@ bower_components/node_modules/
 
 client/src/haste-map-metro-4-67409479efd536a739940a7d3d7d748e-7c79dc105f33c5237826d6dba0facc23
 client/src/metro-cache/
+
+# keys for APIs
+server/services/keys.js
+
