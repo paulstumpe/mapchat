@@ -36,32 +36,26 @@ HomeStack.navigationOptions = {
   ),
 };
 
-// HomeStack.path = '';
-
-const LinksStack = createStackNavigator(
-  {
-    NewPost: NewPostScreen,
-  },
-  config,
-);
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'New Post',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  ),
-};
-
-// LinksStack.path = '';
+HomeStack.path = '';
 
 const ListStack = createStackNavigator(
   {
     List: ListScreen,
-  }
+  },
+  config,
 );
+
+ListStack.navigationOptions = {
+  tabBarLabel: 'Message List',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-list' : 'md-list'}
+    />
+  ),
+};
+
+ListStack.path = '';
 
 const NewPostStack = createStackNavigator(
   {
@@ -69,10 +63,6 @@ const NewPostStack = createStackNavigator(
   },
   config,
 );
-
-ListStack.navigationOptions = {
-  tabBarLabel: 'Message List',
-};
 
 NewPostStack.navigationOptions = {
   tabBarLabel: 'New Post',

@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const apiRouter = Router();
-import { getPost, getAllPosts, createPost } from "./database/Controllers";
+import { getPost, getAllPosts, createPost, removeLike, addLike, createUser, getUser, createComment } from "./database/Controllers";
+require('./database/databaseTestingFunctions');
 
 // apiRouter.get('/apple', (req, res) => {
 //   console.log('hit')
@@ -54,7 +55,8 @@ apiRouter.post('/messages',(req, res)=>{
     post_anonymous : false,
   };
   console.log('this is the text', req.body)
-  createPost(post, coordinate).then(post=>{
+  createPost(post, coordinate)
+  .then(post=>{
     res.send(post);
   })
   .catch(err=>{
@@ -62,8 +64,85 @@ apiRouter.post('/messages',(req, res)=>{
     console.log(err, 'error')
     res.send("error")
   });
-
 })
+
+apiRouter.get('/users',(req, res)=>{
+  let user = {};
+  for (let key in req.body) {
+    user[key] = req.body[key];
+  }
+  getUser(user)
+  .then(user => {
+    res.status = 200;
+    res.send(user);
+  })
+  .catch(err => {
+    console.log(err)
+    res.status = 404;
+    res.send()
+  })
+})
+
+apiRouter.post('/users',(req, res)=>{
+  let user = {};
+  for (let key in req.body) {
+    user[key] = req.body[key];
+  }
+  createUser(user)
+  .then(user => {
+    res.status = 200;
+    res.send(user);
+  })
+  .catch(err => {
+    console.log(err)
+    res.status = 404;
+    res.send()
+  })
+})
+
+apiRouter.post('/likes',(req, res) => {
+  const {userId, postId} = req.body
+  addLike(userId, postId)
+  .then(like=>{
+    res.status=200;
+    res.send(like);
+  })
+  .catch(err=>{
+    console.log(err)
+    res.status = 404;
+    res.send('there was an error adding this like')
+  })
+})
+apiRouter.delete('/likes',(req, res)=>{
+  const { userId, postId } = req.body
+  removeLike(userId, postId)
+  .then(like=>{
+    res.status=200;
+    res.send(like)
+  })
+  .catch(err=>{
+    console.log(err)
+    res.status = 404;
+    res.send('there was an error adding this like')
+  })
+})
+
+apiRouter.post('/comments', (req, res) => {
+  console.log (req.body)
+  const {postId, text, userId}= req.body
+  let comment = {text: text};
+  createComment(comment, postId, userId)
+  .then(comment=>{
+    res.status = 200;
+    res.send(comment);
+  })
+  .catch(err=>{
+    console.log(err)
+    res.status= 404;
+    res.send()
+  })
+})
+
 
 //endpoints we will need
 //get: messages within x proximity of location

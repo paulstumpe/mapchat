@@ -2,10 +2,12 @@ import "reflect-metadata";
 import { getManager, EntityManager, Between } from "typeorm";
 import { Locations } from "./entity/Locations";
 import { Posts} from "./entity/Posts";
+import { Comments} from "./entity/Comments";
+import { Likes } from "./entity/Likes";
+import { Users } from "./entity/Users";
 const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
 const entityManager = getManager(); // you can also get it via getConnection().manager
 
-// console.log(connection)
 const createPost = (postValues:object, locationValues:object)=>{
   let post = new Posts();
   Object.assign(post, postValues)
@@ -22,7 +24,6 @@ const createPost = (postValues:object, locationValues:object)=>{
   } else {
     return entityManager.save(Posts, post)
       .then(x=>{
-        console.log('succesfully saved post')
         return x;
       })
       .catch(x => {
@@ -39,7 +40,6 @@ const getPost = (postValues:object)=>{
 }
 const getAllPosts = ()=>{
   return entityManager.find(Posts, { relations: ["coordinate"] })
-// .then(allPosts=>console.log(allPosts))
 .catch(x=>console.log(x))
 }
 
@@ -51,20 +51,60 @@ const getAllPostsInRadius = (location:Locations, radius:number)=>{
     return entityManager
     .createQueryBuilder()
     .leftJoinAndSelect("posts.coordinate","coordinate")
-    // .from(Locations, "locations")
-    // .where("location.lat = :lat", { lat: location.lat })
-    // .andWhere("location.long = :long", { long: location.long})
     .getMany();
-  // return entityManager.find(Locations, {
-  //   join: {
-  //     alias: "post",
-  //     leftJoinAndSelect: {
-  //       video: "post.title"
-  //     }
-  //   },    
-  //   long: Between(minLong, maxLong),
-  //   lat: Between(minLat, maxLat),
-  // })
+}
+const createComment = (commentValues:any, postId:(number), userId:(number))=>{
+  const comment = new Comments();
+  console.log(commentValues)
+  Object.assign(comment, commentValues);
+  let post = new Posts()
+  return getPost({id:postId})
+  .then((post:any)=>{
+    console.log(post)
+    comment.post = post;
+    // return entityManager.save(Comments, comment);
+    return getUser({id:userId})
+  })
+  .then((user:any)=>{
+    comment.user = user;
+    return entityManager.save(comment);
+  })
+
+}
+//adds like from user to post
+const addLike = (userId:number, postId:number)=>{
+  const like = new Likes();
+  const post = new Posts()
+  const user = new Users();
+  user.id = userId
+  post.id = postId;
+  like.post = post;
+  like.user = user;
+  return entityManager.save(Likes, like)
+}
+const removeLike = (userId: number, postId: number) => {
+  const like = new Likes();
+  const post = new Posts()
+  const user = new Users();
+  user.id = userId
+  post.id = postId;
+  like.post = post;
+  like.user = user;
+  return entityManager.findOne(Likes, like).then(like=>{
+    return entityManager.remove(like);
+  })
+}
+
+const createUser = (userValues:any)=>{
+  let user = new Users();
+  Object.assign(user,userValues);
+  return entityManager.save(Users, user);
+}
+
+const getUser = (userValues: any) => {
+  let user = new Users();
+  Object.assign(user, userValues);
+  return entityManager.find(Users, user);
 }
 
 const createLocationOrFindLocation = (locationValues:any)=>{
@@ -89,29 +129,15 @@ const getLocation = (locationValues:any)=>{
   .then(x=>console.log(x, "HEREEEEEEEEEE"))
 }
 
-setTimeout(()=>{
-
-  // const post = new Posts()
-  // post.title = "hmm"
-  // post.text = "hmm"
-  // post.post_public = false;
-  // post.post_local = false;
-  // post.time_expires = "da"
-  // post.post_anonymous = false;
-
-  // let location = new Locations();
-  // location.long = 20
-  // location.lat = -100
-  // createPost(post, location)
-
-  // getPost({post: { long: 'new', lat: 'haa' },});
-  // let newLocation = new Locations();
-  // location.long
-  // // getLocation(newLocation);
-  // getAllPosts();
-  // getAllPostsInRadius(location, 200)
-  // .then(x=>console.log(x));
-
-  
-}, 300);
-export {getLocation, createLocationOrFindLocation, getAllPosts, getPost, createPost}
+export {
+  getLocation,
+  createLocationOrFindLocation,
+  getAllPosts,
+  getPost,
+  createPost,
+  addLike,
+  removeLike,
+  createUser,
+  createComment,
+  getUser,
+}
