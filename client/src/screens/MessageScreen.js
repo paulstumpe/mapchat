@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import MessageItem from '../components/MessageItem';
 
 const MessageScreen = screenProps => {
-  // console.log(screenProps, 'XXX');
   return (
     <View>
       <MessageItem screenProps={screenProps} />

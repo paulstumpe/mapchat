@@ -19,7 +19,6 @@ import {
 } from 'react-native-paper';
 
 const message = {
-  // username: 'Fry',
   title: 'Delivery',
   text: 'Pizza delivery for I.C. Weiner',
 };
@@ -35,7 +34,6 @@ const comments = [
 
 const MessageItem = ({ screenProps }) => {
   const { username } = screenProps.screenProps;
-  // console.log(username, 'message');
   const [comment, setComment] = useState('');
   const postComment = () => {
     console.log(comment);

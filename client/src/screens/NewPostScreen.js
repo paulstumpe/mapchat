@@ -6,9 +6,12 @@ import {
   StyleSheet,
   TouchableHighlight,
 } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+
+import { Button, TextInput, Subheading, Title } from 'react-native-paper';
+import { postMessageHelper } from '../Helper';
+
 export default function NewPostScreen({ screenProps }) {
-  console.log(screenProps);
+  console.log(screenProps, 'post');
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
@@ -25,6 +28,7 @@ export default function NewPostScreen({ screenProps }) {
 
   return (
     <ScrollView style={styles.container}>
+      <Title>{screenProps.username}</Title>
       <View>
         <TextInput
           label='Title'
@@ -70,7 +74,7 @@ NewPostScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 10,
     padding: 20,
     backgroundColor: '#fff',
   },
