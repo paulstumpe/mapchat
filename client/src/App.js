@@ -12,17 +12,6 @@ import MessageItem from './components/MessageItem';
 import postUser from './Helper';
 
 export default function App(props) {
-  // postUser({
-  //   username: "worked",
-  //   name_first: "worked",
-  //   name_last: "worked",
-  //   password: "worked",
-  //   email: "worked",
-  //   bio: "worked",
-  //   status: "worked",
-  //   public: false,
-  // }).then((x)=>{console.log(x)})
-  // console.log(props);
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [location, setLocation] = useState('');
   const [username, setUsername] = useState('');
