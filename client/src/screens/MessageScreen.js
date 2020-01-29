@@ -2,11 +2,11 @@ import React, { Component, useState } from 'react';
 import { View } from 'react-native';
 import MessageItem from '../components/MessageItem';
 
-const MessageScreen = props => {
-  console.log(props);
+const MessageScreen = screenProps => {
+  // console.log(screenProps, 'XXX');
   return (
     <View>
-      <MessageItem />
+      <MessageItem screenProps={screenProps} />
     </View>
   );
 };
