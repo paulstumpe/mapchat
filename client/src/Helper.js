@@ -6,7 +6,7 @@ export const getAll = () => {
 export const getOne = postProperties => {
   return axios.get(`http://${localIP}:8080/messages`, postProperties);
 };
-export const postMessageHelper = (postInput, location) => {
+export const postMessageHelper = (postInput, location, userId) => {
   console.log(location);
   let body = {
     title: postInput.title,
@@ -21,6 +21,7 @@ export const postMessageHelper = (postInput, location) => {
       long: location.longitude,
       lat: location.latitude,
     },
+    userId:userId
   };
   return axios.post(`http://${localIP}:8080/messages`, body);
 };
