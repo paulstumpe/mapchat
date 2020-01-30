@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MapView, { Marker, View } from 'react-native-maps';
 import { StyleSheet, Text, ScrollView, Dimensions, Image } from 'react-native';
 import { getAll, postMessageHelper } from '../Helper';
@@ -7,16 +7,20 @@ import { Title } from 'react-native-paper';
 export default function MapScreen({ screenProps }) {
   // console.log(screenProps);
   const [messages, setMessages] = useState([]);
-  getAll()
-    .then(({ data }) => {
-      const allMessages = data.map(message => {
-        message.longitude = parseFloat(message.coordinate.long);
-        message.latitude = parseFloat(message.coordinate.lat);
-        return message;
-      });
-      setMessages(allMessages);
-    })
-    .catch(err => console.log(err));
+  useEffect(()=>{
+    getAll()
+      .then(({ data }) => {
+        const allMessages = data.map(message => {
+          console.log(message);
+          message.longitude = parseFloat(message.coordinate.long);
+          message.latitude = parseFloat(message.coordinate.lat);
+          return message;
+        });
+        setMessages(allMessages);
+      })
+      .catch(err => console.log(err));
+  }, [])
+  
   const { latitude, longitude } = screenProps.location.coords;
   const region = {
     latitude,

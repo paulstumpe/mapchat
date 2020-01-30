@@ -1,10 +1,10 @@
 import * as axios from 'axios';
-const localIP = '172.24.6.51';
-export let getAll = () => {
+const localIP = '172.24.12.151';
+export const getAll = () => {
   return axios.get(`http://${localIP}:8080/messages/all`);
 };
 export const getOne = postProperties => {
-  return axios.get(`http://${localIP}:8080/messages`);
+  return axios.get(`http://${localIP}:8080/messages`, postProperties);
 };
 export const postMessageHelper = (postInput, location) => {
   console.log(location);
