@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { ScrollView, SafeAreaView, StyleSheet, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { Button, Title, TextInput, Switch, Divider } from 'react-native-paper';
 
 export default function UserProfileScreen({ screenProps }) {
@@ -32,7 +38,8 @@ export default function UserProfileScreen({ screenProps }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
+      {/* <SafeAreaView style={styles.container}> */}
       <ScrollView>
         <Title>{username}</Title>
         <View>
@@ -111,7 +118,8 @@ export default function UserProfileScreen({ screenProps }) {
           </Button>
         </View>
       </ScrollView>
-    </SafeAreaView>
+      {/* </SafeAreaView> */}
+    </KeyboardAvoidingView>
   );
 }
 
