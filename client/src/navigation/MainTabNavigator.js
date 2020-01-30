@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import UserProfileScreen from '../screens/UserProfileScreen';
 import ListScreen from '../screens/ListScreen';
 import NewPostScreen from '../screens/NewPostScreen';
 import MessageScreen from '../screens/MessageScreen';
@@ -15,28 +15,28 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const UserProfileStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: UserProfileScreen,
   },
   config,
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+UserProfileStack.navigationOptions = {
+  tabBarLabel: 'User Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-person${focused ? '' : '-outline'}`
+          : 'md-person'
       }
     />
   ),
 };
 
-HomeStack.path = '';
+UserProfileStack.path = '';
 
 const ListStack = createStackNavigator(
   {
@@ -115,7 +115,7 @@ MapStack.navigationOptions = {
 MapStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
+  UserProfileStack,
   ListStack,
   NewPostStack,
   MessageStack,
