@@ -4,7 +4,6 @@ import { Button, Title, TextInput, Switch, Divider } from 'react-native-paper';
 import { postMessageHelper } from '../Helper';
 
 export default function NewPostScreen({ screenProps }) {
-  console.log(screenProps, 'post');
   const username = screenProps.username;
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
