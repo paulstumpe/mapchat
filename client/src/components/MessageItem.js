@@ -34,7 +34,6 @@ const MessageItem = ({ screenProps }) => {
   const [message, setMessage] = useState({});
   const [comments, setComments] = useState([]);
   const postComment = () => {
-    console.log(comment);
     setComment('');
   };
   useEffect(()=>{
@@ -43,7 +42,6 @@ const MessageItem = ({ screenProps }) => {
     .then(({data})=>{
       setMessage(data);
       setComments(data.comments)
-      console.log(data)
     })
   },[]);
 

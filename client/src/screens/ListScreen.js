@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import MessagePreview from '../components/MessagePreview';
-import {getAll} from '../Helper';
+import { getAll } from '../Helper';
 
 
 const messages = [
@@ -29,7 +29,6 @@ const ListScreen = screenProps => {
     getAll()
       .then((response) => {
         const allPosts = response.data;
-        // console.log(allPosts)
         setMessages(allPosts);
       })
     

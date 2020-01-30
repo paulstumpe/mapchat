@@ -5,7 +5,6 @@ import { Avatar, Card, Divider, Paragraph } from 'react-native-paper';
 const MessagePreview = ({ messages }) =>
   messages &&
   messages.map((message, i) => {
-    console.log(message);
     return (
       <Card style={styles.container} key={i}>
         <Card.Title
