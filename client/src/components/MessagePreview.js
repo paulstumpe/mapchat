@@ -1,22 +1,29 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Avatar, Card, Divider, Paragraph } from 'react-native-paper';
+import { Avatar, Card } from 'react-native-paper';
+import MessageItem from '../components/MessageItem';
 
 const MessagePreview = ({ messages }) =>
   messages &&
   messages.map((message, i) => {
+    console.log(message);
     return (
-      <Card style={styles.container} key={i}>
+      <Card style={message.post_local ? styles.local : styles.global} key={i}>
         <Card.Title
           title={message.title}
-          subtitle={message.user ? message.user.username : ""}
-          left={() => <Avatar.Text size={36} label={message.user ? message.user.username[0] : ""} />}
+          subtitle={message.user ? message.user.username : message.username}
+          left={() => (
+            <Avatar.Text
+              style={styles.avatar}
+              color='#2B4162'
+              size={48}
+              label={
+                message.user ? message.user.username[0] : message.username[0]
+              }
+            />
+          )}
         />
-        <Divider />
-        <Card.Content style={message.post_local ? { paddingTop: 10, backgroundColor: "blue" } : { paddingTop: 10, backgroundColor: "brown" } }>
-          <Paragraph>{message.text}</Paragraph>
-        </Card.Content>
-        <Divider />
+        <MessageItem post={message} />
       </Card>
     );
   });
@@ -26,15 +33,21 @@ MessagePreview.navigationOptions = {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  local: {
+    borderRadius: 10,
     padding: 10,
     paddingBottom: 10,
-    backgroundColor: '#fff',
+    margin: 3,
+    backgroundColor: '#D7B377',
   },
-  name: {
-    fontWeight: 'bold',
-    color: 'blue',
+  global: {
+    borderRadius: 10,
+    padding: 10,
+    paddingBottom: 10,
+    margin: 3,
+    backgroundColor: '#385F71',
   },
+  avatar: { backgroundColor: '#F5F0F6' },
 });
 
 export default MessagePreview;

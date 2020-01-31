@@ -2,12 +2,10 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-
 import TabBarIcon from '../components/TabBarIcon';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import ListScreen from '../screens/ListScreen';
 import NewPostScreen from '../screens/NewPostScreen';
-import MessageScreen from '../screens/MessageScreen';
 import MapScreen from '../screens/MapScreen';
 
 const config = Platform.select({
@@ -76,25 +74,6 @@ NewPostStack.navigationOptions = {
 
 NewPostStack.path = '';
 
-const MessageStack = createStackNavigator(
-  {
-    Message: MessageScreen,
-  },
-  config,
-);
-
-MessageStack.navigationOptions = {
-  tabBarLabel: 'Message',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-mail' : 'md-mail'}
-    />
-  ),
-};
-
-MessageStack.path = '';
-
 const MapStack = createStackNavigator(
   {
     Map: MapScreen,
@@ -118,7 +97,6 @@ const tabNavigator = createBottomTabNavigator({
   UserProfileStack,
   ListStack,
   NewPostStack,
-  MessageStack,
   MapStack,
 });
 

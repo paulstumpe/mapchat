@@ -6,9 +6,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
-
 import AppNavigator from './navigation/AppNavigator';
-import MessageItem from './components/MessageItem';
 
 export default function App(props) {
   // console.log(props);
