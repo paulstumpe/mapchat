@@ -1,6 +1,7 @@
 import * as axios from 'axios';
 
-const localIP = '172.24.6.51';
+const localIP = '172.24.13.238'; // Marc
+// const localIP = '172.24.6.51'; //Paul
 
 export const getAll = () => {
   return axios.get(`http://${localIP}:8080/messages/all`);
