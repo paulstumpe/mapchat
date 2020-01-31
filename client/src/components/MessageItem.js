@@ -1,10 +1,11 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
   KeyboardAvoidingView,
   ScrollView,
   SafeAreaView,
+  Text,
 } from 'react-native';
 import {
   Avatar,
@@ -15,6 +16,8 @@ import {
   Subheading,
   TextInput,
 } from 'react-native-paper';
+import Modal from 'react-native-modal';
+import { getOne } from '../Helper';
 
 const message = {
   title: 'Delivery',
@@ -27,75 +30,97 @@ const comments = [
   { username: 'Leela', text: `That isn't a real name, Fry` },
 ];
 
-const MessageItem = ({ screenProps }) => {
-  const { username } = screenProps.screenProps;
+const MessageItem = ({ post }) => {
+  console.log(post, 'message item 32');
+  const { username } = post.username;
+  const [modal, toggleModal] = useState(false);
   const [comment, setComment] = useState('');
+  const [message, setMessage] = useState({});
+  const [comments, setComments] = useState([]);
   const postComment = () => {
     console.log(comment);
     setComment('');
   };
 
+  useEffect(() => {
+    //todo unhardcode from just getting the first message on server
+    getOne({ id: 1 }).then(({ data }) => {
+      setMessage(data);
+      setComments(data.comments);
+    });
+  }, []);
+
   return (
-    <Card style={styles.container}>
-      <ScrollView>
-        <KeyboardAvoidingView behavior='position' enabled>
-          <Card>
-            <Card.Title
-              title={username}
-              subtitle={message.title}
-              left={() => <Avatar.Text size={48} label='PJF' />}
-            />
-            <Divider />
-            <Card.Content style={{ paddingTop: 10 }}>
-              <Paragraph>{message.text}</Paragraph>
-            </Card.Content>
-          </Card>
-          {comments &&
-            comments.map((comment, i) => {
-              return (
-                <Card style={{ marginTop: 10 }} key={i}>
-                  <Subheading> {comment.username}</Subheading>
-                  <Divider />
-                  <Card.Content style={{ paddingTop: 10 }}>
-                    <Paragraph>{comment.text}</Paragraph>
-                  </Card.Content>
-                </Card>
-              );
-            })}
-          <Card
-            style={{
-              borderRadius: 10,
-              position: 'relative',
-              zIndex: 2,
-              marginTop: 10,
-            }}
-          >
-            <Card.Content>
-              <TextInput
-                label='Comment'
-                placeholder='comment'
-                mode='outlined'
-                multiline={true}
-                numberOfLines={3}
-                value={comment}
-                onChangeText={comment => setComment(comment)}
+    <Card
+      style={styles.container}
+      title='Show modal'
+      // onPress={() => toggleModal(!modal)}
+    >
+      <Text onPress={() => toggleModal(!modal)} style={{ marginTop: -10 }}>
+        Show Message
+      </Text>
+      <Modal isVisible={modal}>
+        <ScrollView>
+          <KeyboardAvoidingView behavior='position' enabled>
+            <Card>
+              <Card.Title
+                title='Fry'
+                // title={username}
+                subtitle={message.title}
+                left={() => <Avatar.Text size={48} label='PJF' />}
               />
-              <Button
-                icon='send'
-                mode='contained'
-                style={{
-                  marginTop: 10,
-                  marginRight: 220,
-                  height: 40,
-                }}
-                onPress={() => postComment()}
-              >
-                Comment
-              </Button>
-            </Card.Content>
-          </Card>
-        </KeyboardAvoidingView>
-      </ScrollView>
+              <Card.Content style={{ paddingTop: 10 }}>
+                <Paragraph>{message.text}</Paragraph>
+              </Card.Content>
+            </Card>
+            {comments &&
+              comments.map((comment, i) => {
+                return (
+                  <Card style={{ marginTop: 10 }} key={i}>
+                    <Subheading> {comment.user.username}</Subheading>
+                    <Divider />
+                    <Card.Content style={{ paddingTop: 10 }}>
+                      <Paragraph>{comment.text}</Paragraph>
+                    </Card.Content>
+                  </Card>
+                );
+              })}
+            <Card
+              style={{
+                borderRadius: 10,
+                position: 'relative',
+                zIndex: 2,
+                marginTop: 10,
+              }}
+            >
+              <Card.Content>
+                <TextInput
+                  label='Comment'
+                  placeholder='comment'
+                  mode='outlined'
+                  multiline={true}
+                  numberOfLines={3}
+                  value={comment}
+                  onChangeText={comment => setComment(comment)}
+                />
+                <Button
+                  icon='send'
+                  mode='contained'
+                  style={{
+                    marginTop: 10,
+                    marginRight: 220,
+                    height: 40,
+                  }}
+                  onPress={() => postComment()}
+                >
+                  Comment
+                </Button>
+              </Card.Content>
+            </Card>
+            <Button title='Hide modal' onPress={() => toggleModal(!modal)} />
+          </KeyboardAvoidingView>
+        </ScrollView>
+      </Modal>
     </Card>
   );
 };
