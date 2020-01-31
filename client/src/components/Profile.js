@@ -16,92 +16,50 @@ import {
   TextInput,
 } from 'react-native-paper';
 
-const message = {
-  title: 'Delivery',
-  text: 'Pizza delivery for I.C. Weiner',
+const user = {
+  username: 'Bender',
+  nameFirst: 'Bender B.',
+  nameLast: 'Rodriguez',
+  email: 'BBRodriguez3000@planetexpress.com',
+  status: 'Bender is Great!',
+  bio: 'Bite my shiny metal ass',
 };
 
-const comments = [
-  { username: 'Bender', text: 'Bite my shiny metal ass' },
-  { username: 'Professor', text: 'Good news everyone' },
-  { username: 'Leela', text: `That isn't a real name, Fry` },
-];
+const initials = user.nameFirst[0] + user.nameLast[0];
 
-const MessageItem = ({ screenProps }) => {
-  const { username } = screenProps.screenProps;
-  const [comment, setComment] = useState('');
-  const postComment = () => {
-    console.log(comment);
-    setComment('');
-  };
+const Profile = ({ screenProps }) => {
+  // const { username } = screenProps.screenProps;
+  // const [comment, setComment] = useState('');
+  // const postComment = () => {
+  //   console.log(comment);
+  //   setComment('');
+  // };
 
   return (
     <Card style={styles.container}>
-      <ScrollView>
+      <View>
         <KeyboardAvoidingView behavior='position' enabled>
           <Card>
             <Card.Title
-              title={username}
-              subtitle={message.title}
-              left={() => <Avatar.Text size={48} label='PJF' />}
+              title={`${user.nameFirst} ${user.nameLast}`}
+              subtitle={user.email}
+              left={() => <Avatar.Text size={48} label={initials} />}
             />
             <Divider />
             <Card.Content style={{ paddingTop: 10 }}>
-              <Paragraph>{message.text}</Paragraph>
-            </Card.Content>
-          </Card>
-          {comments &&
-            comments.map((comment, i) => {
-              return (
-                <Card style={{ marginTop: 10 }} key={i}>
-                  <Subheading> {comment.username}</Subheading>
-                  <Divider />
-                  <Card.Content style={{ paddingTop: 10 }}>
-                    <Paragraph>{comment.text}</Paragraph>
-                  </Card.Content>
-                </Card>
-              );
-            })}
-          <Card
-            style={{
-              borderRadius: 10,
-              position: 'relative',
-              zIndex: 2,
-              marginTop: 10,
-            }}
-          >
-            <Card.Content>
-              <TextInput
-                label='Comment'
-                placeholder='comment'
-                mode='outlined'
-                multiline={true}
-                numberOfLines={3}
-                value={comment}
-                onChangeText={comment => setComment(comment)}
-              />
-              <Button
-                icon='send'
-                mode='contained'
-                style={{
-                  marginTop: 10,
-                  marginRight: 220,
-                  height: 40,
-                }}
-                onPress={() => postComment()}
-              >
-                Comment
-              </Button>
+              <Paragraph>{user.status}</Paragraph>
+              <Divider />
+              <Paragraph>{user.bio}</Paragraph>
             </Card.Content>
           </Card>
         </KeyboardAvoidingView>
-      </ScrollView>
+      </View>
     </Card>
   );
 };
 
-MessageItem.navigationOptions = {
-  title: message.title,
+Profile.navigationOptions = {
+  title: user.username,
 };
 
 const styles = StyleSheet.create({
@@ -117,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MessageItem;
+export default Profile;
