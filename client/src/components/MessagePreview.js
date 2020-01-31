@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Avatar, Card, Divider, Paragraph } from 'react-native-paper';
+import { Avatar, Card } from 'react-native-paper';
 import MessageItem from '../components/MessageItem';
 
 const MessagePreview = ({ messages }) =>
@@ -12,7 +12,13 @@ const MessagePreview = ({ messages }) =>
         <Card.Title
           title={message.title}
           subtitle={message.username}
-          left={() => <Avatar.Text size={36} label={message.username[0]} />}
+          left={() => (
+            <Avatar.Text
+              style={styles.avatar}
+              size={36}
+              label={message.username[0]}
+            />
+          )}
         />
         <MessageItem post={message} />
       </Card>
@@ -25,14 +31,13 @@ MessagePreview.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 10,
     padding: 10,
     paddingBottom: 10,
-    backgroundColor: '#fff',
+    margin: 3,
+    backgroundColor: '#D7B377',
   },
-  name: {
-    fontWeight: 'bold',
-    color: 'blue',
-  },
+  avatar: { backgroundColor: '#385F71' },
 });
 
 export default MessagePreview;
