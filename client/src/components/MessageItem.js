@@ -54,24 +54,20 @@ const MessageItem = ({ post }) => {
     <Card
       style={styles.container}
       title='Show modal'
-      // onPress={() => toggleModal(!modal)}
+      onPress={() => toggleModal(!modal)}
     >
       <Text onPress={() => toggleModal(!modal)} style={{ marginTop: -10 }}>
-        Show Message
+        {post.text}
       </Text>
       <Modal isVisible={modal}>
         <ScrollView>
           <KeyboardAvoidingView behavior='position' enabled>
             <Card>
               <Card.Title
-                title='Fry'
-                // title={username}
-                subtitle={message.title}
+                title={post.username}
+                subtitle={post.title}
                 left={() => <Avatar.Text size={48} label='PJF' />}
               />
-              <Card.Content style={{ paddingTop: 10 }}>
-                <Paragraph>{message.text}</Paragraph>
-              </Card.Content>
             </Card>
             {comments &&
               comments.map((comment, i) => {
