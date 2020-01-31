@@ -11,12 +11,9 @@ export const postMessageHelper = (postInput, location, userId) => {
   let body = {
     title: postInput.title,
     text: postInput.message,
-    // post_public,
-    // post_local,
-    // time_created,
-    // updated_at,
-    // time_expires,
-    // post_anonymous,
+    post_public : postInput.comments,
+    post_local : postInput.global,
+    post_anonymous : postInput.anon,
     coordinate: {
       long: location.longitude,
       lat: location.latitude,

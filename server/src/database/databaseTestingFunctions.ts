@@ -49,7 +49,7 @@ setTimeout(() => {
   // createUser(user);
   // createComment(comment, 1,1).then().catch(x=>console.error(x))
   // removeLike(1,1).then(x=>console.log(x)).catch(x=>console.log(x))
-  getAllPosts().then((posts: any) => console.log(posts[0].user));
+  // getAllPosts().then((posts: any) => console.log(posts[0].user));
 
   // addLike(1, 1).then(x=>console.log(x)).catch(x=>{console.log(x)})
   // addLike(1, 2).then(x => console.log(x)).catch(x => { console.log(x) })
