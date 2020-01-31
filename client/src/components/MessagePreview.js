@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Avatar, Card, Divider, Paragraph } from 'react-native-paper';
+import MessageItem from '../components/MessageItem';
 
 const MessagePreview = ({ messages }) =>
   messages &&
@@ -13,6 +14,7 @@ const MessagePreview = ({ messages }) =>
           subtitle={message.username}
           left={() => <Avatar.Text size={36} label={message.username[0]} />}
         />
+        <MessageItem post={message} />
         <Divider />
         <Card.Content style={{ paddingTop: 10 }}>
           <Paragraph>{message.text}</Paragraph>
