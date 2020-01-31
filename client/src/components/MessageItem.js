@@ -32,7 +32,7 @@ const comments = [
 
 const MessageItem = ({ post }) => {
   console.log(post, 'message item 32');
-  const { username } = post.username;
+  // const { username } = post.username;
   const [modal, toggleModal] = useState(false);
   const [comment, setComment] = useState('');
   const [message, setMessage] = useState({});
@@ -55,25 +55,28 @@ const MessageItem = ({ post }) => {
       style={styles.container}
       title='Show modal'
       onPress={() => toggleModal(!modal)}
+      onBackButtonPress={() => toggleModal(!modal)}
     >
       <Text onPress={() => toggleModal(!modal)} style={{ marginTop: -10 }}>
         {post.text}
       </Text>
-      <Modal isVisible={modal}>
+      <Modal isVisible={modal} onBackButtonPress={() => toggleModal(!modal)}>
         <ScrollView>
           <KeyboardAvoidingView behavior='position' enabled>
             <Card>
               <Card.Title
                 title={post.username}
                 subtitle={post.title}
-                left={() => <Avatar.Text size={48} label='PJF' />}
+                left={() => <Avatar.Text size={48} label={post.username[0]} />}
               />
+              <Divider />
+              <Paragraph style={{ padding: 18 }}>{post.text}</Paragraph>
             </Card>
             {comments &&
               comments.map((comment, i) => {
                 return (
                   <Card style={{ marginTop: 10 }} key={i}>
-                    <Subheading> {comment.user.username}</Subheading>
+                    <Subheading> {comment.username}</Subheading>
                     <Divider />
                     <Card.Content style={{ paddingTop: 10 }}>
                       <Paragraph>{comment.text}</Paragraph>
@@ -113,7 +116,10 @@ const MessageItem = ({ post }) => {
                 </Button>
               </Card.Content>
             </Card>
-            <Button title='Hide modal' onPress={() => toggleModal(!modal)} />
+            <Button
+              title='Hide modal'
+              onBackButtonPress={() => toggleModal(!modal)}
+            />
           </KeyboardAvoidingView>
         </ScrollView>
       </Modal>
