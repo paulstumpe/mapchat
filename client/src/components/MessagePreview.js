@@ -15,7 +15,7 @@ const MessagePreview = ({ messages }) =>
           left={() => (
             <Avatar.Text
               style={styles.avatar}
-              size={36}
+              size={48}
               label={message.username[0]}
             />
           )}
