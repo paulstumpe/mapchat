@@ -48,12 +48,12 @@ apiRouter.post('/messages',(req, res)=>{
   let post = {
     title :title,
     text : text,
-    post_public : true,
-    post_local : true,
+    post_public : post_public,
+    post_local : post_local,
     // time_created,
     // updated_at,
     time_expires : "unfinshed",
-    post_anonymous : false,
+    post_anonymous : post_anonymous,
   };
   console.log('this is the text', req.body)
   createPost(post, coordinate, user)

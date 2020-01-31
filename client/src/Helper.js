@@ -7,12 +7,12 @@ export const getOne = postProperties => {
   return axios.get(`http://${localIP}:8080/messages`, postProperties);
 };
 export const postMessageHelper = (postInput, location, userId) => {
-  console.log(location);
+  console.log(postInput.global);
   let body = {
     title: postInput.title,
     text: postInput.message,
     post_public : postInput.comments,
-    post_local : postInput.global,
+    post_local: postInput.global,
     post_anonymous : postInput.anon,
     coordinate: {
       long: location.longitude,
