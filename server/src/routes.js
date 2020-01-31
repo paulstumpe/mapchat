@@ -56,6 +56,7 @@ apiRouter.post('/messages',(req, res)=>{
     post_anonymous : post_anonymous,
   };
   console.log('this is the text', req.body)
+  console.log('this is coordinate', coordinate);
   createPost(post, coordinate, user)
   .then(post=>{
     res.send(post);

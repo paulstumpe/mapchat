@@ -5,6 +5,7 @@ import { postMessageHelper } from '../Helper';
 
 export default function NewPostScreen({ screenProps }) {
   const username = screenProps.username;
+  const {longitude, latitude} = screenProps.location.coords;
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
@@ -24,7 +25,7 @@ export default function NewPostScreen({ screenProps }) {
     let userId = 1;
     //todo hardcoded, fix after create profile screen
     
-    postMessageHelper(postInput, location, userId)
+    postMessageHelper(postInput, {longitude, latitude}, userId)
     .then((res)=>{
       // console.log(res, 'message posted successfully')
     })
