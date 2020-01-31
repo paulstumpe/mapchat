@@ -15,11 +15,6 @@ const MessagePreview = ({ messages }) =>
           left={() => <Avatar.Text size={36} label={message.username[0]} />}
         />
         <MessageItem post={message} />
-        <Divider />
-        <Card.Content style={{ paddingTop: 10 }}>
-          <Paragraph>{message.text}</Paragraph>
-        </Card.Content>
-        <Divider />
       </Card>
     );
   });
