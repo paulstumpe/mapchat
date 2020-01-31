@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -15,7 +15,6 @@ import {
   Subheading,
   TextInput,
 } from 'react-native-paper';
-import { getOne} from "../Helper";
 
 const message = {
   title: 'Delivery',
@@ -31,19 +30,10 @@ const comments = [
 const MessageItem = ({ screenProps }) => {
   const { username } = screenProps.screenProps;
   const [comment, setComment] = useState('');
-  const [message, setMessage] = useState({});
-  const [comments, setComments] = useState([]);
   const postComment = () => {
+    console.log(comment);
     setComment('');
   };
-  useEffect(()=>{
-    //todo unhardcode from just getting the first message on server
-    getOne({id:1})
-    .then(({data})=>{
-      setMessage(data);
-      setComments(data.comments)
-    })
-  },[]);
 
   return (
     <Card style={styles.container}>
@@ -64,7 +54,7 @@ const MessageItem = ({ screenProps }) => {
             comments.map((comment, i) => {
               return (
                 <Card style={{ marginTop: 10 }} key={i}>
-                  <Subheading> {comment.user.username}</Subheading>
+                  <Subheading> {comment.username}</Subheading>
                   <Divider />
                   <Card.Content style={{ paddingTop: 10 }}>
                     <Paragraph>{comment.text}</Paragraph>

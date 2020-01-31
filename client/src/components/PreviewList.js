@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native';
-import MessagePreview from '../components/MessagePreview';
-import { getAll } from '../Helper';
-
+import * as React from 'react';
+import { View } from 'react-native';
+import MessagePreview from './MessagePreview';
 
 const messages = [
   {
@@ -23,26 +21,16 @@ const messages = [
   },
 ];
 
-const ListScreen = screenProps => {
-  const [messages, setMessages] = useState([]);
-  useEffect(()=>{
-    getAll()
-      .then((response) => {
-        const allPosts = response.data;
-        setMessages(allPosts);
-      })
-    
-  }, []);
-  
+const PreviewList = screenProps => {
   return (
-    <ScrollView>
+    <View>
       <MessagePreview messages={messages} />
-    </ScrollView>
+    </View>
   );
 };
 
-ListScreen.navigationOptions = {
+PreviewList.navigationOptions = {
   title: 'List',
 };
 
-export default ListScreen;
+export default PreviewList;
