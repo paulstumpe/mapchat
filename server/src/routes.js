@@ -75,8 +75,10 @@ apiRouter.get('/users',(req, res)=>{
   }
   getUser(user)
   .then(user => {
+    console.log(user)
     res.status = 200;
     res.send(user);
+    
   })
   .catch(err => {
     console.log(err)
@@ -92,6 +94,7 @@ apiRouter.post('/users',(req, res)=>{
   }
   createUser(user)
   .then(user => {
+    console.log(user)
     res.status = 200;
     res.send(user);
   })

@@ -50,7 +50,7 @@ export default function NewPostScreen({ screenProps, navigation} ) {
       toPass.longitude = navigation.state.params.longitude;
       toPass.latitude = navigation.state.params.latitude;
     }
-    postMessageHelper(postInput, toPass, userId)
+    postMessageHelper(postInput, toPass, screenProps.user.id)
     .then((res)=>{
       console.log(res, 'message posted successfully')
     })
