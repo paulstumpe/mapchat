@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import MessagePreview from './MessagePreview';
 
 const messages = [
