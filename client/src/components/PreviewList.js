@@ -23,14 +23,14 @@ const messages = [
 
 const PreviewList = screenProps => {
   return (
-    <View>
+    <ScrollView>
       <MessagePreview messages={messages} />
-    </View>
+    </ScrollView>
   );
 };
 
 PreviewList.navigationOptions = {
-  title: 'List',
+  title: 'Nearby Messages',
 };
 
 export default PreviewList;
