@@ -5,6 +5,7 @@ import { getAll } from '../Helper';
 
 const ListScreen = screenProps => {
   const [messages, setMessages] = useState([]);
+
   useEffect(() => {
     getAll().then(response => {
       const allPosts = response.data;
@@ -20,7 +21,7 @@ const ListScreen = screenProps => {
 };
 
 ListScreen.navigationOptions = {
-  title: 'List',
+  title: 'Nearby Messages',
 };
 
 export default ListScreen;
