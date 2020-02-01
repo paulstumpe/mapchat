@@ -32,11 +32,11 @@ const comments = [
 
 const MessageItem = ({ post }) => {
   console.log(post, 'message item 32');
-  // const { username } = post.username;
-  const [modal, toggleModal] = useState(false);
+  const [messageModal, toggleMessageModal] = useState(false);
   const [comment, setComment] = useState('');
   const [message, setMessage] = useState({});
   const [comments, setComments] = useState([]);
+
   const postComment = () => {
     console.log(comment);
     setComment('');
@@ -51,16 +51,14 @@ const MessageItem = ({ post }) => {
   }, []);
 
   return (
-    <Card
-      style={styles.container}
-      title='Show modal'
-      onPress={() => toggleModal(!modal)}
-      onBackButtonPress={() => toggleModal(!modal)}
-    >
-      <Text onPress={() => toggleModal(!modal)} style={{ marginTop: -10 }}>
+    <Card style={styles.container} title='Show messageModal'>
+      <Text onPress={() => toggleMessageModal(true)} style={{ marginTop: -10 }}>
         {post.text}
       </Text>
-      <Modal isVisible={modal} onBackButtonPress={() => toggleModal(!modal)}>
+      <Modal
+        isVisible={messageModal}
+        onBackButtonPress={() => toggleMessageModal(false)}
+      >
         <ScrollView>
           <KeyboardAvoidingView behavior='position' enabled>
             <Card>
@@ -116,10 +114,6 @@ const MessageItem = ({ post }) => {
                 </Button>
               </Card.Content>
             </Card>
-            <Button
-              title='Hide modal'
-              onBackButtonPress={() => toggleModal(!modal)}
-            />
           </KeyboardAvoidingView>
         </ScrollView>
       </Modal>
