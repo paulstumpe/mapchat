@@ -30,20 +30,20 @@ export default function MapScreen({ screenProps }) {
       })
       .catch(err => console.log(err));
   },[])
-  // useFocusEffect(useCallback(()=>{
-  //   getAll()
-  //     .then(({ data }) => {
-  //       // console.log(data);
-  //       const allMessages = data.map(message => {
-  //         message.longitude = parseFloat(message.coordinate.long);
-  //         message.latitude = parseFloat(message.coordinate.lat);
-  //         return message;
-  //       });
-  //       console.log(allMessages)
-  //       setMessages(allMessages);
-  //     })
-  //     .catch(err => console.log(err));
-  // },[]))
+  useFocusEffect(useCallback(()=>{
+    getAll()
+      .then(({ data }) => {
+        // console.log(data);
+        const allMessages = data.map(message => {
+          message.longitude = parseFloat(message.coordinate.long);
+          message.latitude = parseFloat(message.coordinate.lat);
+          return message;
+        });
+        console.log(allMessages)
+        setMessages(allMessages);
+      })
+      .catch(err => console.log(err));
+  },[]))
   
 
   const { latitude, longitude } = screenProps.location.coords;
