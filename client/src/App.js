@@ -19,8 +19,9 @@ export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [location, setLocation] = useState('');
   const [username, setUsername] = useState('');
-
-  const screenProps = { location, username };
+  const [otherLocation, setOtherLocation] = useState('');
+  const otherLocationObj = {otherLocation, setOtherLocation};
+  const screenProps = { location, username, otherLocationObj };
 
   if (!username) {
     setUsername('Philip J. Fry');

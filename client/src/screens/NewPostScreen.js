@@ -9,21 +9,6 @@ import { useNavigation, useNavigationParam, useFocusEffect } from 'react-navigat
 
 export default function NewPostScreen({ screenProps, navigation} ) {
   
-  // const [longitude, setLongitude] = useState(0);
-  // const [latitude, setLatitude] = useState(0);
-  
-  // let longitudeParam = useNavigationParam('longitude');
-  // let latitudeParam = useNavigationParam('latitude');
-  // console.log('paul this is the thing', longitudeParam)
-  // const [otherLocation, setOtherLocation] = useState(false);
-
-  // if(longitudeParam){
-  //   setOtherLocation(true);
-  // } 
-  // console.log(navigation.state)
-  const [longitude, setLongitude] = useState(null);
-  const [latitude, setLatitude] = useState(null);
-
   const username = screenProps.username;
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
@@ -31,31 +16,21 @@ export default function NewPostScreen({ screenProps, navigation} ) {
   const [anon, setAnon] = useState(false);
   const [global, setGlobal] = useState(false);
   const [comments, setComments] = useState(true);
-
+  // if (navigation.state.params.longitude){
+  //   setOtherLocation(true);
+  // }
+  const buttonPress = ()=>{
+      console.log('buttonpressed')
+      screenProps.otherLocationObj.setOtherLocation(false);
+  }
   useFocusEffect(useCallback(() => {
-    setLongitude(navigation.state.params.longitude);
-    setLatitude(navigation.state.params.latitude);
     console.debug("screen takes focus");
-    console.log(navigation.state.params.latitude)
-
-    // console.log(navigation.state.params.longitude)
+    //component did unmount
     return () => {
+
       console.debug("screen loses focus")
     };
   }, []));
-
-
-  // useFocusEffect(useCallback(() => {
-  //   console.log(longitudeParam)
-  //   //component did mount
-  //   console.debug("screen takes focus");
-  //   //component did unmount
-  //   return () => {
-  //     longitudeParam = null;
-  //     latitudeParam = null;
-  //     // setOtherLocation(false);
-  //     console.debug("screen loses focus")};
-  // }, []));
 
   const clearFields = () => {
     setTitle('');
@@ -64,17 +39,20 @@ export default function NewPostScreen({ screenProps, navigation} ) {
   };
 
   const postMessage = () => {
-    console.log(global, "global")
     let postInput = {title, message, anon, global, comments};
     let userId = 1;
     //todo hardcoded, fix after create profile screen
     let toPass = {
-      longitude,
-      latitude
+      longitude: screenProps.location.coords.longitude,
+      latitude: screenProps.location.coords.latitude
+    }
+    if (screenProps.otherLocationObj.otherLocation){
+      toPass.longitude = navigation.state.params.longitude;
+      toPass.latitude = navigation.state.params.latitude;
     }
     postMessageHelper(postInput, toPass, userId)
     .then((res)=>{
-      // console.log(res, 'message posted successfully')
+      console.log(res, 'message posted successfully')
     })
     console.log(
       `User - ${username}, Title - ${title}, Location - ${location}, Message - ${message}`,
@@ -95,14 +73,9 @@ export default function NewPostScreen({ screenProps, navigation} ) {
           onChangeText={title => setTitle(title)}
         />
         <Button
-          label={longitude ? 'Curren Location':'Use current Location instead?'}
+          label={navigation.state.params.latitude ? 'Use current Location instead?':'Current Location'}
           mode='outlined'
-          onPress={()=>{
-            navigation.state.params.longitude = null;
-            navigation.state.params.latitude = null;
-            setLongitude(screenProps.location.coords.longitude);
-            setLatitude(screenProps.location.coords.latitude);
-          }}>{longitude ? 'Current Location' : 'Use current Location instead?'}
+          onPress={buttonPress}>{screenProps.otherLocationObj.otherLocation ? 'Use current Location instead?':'Current Location'}
         </Button>
         <TextInput
           label='Message'

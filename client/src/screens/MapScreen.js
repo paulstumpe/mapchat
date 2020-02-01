@@ -33,7 +33,7 @@ export default function MapScreen({ screenProps }) {
   useFocusEffect(useCallback(()=>{
     getAll()
       .then(({ data }) => {
-        // console.log(data);
+        console.log(data);
         const allMessages = data.map(message => {
           message.longitude = parseFloat(message.coordinate.long);
           message.latitude = parseFloat(message.coordinate.lat);
@@ -78,6 +78,7 @@ export default function MapScreen({ screenProps }) {
                     `Leave a message at latitude ${dropMarker.latitude} and longitude ${dropMarker.longitude}?`,
                   )
                   console.log(this);
+                  screenProps.otherLocationObj.setOtherLocation(true);
                   navigate("NewPost", {latitude:dropMarker.latitude, longitude:dropMarker.longitude})
                   // props.navigation.navigate('Message')
                   }

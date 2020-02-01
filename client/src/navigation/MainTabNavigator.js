@@ -60,7 +60,9 @@ ListStack.path = '';
 
 const NewPostStack = createStackNavigator(
   {
-    NewPost: { screen: NewPostScreen, params:{longitude: null, latitude: null}},
+    NewPost: { screen: NewPostScreen, 
+      params:{longitude: null, latitude: null}
+    },
   },
   config,
 );
