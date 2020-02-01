@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
-import { Avatar, Card, Divider, Text } from 'react-native-paper';
+import { Avatar, Button, Card, Divider, Text } from 'react-native-paper';
 
 const user = {
   username: 'Bender',
@@ -13,13 +13,13 @@ const user = {
 
 const initials = user.nameFirst[0] + user.nameLast[0];
 
-const Profile = ({ screenProps }) => {
-  // const { username } = screenProps.screenProps;
-  // const [comment, setComment] = useState('');
-  // const postComment = () => {
-  //   console.log(comment);
-  //   setComment('');
-  // };
+const Profile = props => {
+  const { toggleProfileModal } = props;
+
+  const addUser = () => {
+    toggleProfileModal(false);
+    console.log(`sent friend request to ${user.username}`);
+  };
 
   return (
     <Card style={styles.container}>
@@ -39,9 +39,30 @@ const Profile = ({ screenProps }) => {
                 Status: {user.status}
               </Text>
               <Divider />
-              <Text style={{ paddingTop: 7, fontWeight: 'bold', fontSize: 16 }}>
+              <Text
+                style={{
+                  paddingTop: 7,
+                  paddingBottom: 7,
+                  fontWeight: 'bold',
+                  fontSize: 16,
+                }}
+              >
                 Bio: {user.bio}
               </Text>
+              <Divider />
+              <Button
+                icon='account-plus'
+                mode='contained'
+                style={{
+                  marginTop: 10,
+                  marginRight: 220,
+                  height: 40,
+                  width: 150,
+                }}
+                onPress={() => addUser()}
+              >
+                Add Friend
+              </Button>
             </Card.Content>
           </Card>
         </KeyboardAvoidingView>
