@@ -8,7 +8,6 @@ import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import * as Google from "expo-google-app-auth";
 import axios from 'axios';
-// import androidClientId from './'
 
 import AppNavigator from './navigation/AppNavigator';
 // import MessageItem from './components/MessageItem';
@@ -23,45 +22,45 @@ export default function App(props) {
   const [googleId, setGoogleId] = useState('');
   
   //Authentication  
-    signIn = async () => {
+  const signIn = async () => {
       try {
         const result = await Google.logInAsync({
           androidClientId: "431692420645-mjhsg582ie1jq8d2hlvguccm4hlsgckj.apps.googleusercontent.com",
           scopes: ["profile", "email"]
         })
         if (result.type === "success") {
-          console.log(result);
-          // setSignIn("true");
-          // setUsername(result.user.name);
-          // setPhotoUrl(result.user.photoUrl)
-          // setGoogleId(result.user.id)
+          console.log(result, 'line 33');
+          setSignIn("true");
+          setUsername(result.user.name);
+          setPhotoUrl(result.user.photoUrl)
+          setGoogleId(result.user.id)
+          console.log(username, googleId, signIn, '<==== state set!r')
+          // axios.post()
         } else {
           console.log("cancelled")
         }
-      // } catch (e) {
-      //   console.log("error", e)
-      // }
-        render(); {
-          return ( 
-            <View style = {styles.container}> {this.state.signedIn ? ( 
-              <LoggedInPage name = {this.state.name} photoUrl = {this.state.photoUrl}/>
-              ) : ( 
-              <LoginPage signIn = {
-                this.signIn}/>
-              )
-            } </View>
+      } catch (e) {
+        console.log("error", e)
+      }
+
+      return ( 
+        <View style = {styles.container}> {signedIn ? ( 
+          <LoggedInPage name = {name} photoUrl = {photoUrl}/>
+          ) : ( 
+          <LoginPage signIn = {signIn}/>
           )
-        }
+        } </View>
+      )
     }
-
-  const screenProps = { location, username };
-  
-  // This is a dummy username. Get rid of it in a bit
-  if (!username) {
-    setUsername('Philip J. Fry');
-  }
-
-  console.log(username);
+    
+    
+    const screenProps = { location, username };
+    
+    if (!username) {
+      setUsername('Philip J. Fry');
+    }
+    
+    console.log(username, 'line 67');
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -70,8 +69,9 @@ export default function App(props) {
         onError={handleLoadingError}
         onFinish={() => {
           getLocationAsync().then(currentLocation =>
-            setLocation(currentLocation),
-          );
+            setLocation(currentLocation)
+          ).then(signIn());
+          console.log('this works')
           return handleFinishLoading(setLoadingComplete);
         }}
       />
@@ -99,7 +99,7 @@ const LoggedInPage = props => {
   return ( 
     <View style = {styles.container} >
       <Text style = {styles.header} > Welcome: {props.name} </Text> 
-      {/* <Image style = {styles.image} source = {{ uri: props.photoUrl}}/>  */}
+      <Image style = {styles.image} source = {{ uri: props.photoUrl}}/> 
     </View>
   )
 }
