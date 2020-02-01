@@ -41,12 +41,10 @@ export default function App(props) {
         scopes: ['profile', 'email'],
       });
       if (result.type === 'success') {
-        console.log(result, 'line 33');
         setSignIn('true');
         setUsername(result.user.name);
         // setPhotoUrl(result.user.photoUrl)
         setGoogleId(result.user.id);
-        console.log(username, googleId, signIn, '<==== state set!r');
         const userObj = {
           username: 'Marc West',
           name_first: 'Marc',
@@ -60,7 +58,7 @@ export default function App(props) {
         postUser(userObj)
           .then(({ data }) => {
             setUser(data);
-            console.log(data, 'success saving user');
+            // console.log(data, 'success saving user');
           })
           .catch(err => {
             console.log(err, 'error saving user');
@@ -98,7 +96,6 @@ export default function App(props) {
           getLocationAsync()
             .then(currentLocation => setLocation(currentLocation))
             .then(signIn());
-          console.log('this works');
           return handleFinishLoading(setLoadingComplete);
         }}
       />
