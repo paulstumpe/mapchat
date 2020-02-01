@@ -1,20 +1,6 @@
-import React, { Component, useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  KeyboardAvoidingView,
-  ScrollView,
-  SafeAreaView,
-} from 'react-native';
-import {
-  Avatar,
-  Button,
-  Card,
-  Divider,
-  Paragraph,
-  Subheading,
-  TextInput,
-} from 'react-native-paper';
+import React from 'react';
+import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
+import { Avatar, Card, Divider, Text } from 'react-native-paper';
 
 const user = {
   username: 'Bender',
@@ -47,9 +33,15 @@ const Profile = ({ screenProps }) => {
             />
             <Divider />
             <Card.Content style={{ paddingTop: 10 }}>
-              <Paragraph>{user.status}</Paragraph>
+              <Text
+                style={{ paddingBottom: 7, fontWeight: 'bold', fontSize: 16 }}
+              >
+                Status: {user.status}
+              </Text>
               <Divider />
-              <Paragraph>{user.bio}</Paragraph>
+              <Text style={{ paddingTop: 7, fontWeight: 'bold', fontSize: 16 }}>
+                Bio: {user.bio}
+              </Text>
             </Card.Content>
           </Card>
         </KeyboardAvoidingView>
@@ -65,7 +57,7 @@ Profile.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
-    padding: 20,
+    padding: 10,
     paddingBottom: 10,
     backgroundColor: '#fff',
   },
