@@ -37,7 +37,7 @@ const MessagePreview = ({ messages }) => {
             isVisible={profileModal}
             onBackButtonPress={() => toggleProfileModal(false)}
           >
-            <Profile />
+            <Profile toggleProfileModal={toggleProfileModal} />
           </Modal>
         </Card>
       );
