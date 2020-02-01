@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import MapView, { Marker, View, Overlay } from 'react-native-maps';
+import { withNavigation } from 'react-navigation';
 import {
   StyleSheet,
   Text,
@@ -10,8 +11,10 @@ import {
 } from 'react-native';
 import PreviewList from '../components/PreviewList';
 import { getAll } from '../Helper';
-
+import { useNavigation, useNavigationParam, useFocusEffect } from 'react-navigation-hooks'
 export default function MapScreen({ screenProps }) {
+  const { navigate } = useNavigation();
+
   const [messages, setMessages] = useState([]);
   useEffect(()=>{
     getAll()
@@ -27,6 +30,20 @@ export default function MapScreen({ screenProps }) {
       })
       .catch(err => console.log(err));
   },[])
+  // useFocusEffect(useCallback(()=>{
+  //   getAll()
+  //     .then(({ data }) => {
+  //       // console.log(data);
+  //       const allMessages = data.map(message => {
+  //         message.longitude = parseFloat(message.coordinate.long);
+  //         message.latitude = parseFloat(message.coordinate.lat);
+  //         return message;
+  //       });
+  //       console.log(allMessages)
+  //       setMessages(allMessages);
+  //     })
+  //     .catch(err => console.log(err));
+  // },[]))
   
 
   const { latitude, longitude } = screenProps.location.coords;
@@ -56,10 +73,14 @@ export default function MapScreen({ screenProps }) {
                   longitude: dropMarker.longitude,
                 }}
                 key={dropMarker.key}
-                onPress={() =>
+                onPress={() =>{
                   console.log(
                     `Leave a message at latitude ${dropMarker.latitude} and longitude ${dropMarker.longitude}?`,
                   )
+                  console.log(this);
+                  navigate("NewPost", {latitude:dropMarker.latitude, longitude:dropMarker.longitude})
+                  // props.navigation.navigate('Message')
+                  }
                 }
               >
                 <Image
@@ -77,6 +98,8 @@ export default function MapScreen({ screenProps }) {
                 }}
                 key={i}
                 onPress={() =>
+                  //todo modal or redirect to drop post
+                  // withNavigation
                   console.log(
                     `You are at latitude ${message.latitude} and longitude ${message.longitude}`,
                   )

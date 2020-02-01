@@ -9,6 +9,10 @@ import * as Location from 'expo-location';
 
 import AppNavigator from './navigation/AppNavigator';
 import MessageItem from './components/MessageItem';
+import { useScreens } from 'react-native-screens';
+
+useScreens();
+
 
 export default function App(props) {
   // console.log(props);

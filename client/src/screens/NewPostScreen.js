@@ -1,17 +1,44 @@
-import React, { useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, ScrollView, StyleSheet, us } from 'react-native';
 import { Button, Title, TextInput, Switch, Divider } from 'react-native-paper';
 import { postMessageHelper } from '../Helper';
+import { useNavigation, useNavigationParam, useFocusEffect } from 'react-navigation-hooks'
+// import { useFocusEffect } from '@react-navigation/native';
+
+
 
 export default function NewPostScreen({ screenProps }) {
+  
+  const [longitude, setLongitude] = useState(0);
+  const [latitude, setLatitude] = useState(0);
+  
+  let longitudeParam = useNavigationParam('longitude');
+  let latitudeParam = useNavigationParam('latitude');
+  console.log('paul this is the thing', longitudeParam)
+  const [otherLocation, setOtherLocation] = useState(false);
+
+  if(longitudeParam){
+    setOtherLocation(true);
+  } 
+
   const username = screenProps.username;
-  const {longitude, latitude} = screenProps.location.coords;
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
   const [anon, setAnon] = useState(false);
   const [global, setGlobal] = useState(false);
   const [comments, setComments] = useState(true);
+  // useFocusEffect(useCallback(() => {
+  //   console.log(longitudeParam)
+  //   //component did mount
+  //   console.debug("screen takes focus");
+  //   //component did unmount
+  //   return () => {
+  //     longitudeParam = null;
+  //     latitudeParam = null;
+  //     // setOtherLocation(false);
+  //     console.debug("screen loses focus")};
+  // }, []));
 
   const clearFields = () => {
     setTitle('');
@@ -20,12 +47,20 @@ export default function NewPostScreen({ screenProps }) {
   };
 
   const postMessage = () => {
-    console.log(global, "globla")
+    console.log(global, "global")
     let postInput = {title, message, anon, global, comments};
     let userId = 1;
     //todo hardcoded, fix after create profile screen
-    
-    postMessageHelper(postInput, {longitude, latitude}, userId)
+    const { latitude, longitude } = screenProps.location.coords;
+    let toPass = {
+      longitude,
+      latitude
+    }
+    if (otherLocation){
+      toPass.longitude = longitudeParam
+      toPass.latitude = latitudeParam
+    }
+    postMessageHelper(postInput, toPass, userId)
     .then((res)=>{
       // console.log(res, 'message posted successfully')
     })
@@ -48,7 +83,7 @@ export default function NewPostScreen({ screenProps }) {
           onChangeText={title => setTitle(title)}
         />
         <TextInput
-          label='Current Location'
+          label={otherLocation ? 'Clicked Location':'Current Location'}
           placeholder='location'
           mode='outlined'
           value={location}
