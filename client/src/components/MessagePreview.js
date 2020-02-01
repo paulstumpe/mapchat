@@ -1,40 +1,70 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { Avatar, Card, Divider, Paragraph } from 'react-native-paper';
+import { Avatar, Card } from 'react-native-paper';
+import Modal from 'react-native-modal';
+import MessageItem from '../components/MessageItem';
+import Profile from '../components/Profile';
 
-const MessagePreview = ({ messages }) =>
-  messages &&
-  messages.map((message, i) => {
-    return (
-      <Card style={styles.container} key={i}>
-        <Card.Title
-          title={message.title}
-          subtitle={message.user ? message.user.username : ""}
-          left={() => <Avatar.Text size={36} label={message.user ? message.user.username[0] : ""} />}
-        />
-        <Divider />
-        <Card.Content style={message.post_local ? { paddingTop: 10, backgroundColor: "blue" } : { paddingTop: 10, backgroundColor: "brown" } }>
-          <Paragraph>{message.text}</Paragraph>
-        </Card.Content>
-        <Divider />
-      </Card>
-    );
-  });
+const MessagePreview = ({ messages }) => {
+  const [profileModal, toggleProfileModal] = useState(false);
+
+  return (
+    messages &&
+    messages.map((message, i) => {
+      console.log(message);
+      return (
+        <Card
+          style={message.post_local ? styles.local : styles.global}
+          onPress={() => toggleProfileModal(true)}
+          key={i}
+        >
+          <Card.Title
+            title={message.title}
+            subtitle={message.user ? message.user.username : message.username}
+            left={() => (
+              <Avatar.Text
+                style={styles.avatar}
+                color='#2B4162'
+                size={48}
+                label={
+                  message.user ? message.user.username[0] : message.username[0]
+                }
+              />
+            )}
+          />
+          <MessageItem post={message} />
+          <Modal
+            isVisible={profileModal}
+            onBackButtonPress={() => toggleProfileModal(false)}
+          >
+            <Profile toggleProfileModal={toggleProfileModal} />
+          </Modal>
+        </Card>
+      );
+    })
+  );
+};
 
 MessagePreview.navigationOptions = {
   title: 'title',
 };
 
 const styles = StyleSheet.create({
-  container: {
+  local: {
+    borderRadius: 10,
     padding: 10,
     paddingBottom: 10,
-    backgroundColor: '#fff',
+    margin: 3,
+    backgroundColor: '#D7B377',
   },
-  name: {
-    fontWeight: 'bold',
-    color: 'blue',
+  global: {
+    borderRadius: 10,
+    padding: 10,
+    paddingBottom: 10,
+    margin: 3,
+    backgroundColor: '#385F71',
   },
+  avatar: { backgroundColor: '#F5F0F6' },
 });
 
 export default MessagePreview;
