@@ -10,7 +10,7 @@ import { Button, Title, TextInput, Switch, Divider } from 'react-native-paper';
 import { postUser } from '../Helper';
 
 export default function UserProfileScreen({ screenProps }) {
-  console.log(screenProps, 'user profile');
+  // console.log(screenProps, 'user profile');
   const username = screenProps.username;
   const [newUsername, setNewUsername] = useState('');
   const [nameFirst, setNameFirst] = useState('');
@@ -34,16 +34,17 @@ export default function UserProfileScreen({ screenProps }) {
   const saveChanges = () => {
     const user = {
       username: newUsername,
-        name_first: nameFirst,
-        name_last: nameLast,
-        password: password,
-        email: email,
-        bio: bio,
-        status: status,
-        public: profilePrivate,}
-    postUser(user).then(({data})=>{
+      name_first: nameFirst,
+      name_last: nameLast,
+      password: password,
+      email: email,
+      bio: bio,
+      status: status,
+      public: profilePrivate,
+    };
+    postUser(user).then(({ data }) => {
       console.log(data);
-    })
+    });
     console.log(
       `User - ${newUsername}, Name - ${nameFirst} ${nameLast}, Email - ${email}, Status - ${status}, Bio - ${bio}, Password - ${password}`,
     );
