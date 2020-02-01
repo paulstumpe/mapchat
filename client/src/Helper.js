@@ -46,6 +46,20 @@ export const postUser = userInput => {
   };
   return axios.post(`http://${localIP}:8080/users`, body);
 };
+export const updateUser = userInput => {
+  let body = {
+    username: userInput.username,
+    name_first: userInput.name_first,
+    name_last: userInput.name_last,
+    password: userInput.password,
+    email: userInput.email,
+    bio: userInput.bio,
+    status: userInput.status,
+    public: userInput.public,
+    id: userInput.id
+  };
+  return axios.patch(`http://${localIP}:8080/users`, body);
+};
 
 export const postComment = commentInput => {
   const body = {

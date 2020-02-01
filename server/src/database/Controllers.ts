@@ -112,7 +112,7 @@ const createUser = (userValues:any)=>{
 const getUser = (userValues: any) => {
   let user = new Users();
   Object.assign(user, userValues);
-  return entityManager.find(Users, user);
+  return entityManager.findOneOrFail(Users, user);
 }
 
 const createLocationOrFindLocation = (locationValues:any)=>{

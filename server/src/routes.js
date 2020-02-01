@@ -92,7 +92,8 @@ apiRouter.post('/users',(req, res)=>{
   for (let key in req.body) {
     user[key] = req.body[key];
   }
-  createUser(user)
+  getUser(user)
+  .catch(()=>{return createUser(user)})
   .then(user => {
     console.log(user)
     res.status = 200;
@@ -102,6 +103,30 @@ apiRouter.post('/users',(req, res)=>{
     console.log(err)
     res.status = 404;
     res.send()
+  })
+})
+
+apiRouter.patch('/users', (req, res)=>{
+  console.log(req.body)
+  let user = {};
+  user.id = req.body.id
+  getUser(user)
+  .then((userToUpdate)=>{
+    for (let key in req.body) {
+      userToUpdate[key] = req.body[key];
+    }
+    return createUser(userToUpdate)
+  })
+  .then((userFinished)=>{
+    console.log(req.body)
+    console.log(userFinished)
+    res.status = 200;
+    res.send(userFinished)
+  })
+  .catch((err)=>{
+    console.log(err)
+    res.status = 404;
+    res.send();
   })
 })
 
