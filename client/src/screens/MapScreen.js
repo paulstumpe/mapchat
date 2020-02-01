@@ -11,12 +11,17 @@ import {
 } from 'react-native';
 import PreviewList from '../components/PreviewList';
 import { getAll } from '../Helper';
-import { useNavigation, useNavigationParam, useFocusEffect } from 'react-navigation-hooks'
+import {
+  useNavigation,
+  useNavigationParam,
+  useFocusEffect,
+} from 'react-navigation-hooks';
+
 export default function MapScreen({ screenProps }) {
   const { navigate } = useNavigation();
-
   const [messages, setMessages] = useState([]);
-  useEffect(()=>{
+
+  useEffect(() => {
     getAll()
       .then(({ data }) => {
         // console.log(data);
@@ -25,26 +30,28 @@ export default function MapScreen({ screenProps }) {
           message.latitude = parseFloat(message.coordinate.lat);
           return message;
         });
-        console.log(allMessages)
+        console.log(allMessages);
         setMessages(allMessages);
       })
       .catch(err => console.log(err));
-  },[])
-  useFocusEffect(useCallback(()=>{
-    getAll()
-      .then(({ data }) => {
-        console.log(data);
-        const allMessages = data.map(message => {
-          message.longitude = parseFloat(message.coordinate.long);
-          message.latitude = parseFloat(message.coordinate.lat);
-          return message;
-        });
-        console.log(allMessages)
-        setMessages(allMessages);
-      })
-      .catch(err => console.log(err));
-  },[]))
-  
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      getAll()
+        .then(({ data }) => {
+          console.log(data);
+          const allMessages = data.map(message => {
+            message.longitude = parseFloat(message.coordinate.long);
+            message.latitude = parseFloat(message.coordinate.lat);
+            return message;
+          });
+          console.log(allMessages);
+          setMessages(allMessages);
+        })
+        .catch(err => console.log(err));
+    }, []),
+  );
 
   const { latitude, longitude } = screenProps.location.coords;
   const region = {
@@ -53,8 +60,8 @@ export default function MapScreen({ screenProps }) {
     latitudeDelta: 0.001,
     longitudeDelta: 0.001,
   };
-
   const [dropMarker, setDropMarker] = useState({});
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -73,16 +80,18 @@ export default function MapScreen({ screenProps }) {
                   longitude: dropMarker.longitude,
                 }}
                 key={dropMarker.key}
-                onPress={() =>{
+                onPress={() => {
                   console.log(
                     `Leave a message at latitude ${dropMarker.latitude} and longitude ${dropMarker.longitude}?`,
-                  )
+                  );
                   console.log(this);
                   screenProps.otherLocationObj.setOtherLocation(true);
-                  navigate("NewPost", {latitude:dropMarker.latitude, longitude:dropMarker.longitude})
+                  navigate('NewPost', {
+                    latitude: dropMarker.latitude,
+                    longitude: dropMarker.longitude,
+                  });
                   // props.navigation.navigate('Message')
-                  }
-                }
+                }}
               >
                 <Image
                   source={require('../assets/images/message.png')}
@@ -109,11 +118,9 @@ export default function MapScreen({ screenProps }) {
             );
           })}
         </MapView>
-        {/* <SlidingUpPanel> */}
         <Overlay style={{ flex: 1, top: 500 }}>
           <PreviewList />
         </Overlay>
-        {/* </SlidingUpPanel> */}
       </ScrollView>
     </SafeAreaView>
   );
