@@ -8,8 +8,12 @@ import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import * as Google from "expo-google-app-auth";
 import axios from 'axios';
+import { postUser } from './Helper'
 
 import AppNavigator from './navigation/AppNavigator';
+import { useScreens } from 'react-native-screens';
+
+useScreens();
 // import MessageItem from './components/MessageItem';
 
 
@@ -20,6 +24,7 @@ export default function App(props) {
   const [location, setLocation] = useState('');
   const [username, setUsername] = useState('');
   const [googleId, setGoogleId] = useState('');
+  const [user, setUser] = useState({});
   
   //Authentication  
   const signIn = async () => {
@@ -32,9 +37,24 @@ export default function App(props) {
           console.log(result, 'line 33');
           setSignIn("true");
           setUsername(result.user.name);
-          setPhotoUrl(result.user.photoUrl)
+          // setPhotoUrl(result.user.photoUrl)
           setGoogleId(result.user.id)
           console.log(username, googleId, signIn, '<==== state set!r')
+          const userObj = {
+            username: "",
+            name_first: "",
+            name_last: "",
+            password: "",
+            email: "",
+            bio: "",
+            status: "",
+            public: true,
+          }
+          postUser(userObj)
+          .then(({data})=>{
+            setUser(data);
+            console.log(data, 'success saving user')})
+          .catch((err)=>{console.log(err, 'error saving user')})
           // axios.post()
         } else {
           console.log("cancelled")
@@ -54,13 +74,15 @@ export default function App(props) {
     }
     
     
-    const screenProps = { location, username };
-    
-    if (!username) {
-      setUsername('Philip J. Fry');
-    }
-    
-    console.log(username, 'line 67');
+  const [otherLocation, setOtherLocation] = useState('');
+  const otherLocationObj = { otherLocation, setOtherLocation };
+  const screenProps = { location, username, otherLocationObj, user };
+
+  if (!username) {
+    setUsername('Philip J. Fry');
+  }
+  // console.log(username);
+  console.log(username, 'line 67');
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (

@@ -56,6 +56,7 @@ apiRouter.post('/messages',(req, res)=>{
     post_anonymous : post_anonymous,
   };
   console.log('this is the text', req.body)
+  console.log('this is coordinate', coordinate);
   createPost(post, coordinate, user)
   .then(post=>{
     res.send(post);
@@ -74,8 +75,10 @@ apiRouter.get('/users',(req, res)=>{
   }
   getUser(user)
   .then(user => {
+    console.log(user)
     res.status = 200;
     res.send(user);
+    
   })
   .catch(err => {
     console.log(err)
@@ -91,6 +94,7 @@ apiRouter.post('/users',(req, res)=>{
   }
   createUser(user)
   .then(user => {
+    console.log(user)
     res.status = 200;
     res.send(user);
   })

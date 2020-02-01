@@ -11,6 +11,7 @@ import MapScreen from '../screens/MapScreen';
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
+
 });
 
 const UserProfileStack = createStackNavigator(
@@ -57,7 +58,9 @@ ListStack.path = '';
 
 const NewPostStack = createStackNavigator(
   {
-    NewPost: NewPostScreen,
+    NewPost: { screen: NewPostScreen, 
+      params:{longitude: null, latitude: null}
+    },
   },
   config,
 );
