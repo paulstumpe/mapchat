@@ -2,20 +2,26 @@ import Expo, { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState, useEffect } from 'react';
-import { Platform, StatusBar, StyleSheet, View, Text, Image, Button } from 'react-native';
+import {
+  Platform,
+  StatusBar,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Button,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
-import * as Google from "expo-google-app-auth";
+import * as Google from 'expo-google-app-auth';
 import axios from 'axios';
-import { postUser } from './Helper'
+import { postUser } from './Helper';
 
 import AppNavigator from './navigation/AppNavigator';
 import { useScreens } from 'react-native-screens';
 
 useScreens();
-// import MessageItem from './components/MessageItem';
-
 
 export default function App(props) {
   // console.log(props);
@@ -25,64 +31,63 @@ export default function App(props) {
   const [username, setUsername] = useState('');
   const [googleId, setGoogleId] = useState('');
   const [user, setUser] = useState({});
-  
-  //Authentication  
-  const signIn = async () => {
-      try {
-        const result = await Google.logInAsync({
-          androidClientId: "431692420645-mjhsg582ie1jq8d2hlvguccm4hlsgckj.apps.googleusercontent.com",
-          scopes: ["profile", "email"]
-        })
-        if (result.type === "success") {
-          console.log(result, 'line 33');
-          setSignIn("true");
-          setUsername(result.user.name);
-          // setPhotoUrl(result.user.photoUrl)
-          setGoogleId(result.user.id)
-          console.log(username, googleId, signIn, '<==== state set!r')
-          const userObj = {
-            username: "",
-            name_first: "",
-            name_last: "",
-            password: "",
-            email: "",
-            bio: "",
-            status: "",
-            public: true,
-          }
-          postUser(userObj)
-          .then(({data})=>{
-            setUser(data);
-            console.log(data, 'success saving user')})
-          .catch((err)=>{console.log(err, 'error saving user')})
-          // axios.post()
-        } else {
-          console.log("cancelled")
-        }
-      } catch (e) {
-        console.log("error", e)
-      }
 
-      return ( 
-        <View style = {styles.container}> {signedIn ? ( 
-          <LoggedInPage name = {name} photoUrl = {photoUrl}/>
-          ) : ( 
-          <LoginPage signIn = {signIn}/>
-          )
-        } </View>
-      )
+  //Authentication
+  const signIn = async () => {
+    try {
+      const result = await Google.logInAsync({
+        androidClientId:
+          '431692420645-mjhsg582ie1jq8d2hlvguccm4hlsgckj.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      });
+      if (result.type === 'success') {
+        console.log(result, 'line 33');
+        setSignIn('true');
+        setUsername(result.user.name);
+        // setPhotoUrl(result.user.photoUrl)
+        setGoogleId(result.user.id);
+        console.log(username, googleId, signIn, '<==== state set!r');
+        const userObj = {
+          username: 'Marc West',
+          name_first: 'Marc',
+          name_last: 'West',
+          password: '',
+          email: 'marcdwest@gmail.com',
+          bio: 'yes',
+          status: 'here',
+          public: true,
+        };
+        postUser(userObj)
+          .then(({ data }) => {
+            setUser(data);
+            console.log(data, 'success saving user');
+          })
+          .catch(err => {
+            console.log(err, 'error saving user');
+          });
+        // axios.post()
+      } else {
+        console.log('cancelled');
+      }
+    } catch (e) {
+      console.log('error', e);
     }
-    
-    
+
+    return (
+      <View style={styles.container}>
+        {' '}
+        {signedIn ? (
+          <LoggedInPage name={name} photoUrl={photoUrl} />
+        ) : (
+          <LoginPage signIn={signIn} />
+        )}{' '}
+      </View>
+    );
+  };
+
   const [otherLocation, setOtherLocation] = useState('');
   const otherLocationObj = { otherLocation, setOtherLocation };
   const screenProps = { location, username, otherLocationObj, user };
-
-  if (!username) {
-    setUsername('Philip J. Fry');
-  }
-  // console.log(username);
-  console.log(username, 'line 67');
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -90,10 +95,10 @@ export default function App(props) {
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
         onFinish={() => {
-          getLocationAsync().then(currentLocation =>
-            setLocation(currentLocation)
-          ).then(signIn());
-          console.log('this works')
+          getLocationAsync()
+            .then(currentLocation => setLocation(currentLocation))
+            .then(signIn());
+          console.log('this works');
           return handleFinishLoading(setLoadingComplete);
         }}
       />
@@ -112,19 +117,19 @@ const LoginPage = props => {
   return (
     <View>
       <Text style={styles.header}>Sign In With Google</Text>
-      <Button title="Sign in with Google" onPress={() => props.signIn()} />
+      <Button title='Sign in with Google' onPress={() => props.signIn()} />
     </View>
-  )
-}
+  );
+};
 
 const LoggedInPage = props => {
-  return ( 
-    <View style = {styles.container} >
-      <Text style = {styles.header} > Welcome: {props.name} </Text> 
-      <Image style = {styles.image} source = {{ uri: props.photoUrl}}/> 
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}> Welcome: {props.name} </Text>
+      <Image style={styles.image} source={{ uri: props.photoUrl }} />
     </View>
-  )
-}
+  );
+};
 
 async function getLocationAsync() {
   // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
