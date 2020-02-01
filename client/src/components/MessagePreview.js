@@ -6,29 +6,31 @@ import MessageItem from '../components/MessageItem';
 import Profile from '../components/Profile';
 
 const MessagePreview = ({ messages }) => {
+  // console.log(messages, 'message preview 9');
   const [profileModal, toggleProfileModal] = useState(false);
 
   return (
     messages &&
     messages.map((message, i) => {
-      console.log(message);
+      const { post_local, post_public, title, text, user } = message;
+      const { name_first, name_last, username } = user;
+      const initials = name_first[0] + name_last[0];
+
       return (
         <Card
-          style={message.post_local ? styles.local : styles.global}
+          style={post_local ? styles.local : styles.global}
           onPress={() => toggleProfileModal(true)}
           key={i}
         >
           <Card.Title
-            title={message.title}
-            subtitle={message.user ? message.user.username : message.username}
+            title={title}
+            subtitle={username}
             left={() => (
               <Avatar.Text
                 style={styles.avatar}
                 color='#2B4162'
                 size={48}
-                label={
-                  message.user ? message.user.username[0] : message.username[0]
-                }
+                label={initials}
               />
             )}
           />

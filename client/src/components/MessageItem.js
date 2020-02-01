@@ -19,19 +19,7 @@ import {
 import Modal from 'react-native-modal';
 import { getOne } from '../Helper';
 
-const message = {
-  title: 'Delivery',
-  text: 'Pizza delivery for I.C. Weiner',
-};
-
-const comments = [
-  { username: 'Bender', text: 'Bite my shiny metal ass' },
-  { username: 'Professor', text: 'Good news everyone' },
-  { username: 'Leela', text: `That isn't a real name, Fry` },
-];
-
 const MessageItem = ({ post }) => {
-  console.log(post, 'message item 32');
   const [messageModal, toggleMessageModal] = useState(false);
   const [comment, setComment] = useState('');
   const [message, setMessage] = useState({});
@@ -50,6 +38,9 @@ const MessageItem = ({ post }) => {
     });
   }, []);
 
+  const { username, title, text, name_first, name_last } = post.user;
+  const initials = name_first[0] + name_last[0];
+
   return (
     <Card style={styles.container} title='Show messageModal'>
       <Text onPress={() => toggleMessageModal(true)} style={{ marginTop: -10 }}>
@@ -63,12 +54,12 @@ const MessageItem = ({ post }) => {
           <KeyboardAvoidingView behavior='position' enabled>
             <Card>
               <Card.Title
-                title={post.username}
-                subtitle={post.title}
-                left={() => <Avatar.Text size={48} label={post.username[0]} />}
+                title={username}
+                subtitle={title}
+                left={() => <Avatar.Text size={48} label={initials} />}
               />
               <Divider />
-              <Paragraph style={{ padding: 18 }}>{post.text}</Paragraph>
+              <Paragraph style={{ padding: 18 }}>{text}</Paragraph>
             </Card>
             {comments &&
               comments.map((comment, i) => {
@@ -119,10 +110,6 @@ const MessageItem = ({ post }) => {
       </Modal>
     </Card>
   );
-};
-
-MessageItem.navigationOptions = {
-  title: message.title,
 };
 
 const styles = StyleSheet.create({

@@ -10,7 +10,7 @@ import { Button, Title, TextInput, Switch, Divider } from 'react-native-paper';
 import { updateUser } from '../Helper';
 
 export default function UserProfileScreen({ screenProps }) {
-  console.log(screenProps, 'user profile');
+  // console.log(screenProps, 'user profile');
   const username = screenProps.username;
   const [newUsername, setNewUsername] = useState('');
   const [nameFirst, setNameFirst] = useState('');
