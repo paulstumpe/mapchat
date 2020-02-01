@@ -1,27 +1,67 @@
-import { AppLoading } from 'expo';
+import Expo, { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import React, { useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Platform, StatusBar, StyleSheet, View, Text, Image, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
+import * as Google from "expo-google-app-auth";
+import axios from 'axios';
+// import androidClientId from './'
 
 import AppNavigator from './navigation/AppNavigator';
-import MessageItem from './components/MessageItem';
+// import MessageItem from './components/MessageItem';
+
 
 export default function App(props) {
   // console.log(props);
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+  const [signedIn, setSignIn] = useState(false);
   const [location, setLocation] = useState('');
   const [username, setUsername] = useState('');
+  const [googleId, setGoogleId] = useState('');
+  
+  //Authentication  
+    signIn = async () => {
+      try {
+        const result = await Google.logInAsync({
+          androidClientId: "431692420645-mjhsg582ie1jq8d2hlvguccm4hlsgckj.apps.googleusercontent.com",
+          scopes: ["profile", "email"]
+        })
+        if (result.type === "success") {
+          console.log(result);
+          // setSignIn("true");
+          // setUsername(result.user.name);
+          // setPhotoUrl(result.user.photoUrl)
+          // setGoogleId(result.user.id)
+        } else {
+          console.log("cancelled")
+        }
+      // } catch (e) {
+      //   console.log("error", e)
+      // }
+        render(); {
+          return ( 
+            <View style = {styles.container}> {this.state.signedIn ? ( 
+              <LoggedInPage name = {this.state.name} photoUrl = {this.state.photoUrl}/>
+              ) : ( 
+              <LoginPage signIn = {
+                this.signIn}/>
+              )
+            } </View>
+          )
+        }
+    }
 
   const screenProps = { location, username };
-
+  
+  // This is a dummy username. Get rid of it in a bit
   if (!username) {
     setUsername('Philip J. Fry');
   }
-  // console.log(username);
+
+  console.log(username);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -44,6 +84,24 @@ export default function App(props) {
       </View>
     );
   }
+}
+
+const LoginPage = props => {
+  return (
+    <View>
+      <Text style={styles.header}>Sign In With Google</Text>
+      <Button title="Sign in with Google" onPress={() => props.signIn()} />
+    </View>
+  )
+}
+
+const LoggedInPage = props => {
+  return ( 
+    <View style = {styles.container} >
+      <Text style = {styles.header} > Welcome: {props.name} </Text> 
+      {/* <Image style = {styles.image} source = {{ uri: props.photoUrl}}/>  */}
+    </View>
+  )
 }
 
 async function getLocationAsync() {
