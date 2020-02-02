@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
   modal: {
     justifyContent: 'flex-end',
     marginTop: 400,
+    paddingBottom: 32,
   },
   button: {
     backgroundColor: '#DDDDDD',
