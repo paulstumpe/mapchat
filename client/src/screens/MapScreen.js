@@ -1,25 +1,25 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import MapView, { Marker, View, Overlay } from 'react-native-maps';
-import { withNavigation } from 'react-navigation';
+import MapView, { Marker } from 'react-native-maps';
+import { useNavigation, useFocusEffect } from 'react-navigation-hooks';
 import {
   StyleSheet,
-  Text,
   ScrollView,
   Dimensions,
   Image,
+  Text,
   SafeAreaView,
+  TouchableOpacity,
+  Overlay,
 } from 'react-native';
-import PreviewList from '../components/PreviewList';
+import Modal from 'react-native-modal';
 import { getAll } from '../Helper';
-import {
-  useNavigation,
-  useNavigationParam,
-  useFocusEffect,
-} from 'react-navigation-hooks';
+import PreviewList from '../components/PreviewList';
 
 export default function MapScreen({ screenProps }) {
   const { navigate } = useNavigation();
   const [messages, setMessages] = useState([]);
+
+  const [displayMessagesModal, toggleDisplayMessagesModal] = useState(true);
 
   useEffect(() => {
     getAll()
@@ -60,6 +60,7 @@ export default function MapScreen({ screenProps }) {
     latitudeDelta: 0.001,
     longitudeDelta: 0.001,
   };
+
   const [dropMarker, setDropMarker] = useState({});
 
   return (
@@ -111,17 +112,33 @@ export default function MapScreen({ screenProps }) {
                   //todo modal or redirect to drop post
                   // withNavigation
                   console.log(
-                    `You are at latitude ${message.latitude} and longitude ${message.longitude}`,
+                    `You're at latitude ${message.latitude} & longitude ${message.longitude}`,
                   )
                 }
               />
             );
           })}
         </MapView>
-        <Overlay style={{ flex: 1, top: 500 }}>
+        <Modal
+          isVisible={displayMessagesModal}
+          coverScreen={true}
+          scrollOffsetMax={400 - 300}
+          backdropOpacity={0}
+          onBackdropPress={() => toggleDisplayMessagesModal(false)}
+          style={styles.modal}
+        >
           <PreviewList />
-        </Overlay>
+        </Modal>
       </ScrollView>
+      {!displayMessagesModal && (
+        <Text
+          style={styles.button}
+          onPress={() => toggleDisplayMessagesModal(true)}
+        >
+          {' '}
+          Display Messages{' '}
+        </Text>
+      )}
     </SafeAreaView>
   );
 }
@@ -136,5 +153,15 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+  },
+  modal: {
+    justifyContent: 'flex-end',
+    marginTop: 400,
+    paddingBottom: 32,
+  },
+  button: {
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    borderRadius: 10,
   },
 });
