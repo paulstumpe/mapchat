@@ -19,9 +19,9 @@ import axios from 'axios';
 import { postUser } from './Helper';
 
 import AppNavigator from './navigation/AppNavigator';
-import { useScreens } from 'react-native-screens';
+import { enableScreens } from 'react-native-screens';
 
-useScreens();
+enableScreens();
 
 export default function App(props) {
   // console.log(props);
@@ -129,7 +129,6 @@ const LoggedInPage = props => {
 };
 
 async function getLocationAsync() {
-  // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
   const { status, permissions } = await Permissions.askAsync(
     Permissions.LOCATION,
   );
