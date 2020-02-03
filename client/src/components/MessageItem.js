@@ -26,7 +26,7 @@ const MessageItem = ({ post }) => {
   const [comments, setComments] = useState([]);
 
   const postComment = () => {
-    console.log(comment);
+    console.log(comment, 'postComment MessageItem.js');
     setComment('');
   };
 

@@ -31,7 +31,7 @@ const createPost = (postValues:object, locationValues:object, userValues:object)
         return x;
       })
       .catch(x => {
-        console.log('error on making post');
+        console.log(x, 'error on making post, createPost Else statement controller.ts');
       })
   }
 }
@@ -44,7 +44,7 @@ const getPost = (postValues:object)=>{
 }
 const getAllPosts = ()=>{
   return entityManager.find(Posts, { relations: ["coordinate"] })
-.catch(x=>console.log(x))
+    .catch(x => console.log(x, "getAllPosts Catch controllers.ts"))
 }
 
 const getAllPostsInRadius = (location:Locations, radius:number)=>{
@@ -59,13 +59,12 @@ const getAllPostsInRadius = (location:Locations, radius:number)=>{
 }
 const createComment = (commentValues:any, postId:(number), userId:(number))=>{
   let comment = new Comments();
-  console.log(commentValues)
+  console.log(commentValues, "createComment controolers.ts")
   Object.assign(comment, commentValues);
   let post = new Posts()
   let userL = new Users();
   return getPost({id:postId})
   .then((post:any)=>{
-    // console.log(post)
     comment.post = post;
     // return entityManager.save(Comments, comment);
     return getUser({id:userId})
@@ -74,7 +73,7 @@ const createComment = (commentValues:any, postId:(number), userId:(number))=>{
     // comment.user = user;
     userL.id = userId;
     comment.user = userL
-    console.log(userL)
+    console.log(userL, "createComment then statement controllers.ts")
     return entityManager.save(comment);
   })
 
@@ -112,7 +111,7 @@ const createUser = (userValues:any)=>{
 const getUser = (userValues: any) => {
   let user = new Users();
   Object.assign(user, userValues);
-  return entityManager.find(Users, user);
+  return entityManager.findOneOrFail(Users, user);
 }
 
 const createLocationOrFindLocation = (locationValues:any)=>{
@@ -134,7 +133,7 @@ const getLocation = (locationValues:any)=>{
   Object.assign(location, locationValues);
   const entityManager = getManager();
   return entityManager.findOne(Locations, location)
-  .then(x=>console.log(x, "HEREEEEEEEEEE"))
+  .then(x=>console.log(x, "getLocation controllers.ts"))
 }
 
 export {

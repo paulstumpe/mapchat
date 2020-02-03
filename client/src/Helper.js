@@ -1,6 +1,6 @@
 import * as axios from 'axios';
-const localIP = '172.24.12.151'; //Paul
-// const localIP = '10.0.0.28.';
+// const localIP = '172.24.12.151'; //Paul
+const localIP = '10.0.0.28.';
 
 // const localIP = '172.24.13.238'; // Marc
 
@@ -13,7 +13,6 @@ export const getOne = postProperties => {
 };
 
 export const postMessageHelper = (postInput, location, userId) => {
-  console.log(postInput.global);
   let body = {
     title: postInput.title,
     text: postInput.message,
@@ -45,6 +44,20 @@ export const postUser = userInput => {
     public: userInput.public,
   };
   return axios.post(`http://${localIP}:8080/users`, body);
+};
+export const updateUser = userInput => {
+  let body = {
+    username: userInput.username,
+    name_first: userInput.name_first,
+    name_last: userInput.name_last,
+    password: userInput.password,
+    email: userInput.email,
+    bio: userInput.bio,
+    status: userInput.status,
+    public: userInput.public,
+    id: userInput.id
+  };
+  return axios.patch(`http://${localIP}:8080/users`, body);
 };
 
 export const postComment = commentInput => {

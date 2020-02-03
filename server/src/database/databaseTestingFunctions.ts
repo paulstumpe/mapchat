@@ -15,6 +15,7 @@ import {
   removeLike,
   createUser,
   createComment,
+  getUser,
 } from "./Controllers"
 const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
 const entityManager = getManager(); // you can also get it via getConnection().manager
@@ -34,9 +35,9 @@ setTimeout(() => {
   // location.long = 0.0;
   // location.lat = 0.0;
   // createPost(post, location, {id:1})
-  const comment = new Comments();
-  comment.text = "lolol";
-  //make comment
+  // const comment = new Comments();
+  // comment.text = "lolol";
+  // //make comment
   // const user = new Users();
   // user.bio = "bio"
   // user.email = "email";
@@ -45,8 +46,17 @@ setTimeout(() => {
   // user.password = 'lala'
   // user.public = true;
   // user.status = "status";
-  // user.username = 'jerkey2';
+  // user.username = 'jerkey4';
   // createUser(user);
+  // getUser(user).then(data=>{console.log(data)}).catch(data=>{console.log(data)})
+  // getUser(user)
+  //   .catch(() => { return createUser(user) })
+  //   .then(user => {
+  //     console.log(user)
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //   })
   // createComment(comment, 1,1).then().catch(x=>console.error(x))
   // removeLike(1,1).then(x=>console.log(x)).catch(x=>console.log(x))
   // getAllPosts().then((posts: any) => console.log(posts[0].user));

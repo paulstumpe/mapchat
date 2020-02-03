@@ -20,7 +20,7 @@ export default function NewPostScreen({ screenProps, navigation} ) {
   //   setOtherLocation(true);
   // }
   const buttonPress = ()=>{
-      console.log('buttonpressed')
+      console.log('buttonpressed newpostScreen.js')
       screenProps.otherLocationObj.setOtherLocation(false);
   }
   useFocusEffect(useCallback(() => {
@@ -52,7 +52,7 @@ export default function NewPostScreen({ screenProps, navigation} ) {
     }
     postMessageHelper(postInput, toPass, screenProps.user.id)
     .then((res)=>{
-      console.log(res, 'message posted successfully')
+      console.log(res, 'message posted successfully PostMessageHelper newPostScreenJS')
     })
     console.log(
       `User - ${username}, Title - ${title}, Location - ${location}, Message - ${message}`,
