@@ -17,8 +17,9 @@ const Profile = props => {
   const { toggleProfileModal } = props;
 
   const addUser = () => {
+    //todo
     toggleProfileModal(false);
-    console.log(`sent friend request to ${user.username}`);
+    console.log(`sent friend request to ${user.username}. ProifleJS addUser`);
   };
 
   return (

@@ -37,32 +37,30 @@ export default function MapScreen({ screenProps }) {
   useEffect(() => {
     getAll()
       .then(({ data }) => {
-        // console.log(data);
         const allMessages = data.map(message => {
           message.longitude = parseFloat(message.coordinate.long);
           message.latitude = parseFloat(message.coordinate.lat);
           return message;
         });
-        console.log(allMessages);
+        console.log(allMessages, "all messages useEffect mapScreen.js");
         setMessages(allMessages);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err, "useEffect getAll"));
   }, []);
 
   useFocusEffect(
     useCallback(() => {
       getAll()
         .then(({ data }) => {
-          console.log(data);
           const allMessages = data.map(message => {
             message.longitude = parseFloat(message.coordinate.long);
             message.latitude = parseFloat(message.coordinate.lat);
             return message;
           });
-          console.log(allMessages);
+          console.log(allMessages, "allmessages useFocusEffect MapScreen.js");
           setMessages(allMessages);
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err, "getAll mapScreen useFocusEffect"));
     }, []),
   );
 
@@ -130,7 +128,6 @@ export default function MapScreen({ screenProps }) {
                   console.log(
                     `Leave a message at latitude ${dropMarker.latitude} and longitude ${dropMarker.longitude}?`,
                   );
-                  console.log(this);
                   screenProps.otherLocationObj.setOtherLocation(true);
                   navigate('NewPost', {
                     latitude: dropMarker.latitude,
@@ -179,7 +176,7 @@ export default function MapScreen({ screenProps }) {
                       }
                       //!can make full custom callout if we need it
                       //todo have on press redirect to the post.
-                      console.log('callout pressed');
+                      console.log('callout pressed map js');
                     }}
                     style={styles.customView}
                   ></Callout>     

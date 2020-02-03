@@ -1,6 +1,6 @@
 import * as axios from 'axios';
-const localIP = '172.24.12.151'; //Paul
-// const localIP = '10.0.0.28.';
+// const localIP = '172.24.12.151'; //Paul
+const localIP = '10.0.0.28.';
 
 // const localIP = '172.24.13.238'; // Marc
 
@@ -13,7 +13,6 @@ export const getOne = postProperties => {
 };
 
 export const postMessageHelper = (postInput, location, userId) => {
-  console.log(postInput.global);
   let body = {
     title: postInput.title,
     text: postInput.message,

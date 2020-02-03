@@ -20,25 +20,23 @@ apiRouter.get('/messages/all', (req, res)=>{
     res.send(allPosts);
   })
   .catch(err=>{
-    console.log(err)
+    console.log(err, "Router Get Catch messages/all routs.js")
     res.status(400)
     res.send("error")
   })
 })
 apiRouter.get('/messages', (req, res)=>{
-  console.log(req.body);
   let post = {};
   for (let key in req.body){
     post[key] = req.body[key];
   }
-  console.log(post.length);
   getPost(post).then(post=>{
-    console.log(post);
+    console.log(post, 'get /messages routs.js');
     res.send(post)
   })
   .catch(err=>{
     res.status(400)
-    console.log(err)
+    console.log(err, "get /messages error")
     res.send("error")
   })
 })
@@ -63,7 +61,7 @@ apiRouter.post('/messages',(req, res)=>{
   })
   .catch(err=>{
     res.status(400)
-    console.log(err, 'error')
+    console.log(err, 'error catch in post /messages routes.js')
     res.send("error")
   });
 })
@@ -75,13 +73,13 @@ apiRouter.get('/users',(req, res)=>{
   }
   getUser(user)
   .then(user => {
-    console.log(user)
+    console.log(user, "get /users routes.js")
     res.status = 200;
     res.send(user);
     
   })
   .catch(err => {
-    console.log(err)
+    console.log(err, "err get /users routes.js")
     res.status = 404;
     res.send()
   })
@@ -95,19 +93,19 @@ apiRouter.post('/users',(req, res)=>{
   getUser(user)
   .catch(()=>{return createUser(user)})
   .then(user => {
-    console.log(user)
+    console.log(user, "post /users routes.js")
     res.status = 200;
     res.send(user);
   })
   .catch(err => {
-    console.log(err)
+    console.log(err, "err post /users routes.js")
     res.status = 404;
     res.send()
   })
 })
 
 apiRouter.patch('/users', (req, res)=>{
-  console.log(req.body)
+  console.log(req.body, "incoming patch /users routes.js")
   let user = {};
   user.id = req.body.id
   getUser(user)
@@ -118,13 +116,12 @@ apiRouter.patch('/users', (req, res)=>{
     return createUser(userToUpdate)
   })
   .then((userFinished)=>{
-    console.log(req.body)
-    console.log(userFinished)
+    console.log(userFinished, "patch /users routes.js")
     res.status = 200;
     res.send(userFinished)
   })
   .catch((err)=>{
-    console.log(err)
+    console.log(err, "err patch /users routes.js")
     res.status = 404;
     res.send();
   })
@@ -138,7 +135,7 @@ apiRouter.post('/likes',(req, res) => {
     res.send(like);
   })
   .catch(err=>{
-    console.log(err)
+    console.log(err, "err post likes routes.js")
     res.status = 404;
     res.send('there was an error adding this like')
   })
@@ -151,14 +148,14 @@ apiRouter.delete('/likes',(req, res)=>{
     res.send(like)
   })
   .catch(err=>{
-    console.log(err)
+    console.log(err, "delete /likes routes.js")
     res.status = 404;
     res.send('there was an error adding this like')
   })
 })
 
 apiRouter.post('/comments', (req, res) => {
-  console.log (req.body)
+  console.log (req.body, "post /comments routes.js")
   const {postId, text, userId}= req.body
   let comment = {text: text};
   createComment(comment, postId, userId)
@@ -167,7 +164,7 @@ apiRouter.post('/comments', (req, res) => {
     res.send(comment);
   })
   .catch(err=>{
-    console.log(err)
+    console.log(err, "err get /comments routes.js")
     res.status= 404;
     res.send()
   })
