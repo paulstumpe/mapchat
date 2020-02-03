@@ -1,30 +1,31 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import MapView, { Marker, View, Overlay, Callout } from 'react-native-maps';
-import { Avatar, Card } from 'react-native-paper';
-
-import { withNavigation } from 'react-navigation';
 import {
   StyleSheet,
-  Text,
   ScrollView,
   Dimensions,
   Image,
+  Text,
   SafeAreaView,
-  
+  TouchableOpacity,
+  Overlay,
 } from 'react-native';
 import native from 'react-native'
 const NativeView = native.View;
-import Modal from 'react-native-modal'
-import PreviewList from '../components/PreviewList';
-import { getAll } from '../Helper';
+import MapView, { Marker, View, Overlay, Callout } from 'react-native-maps';
+import { Avatar, Card } from 'react-native-paper';
+import { withNavigation } from 'react-navigation';
+import Modal from 'react-native-modal';
+import { useNavigation, useFocusEffect } from 'react-navigation-hooks';
 import {
   useNavigation,
   useNavigationParam,
   useFocusEffect,
 } from 'react-navigation-hooks';
+import Modal from 'react-native-modal'
+import PreviewList from '../components/PreviewList';
 import MessageItem from '../components/MessageItem';
 import Profile from '../components/Profile';
-
+import { getAll } from '../Helper';
 
 export default function MapScreen({ screenProps }) {
   const { navigate } = useNavigation();
@@ -33,6 +34,8 @@ export default function MapScreen({ screenProps }) {
   const [showModal, setShowModal] = useState(false);
   const [profileModal, toggleProfileModal] = useState(false);
 
+
+  const [displayMessagesModal, toggleDisplayMessagesModal] = useState(true);
 
   useEffect(() => {
     getAll()
@@ -71,6 +74,7 @@ export default function MapScreen({ screenProps }) {
     latitudeDelta: 0.001,
     longitudeDelta: 0.001,
   };
+
   const [dropMarker, setDropMarker] = useState({});
   // if(showModal){
   //   const { post_local, post_public, title, text, user } = clickedMessage;
@@ -184,12 +188,28 @@ export default function MapScreen({ screenProps }) {
               );
           })}
         </MapView>
-        <Overlay style={{ flex: 1, top: 500 }}>
+        <Modal
+          isVisible={displayMessagesModal}
+          coverScreen={true}
+          scrollOffsetMax={400 - 300}
+          backdropOpacity={0}
+          onBackdropPress={() => toggleDisplayMessagesModal(false)}
+          style={styles.modal}
+        >
           <PreviewList />
-        </Overlay>
+        </Modal>
       </ScrollView>
-    </SafeAreaView>)
-  // }
+      {!displayMessagesModal && (
+        <Text
+          style={styles.button}
+          onPress={() => toggleDisplayMessagesModal(true)}
+        >
+          {' '}
+          Display Messages{' '}
+        </Text>
+      )}
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -218,4 +238,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#385F71',
   },
   avatar: { backgroundColor: '#F5F0F6' },
+  modal: {
+    justifyContent: 'flex-end',
+    marginTop: 400,
+    paddingBottom: 32,
+  },
+  button: {
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    borderRadius: 10,
+  },
 });
