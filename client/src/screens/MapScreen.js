@@ -7,21 +7,19 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
-  Overlay,
+  // Overlay,
 } from 'react-native';
 import native from 'react-native'
 const NativeView = native.View;
-import MapView, { Marker, View, Overlay, Callout } from 'react-native-maps';
+import MapView, { Marker, View, Callout } from 'react-native-maps';
 import { Avatar, Card } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import Modal from 'react-native-modal';
-import { useNavigation, useFocusEffect } from 'react-navigation-hooks';
 import {
   useNavigation,
   useNavigationParam,
   useFocusEffect,
 } from 'react-navigation-hooks';
-import Modal from 'react-native-modal'
 import PreviewList from '../components/PreviewList';
 import MessageItem from '../components/MessageItem';
 import Profile from '../components/Profile';
