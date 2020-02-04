@@ -4,23 +4,21 @@ import MessagePreview from '../components/MessagePreview';
 import { getAll } from '../Helper';
 import { useFocusEffect } from 'react-navigation-hooks';
 
-const ListScreen = screenProps => {
+const ListScreen = ({ screenProps }) => {
   const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
+  const [focusedMessageId, setFocusedMessageId] = useState(0);
+  const resetPosts = () => {
     getAll().then(response => {
       const allPosts = response.data;
       setMessages(allPosts);
+      console.log('resetPosts called listscreen.js');
     });
-  }, []);
+  };
 
   useFocusEffect(
     useCallback(() => {
       console.debug('screen takes focus');
-      getAll().then(response => {
-        const allPosts = response.data;
-        setMessages(allPosts);
-      });
+      resetPosts();
       //component did unmount
       return () => {
         console.debug('screen loses focus');
@@ -30,7 +28,14 @@ const ListScreen = screenProps => {
 
   return (
     <ScrollView>
-      <MessagePreview messages={messages} />
+      <MessagePreview
+        messages={messages}
+        screenProps={screenProps}
+        setMessages={setMessages}
+        focusedMessageId={focusedMessageId}
+        setFocusedMessageId={setFocusedMessageId}
+        resetPosts={resetPosts}
+      />
     </ScrollView>
   );
 };

@@ -17,28 +17,42 @@ import {
   TextInput,
 } from 'react-native-paper';
 import Modal from 'react-native-modal';
-import { getOne } from '../Helper';
+import { getOne, postComment, getAll } from '../Helper';
 
-const MessageItem = ({ post }) => {
+const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocusedMessageId, messages, resetPosts }) => {
+  const [isSending, setIsSending] = useState(false)
   const [messageModal, toggleMessageModal] = useState(false);
   const [comment, setComment] = useState('');
-  const [message, setMessage] = useState({});
   const [comments, setComments] = useState([]);
-
-  const postComment = () => {
-    console.log(comment, 'postComment MessageItem.js');
+  const [counter, setCounter] = useState(0);
+  
+  const sendPostComment = () => {
+    //since we're posting a comment, we'll want to add it after we post it
+    const commentData = {
+      postId: post.id,
+      text: comment,
+      userId: screenProps.user.id,
+    };
+    postComment(commentData)
+    .then(({data})=>{
+      let newComment = data;
+      console.log('sendPostComment MessageItem.js');
+      resetPosts();
+      return data;
+    })
+    .catch((err)=>{
+      console.log(err, "postComment messageitemJS")
+    })
     setComment('');
   };
 
   useEffect(() => {
-    //todo unhardcode from just getting the first message on server
-    getOne({ id: 1 }).then(({ data }) => {
-      setMessage(data);
-      setComments(data.comments);
-    });
+    setComments(post.comments);
+    setCounter(counter + 1);
+    console.log("called" + counter);
   }, []);
-
-  const { username, title, text, name_first, name_last } = post.user;
+  const {title, text} = post;
+  const { username, name_first, name_last,} = post.user;
   const initials = name_first[0] + name_last[0];
 
   return (
@@ -65,7 +79,7 @@ const MessageItem = ({ post }) => {
               comments.map((comment, i) => {
                 return (
                   <Card style={{ marginTop: 10 }} key={i}>
-                    <Subheading> {comment.username}</Subheading>
+                    <Subheading> {comment.user.username}</Subheading>
                     <Divider />
                     <Card.Content style={{ paddingTop: 10 }}>
                       <Paragraph>{comment.text}</Paragraph>
@@ -99,7 +113,7 @@ const MessageItem = ({ post }) => {
                     marginRight: 220,
                     height: 40,
                   }}
-                  onPress={() => postComment()}
+                  onPress={() => sendPostComment()}
                 >
                   Comment
                 </Button>

@@ -4,6 +4,7 @@ import MessagePreview from './MessagePreview';
 import { getAll } from '../Helper';
 
 const PreviewList = screenProps => {
+  console.log(screenProps, 'previewlist')
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -15,7 +16,7 @@ const PreviewList = screenProps => {
 
   return (
     <ScrollView>
-      <MessagePreview messages={messages} />
+      <MessagePreview messages={messages} props={screenProps} setMessages={setMessages}/>
     </ScrollView>
   );
 };
