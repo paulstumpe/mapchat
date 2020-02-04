@@ -2,24 +2,16 @@ import React from 'react';
 import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import { Avatar, Button, Card, Divider, Text } from 'react-native-paper';
 
-const user = {
-  username: 'Bender',
-  nameFirst: 'Bender B.',
-  nameLast: 'Rodriguez',
-  email: 'BBRodriguez3000@planetexpress.com',
-  status: 'Bender is Great!',
-  bio: 'Bite my shiny metal ass',
-};
-
-const initials = user.nameFirst[0] + user.nameLast[0];
-
 const Profile = props => {
-  const { toggleProfileModal } = props;
+  const { toggleProfileModal, post } = props;
+  const { user } = post;
+  const initials = user.name_first[0] + user.name_last[0];
+  console.log(user);
 
   const addUser = () => {
     //todo
     toggleProfileModal(false);
-    console.log(`sent friend request to ${user.username}. ProifleJS addUser`);
+    console.log(`sent friend request to ${user.username}. ProfileJS addUser`);
   };
 
   return (
@@ -28,7 +20,7 @@ const Profile = props => {
         <KeyboardAvoidingView behavior='position' enabled>
           <Card>
             <Card.Title
-              title={`${user.nameFirst} ${user.nameLast}`}
+              title={`${user.name_first} ${user.name_last}`}
               subtitle={user.email}
               left={() => <Avatar.Text size={48} label={initials} />}
             />
@@ -70,10 +62,6 @@ const Profile = props => {
       </View>
     </Card>
   );
-};
-
-Profile.navigationOptions = {
-  title: user.username,
 };
 
 const styles = StyleSheet.create({
