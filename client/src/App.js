@@ -84,8 +84,8 @@ export default function App(props) {
         onFinish={() => {
           getLocationAsync()
             .then(currentLocation => setLocation(currentLocation))
-            .then(signIn())
-            .handleFinishLoading(setLoadingComplete);
+            .then(signIn());
+          return handleFinishLoading(setLoadingComplete);
         }}
       />
     );
@@ -98,6 +98,24 @@ export default function App(props) {
     );
   }
 }
+
+const LoginPage = props => {
+  return (
+    <View>
+      <Text style={styles.header}>Sign In With Google</Text>
+      <Button title='Sign in with Google' onPress={() => props.signIn()} />
+    </View>
+  );
+};
+
+const LoggedInPage = props => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}> Welcome: {props.name} </Text>
+      <Image style={styles.image} source={{ uri: props.photoUrl }} />
+    </View>
+  );
+};
 
 async function getLocationAsync() {
   const { status, permissions } = await Permissions.askAsync(

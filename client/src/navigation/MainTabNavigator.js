@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TabBarIcon from '../components/TabBarIcon';
+import LoginScreen from '../screens/LoginScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import ListScreen from '../screens/ListScreen';
 import NewPostScreen from '../screens/NewPostScreen';
@@ -12,6 +13,29 @@ const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
+
+const LoginStack = createStackNavigator(
+  {
+    Login: LoginScreen,
+  },
+  config,
+);
+
+LoginStack.navigationOptions = {
+  tabBarLabel: 'Login',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-login${focused ? '' : '-outline'}`
+          : 'md-login'
+      }
+    />
+  ),
+};
+
+LoginStack.path = '';
 
 const UserProfileStack = createStackNavigator(
   {
@@ -97,6 +121,7 @@ MapStack.navigationOptions = {
 MapStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
+  LoginStack,
   UserProfileStack,
   ListStack,
   NewPostStack,
