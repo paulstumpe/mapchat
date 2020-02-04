@@ -5,21 +5,31 @@ import Modal from 'react-native-modal';
 import MessageItem from '../components/MessageItem';
 import Profile from '../components/Profile';
 
-const MessagePreview = ({ messages }) => {
+const MessagePreview = ({ screenProps, messages, setMessages, focusedMessageId, setFocusedMessageId, resetPosts}) => {
   // console.log(messages, 'message preview 9');
   const [profileModal, toggleProfileModal] = useState(false);
 
   return (
     messages &&
     messages.map((message, i) => {
-      const { post_local, post_public, title, text, user } = message;
-      const { name_first, name_last, username } = user;
+      const { post_local, post_public, title, text, user } = message; 
+      let {  username, name_first, name_last } = user;
+
+      if (name_first.length === 0){
+        name_first = 'not long enough'
+      }
+      if(name_last.length === 0){
+        name_last = 'not long enough'
+      }
+
       const initials = name_first[0] + name_last[0];
 
       return (
         <Card
           style={post_local ? styles.local : styles.global}
-          onPress={() => toggleProfileModal(true)}
+          onPress={() => {
+            toggleProfileModal(true)
+          }}
           key={i}
         >
           <Card.Title
@@ -34,7 +44,7 @@ const MessagePreview = ({ messages }) => {
               />
             )}
           />
-          <MessageItem post={message} />
+          <MessageItem messages={messages} post={message} screenProps={screenProps} setMessages={setMessages} focusedMessageId={focusedMessageId} setFocusedMessageId={focusedMessageId} resetPosts={resetPosts}/>
           <Modal
             isVisible={profileModal}
             onBackButtonPress={() => toggleProfileModal(false)}
