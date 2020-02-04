@@ -194,7 +194,7 @@ export default function MapScreen({ screenProps }) {
           onBackdropPress={() => toggleDisplayMessagesModal(false)}
           style={styles.modal}
         >
-          <PreviewList />
+          <PreviewList props={screenProps}/>
         </Modal>
       </ScrollView>
       {!displayMessagesModal && (
