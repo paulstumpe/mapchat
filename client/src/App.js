@@ -17,14 +17,13 @@ import * as Location from 'expo-location';
 import * as Google from 'expo-google-app-auth';
 import axios from 'axios';
 import { postUser } from './Helper';
-
+import { enableScreens } from 'react-native-screens';
 import AppNavigator from './navigation/AppNavigator';
-import { useScreens } from 'react-native-screens';
 
-useScreens();
+enableScreens();
 
 export default function App(props) {
-  // console.log(props);
+  // console.log(props, 'app 26');
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [signedIn, setSignIn] = useState(false);
   const [location, setLocation] = useState('');
@@ -70,17 +69,6 @@ export default function App(props) {
     } catch (e) {
       console.log('error', e);
     }
-
-    return (
-      <View style={styles.container}>
-        {' '}
-        {signedIn ? (
-          <LoggedInPage name={name} photoUrl={photoUrl} />
-        ) : (
-          <LoginPage signIn={signIn} />
-        )}{' '}
-      </View>
-    );
   };
 
   const [otherLocation, setOtherLocation] = useState('');
@@ -129,7 +117,6 @@ const LoggedInPage = props => {
 };
 
 async function getLocationAsync() {
-  // permissions returns only for location permissions on iOS and under certain conditions, see Permissions.LOCATION
   const { status, permissions } = await Permissions.askAsync(
     Permissions.LOCATION,
   );

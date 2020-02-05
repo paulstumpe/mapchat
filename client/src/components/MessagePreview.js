@@ -4,35 +4,43 @@ import { Avatar, Card } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import MessageItem from '../components/MessageItem';
 import Profile from '../components/Profile';
-
-const MessagePreview = ({ screenProps, messages, setMessages, focusedMessageId, setFocusedMessageId, resetPosts}) => {
+const MessagePreview = ({
+  screenProps,
+  messages,
+  setMessages,
+  focusedMessageId,
+  setFocusedMessageId,
+  resetPosts,
+}) => {
   const [profileModal, toggleProfileModal] = useState(false);
   const [nextTick, setNextTick] = useState(0);
-  if(messages[0]){console.log(messages[0].user.username)} else {console.log(messages)}
-  const messagePreviewRestPosts = ()=>{
-    resetPosts();
-    setNextTick(nextTick+1);
+  if (messages[0]) {
+    console.log(messages[0].user.username);
+  } else {
+    console.log(messages);
   }
+  const messagePreviewRestPosts = () => {
+    resetPosts();
+    setNextTick(nextTick + 1);
+  };
   return (
     messages &&
     messages.map((message, i) => {
       console.log(message);
-      const { post_local, post_public, title, text, user } = message; 
-      let {  username, name_first, name_last } = user;
-      if (name_first.length === 0){
-        name_first = 'not long enough'
+      const { post_local, post_public, title, text, user } = message;
+      let { username, name_first, name_last } = user;
+      if (name_first.length === 0) {
+        name_first = 'not long enough';
       }
-      if(name_last.length === 0){
-        name_last = 'not long enough'
+      if (name_last.length === 0) {
+        name_last = 'not long enough';
       }
-
       const initials = name_first[0] + name_last[0];
-
       return (
         <Card
           style={post_local ? styles.local : styles.global}
           onPress={() => {
-            toggleProfileModal(true)
+            toggleProfileModal(true);
           }}
           // key={i}
         >
@@ -48,23 +56,30 @@ const MessagePreview = ({ screenProps, messages, setMessages, focusedMessageId, 
               />
             )}
           />
-          <MessageItem messages={messages} post={message} screenProps={screenProps} setMessages={setMessages} focusedMessageId={focusedMessageId} setFocusedMessageId={focusedMessageId} resetPosts={resetPosts} messagePreviewRestPosts={messagePreviewRestPosts}/>
+          <MessageItem
+            messages={messages}
+            post={message}
+            screenProps={screenProps}
+            setMessages={setMessages}
+            focusedMessageId={focusedMessageId}
+            setFocusedMessageId={focusedMessageId}
+            resetPosts={resetPosts}
+            messagePreviewRestPosts={messagePreviewRestPosts}
+          />
           <Modal
             isVisible={profileModal}
             onBackButtonPress={() => toggleProfileModal(false)}
           >
-            <Profile toggleProfileModal={toggleProfileModal} />
+            <Profile toggleProfileModal={toggleProfileModal} post={message} />
           </Modal>
         </Card>
       );
     })
   );
 };
-
 MessagePreview.navigationOptions = {
   title: 'title',
 };
-
 const styles = StyleSheet.create({
   local: {
     borderRadius: 10,
@@ -82,5 +97,4 @@ const styles = StyleSheet.create({
   },
   avatar: { backgroundColor: '#F5F0F6' },
 });
-
 export default MessagePreview;
