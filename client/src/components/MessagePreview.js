@@ -6,9 +6,9 @@ import MessageItem from '../components/MessageItem';
 import Profile from '../components/Profile';
 
 const MessagePreview = ({ screenProps, messages, setMessages, focusedMessageId, setFocusedMessageId, resetPosts}) => {
-  // console.log(messages, 'message preview 9');
   const [profileModal, toggleProfileModal] = useState(false);
   const [nextTick, setNextTick] = useState(0);
+  if(messages[0]){console.log(messages[0].user.username)} else {console.log(messages)}
   const messagePreviewRestPosts = ()=>{
     resetPosts();
     setNextTick(nextTick+1);
@@ -16,9 +16,9 @@ const MessagePreview = ({ screenProps, messages, setMessages, focusedMessageId, 
   return (
     messages &&
     messages.map((message, i) => {
+      console.log(message);
       const { post_local, post_public, title, text, user } = message; 
       let {  username, name_first, name_last } = user;
-
       if (name_first.length === 0){
         name_first = 'not long enough'
       }

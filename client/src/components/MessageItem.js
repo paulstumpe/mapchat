@@ -29,7 +29,7 @@ const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocu
   const [counter, setCounter] = useState(0);
   // const forceUpdate = useForceUpdate();
   // console.log(post.comments.map(comment=>comment.text));
-  console.log(comments.map(comment=>{comment.text}));
+  // console.log(comments.map(comment=>{comment.text}));
 
   const sendPostComment = () => {
     //since we're posting a comment, we'll want to add it after we post it

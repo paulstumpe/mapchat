@@ -59,7 +59,7 @@ setTimeout(() => {
   //   })
   // createComment(comment, 1,1).then().catch(x=>console.error(x))
   // removeLike(1,1).then(x=>console.log(x)).catch(x=>console.log(x))
-  getAllPosts().then((posts: any) => console.log(posts.map((post:any)=>{return ['comment' + post.comments[0].text, 'post'+post.text]})));
+  // getAllPosts().then((posts: any) => console.log(posts.map((post:any)=>{return ['comment' + post.comments[0].text, 'post'+post.text]})));
 
   // addLike(1, 1).then(x=>console.log(x)).catch(x=>{console.log(x)})
   // addLike(1, 2).then(x => console.log(x)).catch(x => { console.log(x) })
