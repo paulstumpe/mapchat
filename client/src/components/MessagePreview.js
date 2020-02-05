@@ -4,7 +4,6 @@ import { Avatar, Card } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import MessageItem from '../components/MessageItem';
 import Profile from '../components/Profile';
-
 const MessagePreview = ({
   screenProps,
   messages,
@@ -36,9 +35,7 @@ const MessagePreview = ({
       if (name_last.length === 0) {
         name_last = 'not long enough';
       }
-
       const initials = name_first[0] + name_last[0];
-
       return (
         <Card
           style={post_local ? styles.local : styles.global}
@@ -80,11 +77,9 @@ const MessagePreview = ({
     })
   );
 };
-
 MessagePreview.navigationOptions = {
   title: 'title',
 };
-
 const styles = StyleSheet.create({
   local: {
     borderRadius: 10,
@@ -102,5 +97,4 @@ const styles = StyleSheet.create({
   },
   avatar: { backgroundColor: '#F5F0F6' },
 });
-
 export default MessagePreview;
