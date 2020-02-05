@@ -7,6 +7,7 @@ import { useFocusEffect } from 'react-navigation-hooks';
 const ListScreen = ({ screenProps }) => {
   const [messages, setMessages] = useState([]);
   const [focusedMessageId, setFocusedMessageId] = useState(0);
+
   const resetPosts = () => {
     getAll().then(response => {
       const allPosts = response.data;

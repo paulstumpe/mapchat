@@ -17,14 +17,13 @@ import * as Location from 'expo-location';
 import * as Google from 'expo-google-app-auth';
 import axios from 'axios';
 import { postUser } from './Helper';
-
-import AppNavigator from './navigation/AppNavigator';
 import { enableScreens } from 'react-native-screens';
+import AppNavigator from './navigation/AppNavigator';
 
 enableScreens();
 
 export default function App(props) {
-  // console.log(props);
+  // console.log(props, 'app 26');
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [signedIn, setSignIn] = useState(false);
   const [location, setLocation] = useState('');

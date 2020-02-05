@@ -6,31 +6,19 @@ import {
   Image,
   Text,
   SafeAreaView,
-  TouchableOpacity,
-  // Overlay,
 } from 'react-native';
-import native from 'react-native';
-const NativeView = native.View;
-import MapView, { Marker, View, Callout } from 'react-native-maps';
-import { Avatar, Card } from 'react-native-paper';
-import { withNavigation } from 'react-navigation';
+import MapView, { Marker, Callout } from 'react-native-maps';
 import Modal from 'react-native-modal';
-import {
-  useNavigation,
-  useNavigationParam,
-  useFocusEffect,
-} from 'react-navigation-hooks';
+import { useNavigation, useFocusEffect } from 'react-navigation-hooks';
 import PreviewList from '../components/PreviewList';
-import MessageItem from '../components/MessageItem';
-import Profile from '../components/Profile';
 import { getAll } from '../Helper';
 
 export default function MapScreen({ screenProps }) {
+  // console.log(screenProps, 'mapscreen 17');
   const { navigate } = useNavigation();
   const [messages, setMessages] = useState([]);
   const [clickedMessage, setClickedMessage] = useState({});
   const [showModal, setShowModal] = useState(false);
-  const [profileModal, toggleProfileModal] = useState(false);
 
   const [displayMessagesModal, toggleDisplayMessagesModal] = useState(true);
 
@@ -73,40 +61,7 @@ export default function MapScreen({ screenProps }) {
   };
 
   const [dropMarker, setDropMarker] = useState({});
-  // if(showModal){
-  //   const { post_local, post_public, title, text, user } = clickedMessage;
-  //   const { name_first, name_last, username } = clickedMessage.user;
-  //   const initials = name_first[0] + name_last[0];
 
-  //   return (
-  //     <Card
-  //       style={post_local ? styles.local : styles.global}
-  //       onPress={() => setShowModal(true)}
-  //       key={0}
-  //     >
-  //       <Card.Title
-  //         title={title}
-  //         subtitle={username}
-  //         left={() => (
-  //           <Avatar.Text
-  //             style={styles.avatar}
-  //             color='#2B4162'
-  //             size={48}
-  //             label={initials}
-  //           />
-  //         )}
-  //       />
-  //       <MessageItem post={clickedMessage} />
-  //       <Modal
-  //         isVisible={profileModal}
-  //         onBackButtonPress={() => setShowModal(false)}
-  //       >
-  //         <Profile toggleProfileModal={showModal} />
-  //       </Modal>
-  //     </Card>
-
-  //   )
-  // } else{
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -179,7 +134,7 @@ export default function MapScreen({ screenProps }) {
                     console.log('callout pressed map js');
                   }}
                   style={styles.customView}
-                ></Callout>
+                />
               </MapView.Marker>
             );
           })}
@@ -192,7 +147,7 @@ export default function MapScreen({ screenProps }) {
           onBackdropPress={() => toggleDisplayMessagesModal(false)}
           style={styles.modal}
         >
-          <PreviewList props={screenProps}/>
+          <PreviewList props={screenProps} />
         </Modal>
       </ScrollView>
       {!displayMessagesModal && (
