@@ -8,7 +8,11 @@ import Profile from '../components/Profile';
 const MessagePreview = ({ screenProps, messages, setMessages, focusedMessageId, setFocusedMessageId, resetPosts}) => {
   // console.log(messages, 'message preview 9');
   const [profileModal, toggleProfileModal] = useState(false);
-
+  const [nextTick, setNextTick] = useState(0);
+  const messagePreviewRestPosts = ()=>{
+    resetPosts();
+    setNextTick(nextTick+1);
+  }
   return (
     messages &&
     messages.map((message, i) => {
@@ -30,7 +34,7 @@ const MessagePreview = ({ screenProps, messages, setMessages, focusedMessageId, 
           onPress={() => {
             toggleProfileModal(true)
           }}
-          key={i}
+          // key={i}
         >
           <Card.Title
             title={title}
@@ -44,7 +48,7 @@ const MessagePreview = ({ screenProps, messages, setMessages, focusedMessageId, 
               />
             )}
           />
-          <MessageItem messages={messages} post={message} screenProps={screenProps} setMessages={setMessages} focusedMessageId={focusedMessageId} setFocusedMessageId={focusedMessageId} resetPosts={resetPosts}/>
+          <MessageItem messages={messages} post={message} screenProps={screenProps} setMessages={setMessages} focusedMessageId={focusedMessageId} setFocusedMessageId={focusedMessageId} resetPosts={resetPosts} messagePreviewRestPosts={messagePreviewRestPosts}/>
           <Modal
             isVisible={profileModal}
             onBackButtonPress={() => toggleProfileModal(false)}

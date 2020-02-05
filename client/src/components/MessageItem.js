@@ -18,14 +18,19 @@ import {
 } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import { getOne, postComment, getAll } from '../Helper';
+import useForceUpdate from 'use-force-update';
+import CommentsMaker from './comment';
 
-const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocusedMessageId, messages, resetPosts }) => {
+const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocusedMessageId, messages, resetPosts, messagePreviewRestPosts }) => {
   const [isSending, setIsSending] = useState(false)
   const [messageModal, toggleMessageModal] = useState(false);
   const [comment, setComment] = useState('');
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState(post.comments);
   const [counter, setCounter] = useState(0);
-  
+  // const forceUpdate = useForceUpdate();
+  // console.log(post.comments.map(comment=>comment.text));
+  console.log(comments.map(comment=>{comment.text}));
+
   const sendPostComment = () => {
     //since we're posting a comment, we'll want to add it after we post it
     const commentData = {
@@ -37,7 +42,10 @@ const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocu
     .then(({data})=>{
       let newComment = data;
       console.log('sendPostComment MessageItem.js');
-      resetPosts();
+      messagePreviewRestPosts();
+
+      // setCounter(counter + 1);
+      // forceUpdate();
       return data;
     })
     .catch((err)=>{
@@ -48,9 +56,8 @@ const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocu
 
   useEffect(() => {
     setComments(post.comments);
-    setCounter(counter + 1);
     console.log("called" + counter);
-  }, []);
+  }, [setCounter]);
   const {title, text} = post;
   const { username, name_first, name_last,} = post.user;
   const initials = name_first[0] + name_last[0];
@@ -75,17 +82,19 @@ const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocu
               <Divider />
               <Paragraph style={{ padding: 18 }}>{text}</Paragraph>
             </Card>
-            {comments &&
-              comments.map((comment, i) => {
-                return (
-                  <Card style={{ marginTop: 10 }} key={i}>
-                    <Subheading> {comment.user.username}</Subheading>
-                    <Divider />
-                    <Card.Content style={{ paddingTop: 10 }}>
-                      <Paragraph>{comment.text}</Paragraph>
-                    </Card.Content>
-                  </Card>
-                );
+            {post.comments &&
+              post.comments.map((comment, i) => {
+                return <CommentsMaker commentProp={comment} />
+                // console.log(comment.text);
+                // return (
+                //   <Card style={{ marginTop: 10 }} key={i}>
+                //     <Subheading> {comment.user.username}</Subheading>
+                //     <Divider />
+                //     <Card.Content style={{ paddingTop: 10 }}>
+                //       <Paragraph>{comment.text}</Paragraph>
+                //     </Card.Content>
+                //   </Card>
+                // );
               })}
             <Card
               style={{
