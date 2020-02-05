@@ -7,15 +7,17 @@ import { useFocusEffect } from 'react-navigation-hooks';
 const ListScreen = ({ screenProps }) => {
   const [messages, setMessages] = useState([]);
   const [focusedMessageId, setFocusedMessageId] = useState(0);
-
+  const [tick, setTick] = useState(0);
   const resetPosts = () => {
     getAll().then(response => {
       const allPosts = response.data;
       setMessages(allPosts);
       console.log('resetPosts called listscreen.js');
+      setTick(tick + 1);
     });
   };
 
+  console.log('rendered');
   useFocusEffect(
     useCallback(() => {
       console.debug('screen takes focus');
@@ -24,7 +26,7 @@ const ListScreen = ({ screenProps }) => {
       return () => {
         console.debug('screen loses focus');
       };
-    }, []),
+    }, [setTick]),
   );
 
   return (

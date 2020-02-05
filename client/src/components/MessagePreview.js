@@ -13,15 +13,23 @@ const MessagePreview = ({
   setFocusedMessageId,
   resetPosts,
 }) => {
-  // console.log(messages, 'message preview 9');
   const [profileModal, toggleProfileModal] = useState(false);
-
+  const [nextTick, setNextTick] = useState(0);
+  if (messages[0]) {
+    console.log(messages[0].user.username);
+  } else {
+    console.log(messages);
+  }
+  const messagePreviewRestPosts = () => {
+    resetPosts();
+    setNextTick(nextTick + 1);
+  };
   return (
     messages &&
     messages.map((message, i) => {
+      console.log(message);
       const { post_local, post_public, title, text, user } = message;
       let { username, name_first, name_last } = user;
-
       if (name_first.length === 0) {
         name_first = 'not long enough';
       }
@@ -37,7 +45,7 @@ const MessagePreview = ({
           onPress={() => {
             toggleProfileModal(true);
           }}
-          key={i}
+          // key={i}
         >
           <Card.Title
             title={title}
@@ -59,6 +67,7 @@ const MessagePreview = ({
             focusedMessageId={focusedMessageId}
             setFocusedMessageId={focusedMessageId}
             resetPosts={resetPosts}
+            messagePreviewRestPosts={messagePreviewRestPosts}
           />
           <Modal
             isVisible={profileModal}
