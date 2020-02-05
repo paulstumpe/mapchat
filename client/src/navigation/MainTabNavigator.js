@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TabBarIcon from '../components/TabBarIcon';
-import LoginScreen from '../screens/LoginScreen';
+import FriendsScreen from '../screens/FriendsScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import ListScreen from '../screens/ListScreen';
 import NewPostScreen from '../screens/NewPostScreen';
@@ -14,28 +14,24 @@ const config = Platform.select({
   default: {},
 });
 
-const LoginStack = createStackNavigator(
+const MapStack = createStackNavigator(
   {
-    Login: LoginScreen,
+    Map: MapScreen,
   },
   config,
 );
 
-LoginStack.navigationOptions = {
-  tabBarLabel: 'Login',
+MapStack.navigationOptions = {
+  tabBarLabel: 'Map',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-login${focused ? '' : '-outline'}`
-          : 'md-login'
-      }
+      name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'}
     />
   ),
 };
 
-LoginStack.path = '';
+MapStack.path = '';
 
 const UserProfileStack = createStackNavigator(
   {
@@ -101,31 +97,34 @@ NewPostStack.navigationOptions = {
 
 NewPostStack.path = '';
 
-const MapStack = createStackNavigator(
+const FriendsStack = createStackNavigator(
   {
-    Map: MapScreen,
+    Friends: {
+      screen: FriendsScreen,
+      params: { longitude: null, latitude: null },
+    },
   },
   config,
 );
 
-MapStack.navigationOptions = {
-  tabBarLabel: 'Map',
+FriendsStack.navigationOptions = {
+  tabBarLabel: 'Friends',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'}
+      name={Platform.OS === 'ios' ? 'ios-people' : 'md-people'}
     />
   ),
 };
 
-MapStack.path = '';
+FriendsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  LoginStack,
-  UserProfileStack,
   ListStack,
-  NewPostStack,
   MapStack,
+  NewPostStack,
+  UserProfileStack,
+  FriendsStack,
 });
 
 tabNavigator.path = '';
