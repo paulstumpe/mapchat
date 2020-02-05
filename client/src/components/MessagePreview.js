@@ -42,7 +42,7 @@ const MessagePreview = ({
           onPress={() => {
             toggleProfileModal(true);
           }}
-          // key={i}
+          key={i}
         >
           <Card.Title
             title={title}

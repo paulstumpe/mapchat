@@ -22,7 +22,9 @@ const Profile = props => {
             <Card.Title
               title={`${user.name_first} ${user.name_last}`}
               subtitle={user.email}
-              left={() => <Avatar.Text size={48} label={initials} />}
+              left={() => (
+                <Avatar.Text size={48} label={initials} style={styles.avatar} />
+              )}
             />
             <Divider />
             <Card.Content style={{ paddingTop: 10 }}>
@@ -52,6 +54,7 @@ const Profile = props => {
                   height: 40,
                   width: 150,
                 }}
+                color='#385F71'
                 onPress={() => addUser()}
               >
                 Add Friend
@@ -69,12 +72,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 10,
     paddingBottom: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#D7B377',
   },
-  name: {
-    fontWeight: 'bold',
-    color: 'blue',
-  },
+  avatar: { backgroundColor: '#385F71' },
 });
 
 export default Profile;

@@ -68,7 +68,7 @@ const FriendsScreen = ({ screenProps }) => {
             <Card style={styles.container} key={friend.id}>
               <View>
                 <KeyboardAvoidingView behavior='position' enabled>
-                  <Card>
+                  <Card style={{ backgroundColor: '#F5F0F6' }}>
                     <Card.Title
                       title={`${friend.name_first} ${friend.name_last}`}
                       subtitle={friend.email}
@@ -119,13 +119,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 10,
     paddingBottom: 10,
-    backgroundColor: '#D7B377',
+    backgroundColor: '#385F71',
   },
-  name: {
-    fontWeight: 'bold',
-    color: 'blue',
-  },
-  avatar: { backgroundColor: '#385F71' },
+  avatar: { backgroundColor: '#D7B377' },
 });
 
 FriendsScreen.navigationOptions = {

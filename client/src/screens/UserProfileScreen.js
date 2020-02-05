@@ -32,21 +32,23 @@ export default function UserProfileScreen({ screenProps }) {
   const saveChanges = () => {
     const user = {
       username: newUsername,
-        name_first: nameFirst,
-        name_last: nameLast,
-        password: password,
-        email: email,
-        bio: bio,
-        status: status,
-        public: profilePrivate,
-        id: screenProps.user.id
-      }
-    updateUser(user).then(({data})=>{
-      console.log(data, "updateUser userProfileScreen.js");
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+      name_first: nameFirst,
+      name_last: nameLast,
+      password: password,
+      email: email,
+      bio: bio,
+      status: status,
+      public: profilePrivate,
+      id: screenProps.user.id,
+    };
+
+    updateUser(user)
+      .then(({ data }) => {
+        console.log(data, 'updateUser userProfileScreen.js');
+      })
+      .catch(err => {
+        console.log(err);
+      });
     console.log(
       `User - ${newUsername}, Name - ${nameFirst} ${nameLast}, Email - ${email}, Status - ${status}, Bio - ${bio}, Password - ${password}`,
     );
@@ -64,6 +66,11 @@ export default function UserProfileScreen({ screenProps }) {
             placeholder='username'
             mode='outlined'
             value={newUsername}
+            theme={{
+              colors: {
+                primary: '#003489',
+              },
+            }}
             onChangeText={newUsername => setNewUsername(newUsername)}
           />
           <TextInput
@@ -71,6 +78,11 @@ export default function UserProfileScreen({ screenProps }) {
             placeholder='first name'
             mode='outlined'
             value={nameFirst}
+            theme={{
+              colors: {
+                primary: '#003489',
+              },
+            }}
             onChangeText={nameFirst => setNameFirst(nameFirst)}
           />
           <TextInput
@@ -78,6 +90,11 @@ export default function UserProfileScreen({ screenProps }) {
             placeholder='last name'
             mode='outlined'
             value={nameLast}
+            theme={{
+              colors: {
+                primary: '#003489',
+              },
+            }}
             onChangeText={nameLast => setNameLast(nameLast)}
           />
           <TextInput
@@ -85,6 +102,11 @@ export default function UserProfileScreen({ screenProps }) {
             placeholder='email'
             mode='outlined'
             value={email}
+            theme={{
+              colors: {
+                primary: '#003489',
+              },
+            }}
             onChangeText={email => setEmail(email)}
           />
           <TextInput
@@ -94,6 +116,11 @@ export default function UserProfileScreen({ screenProps }) {
             multiline={true}
             numberOfLines={6}
             value={bio}
+            theme={{
+              colors: {
+                primary: '#003489',
+              },
+            }}
             onChangeText={bio => setBio(bio)}
           />
           <TextInput
@@ -101,6 +128,11 @@ export default function UserProfileScreen({ screenProps }) {
             placeholder='status'
             mode='outlined'
             value={status}
+            theme={{
+              colors: {
+                primary: '#003489',
+              },
+            }}
             onChangeText={status => setStatus(status)}
           />
           <TextInput
@@ -108,6 +140,11 @@ export default function UserProfileScreen({ screenProps }) {
             placeholder='password'
             mode='outlined'
             value={password}
+            theme={{
+              colors: {
+                primary: '#003489',
+              },
+            }}
             onChangeText={password => setPassword(password)}
           />
           <View
@@ -115,6 +152,7 @@ export default function UserProfileScreen({ screenProps }) {
           >
             <Title style={{ padding: 5 }}>Make Profile Private</Title>
             <Switch
+              color='#D7B377'
               value={profilePrivate}
               style={{ justifyContent: 'flex-end' }}
               onValueChange={() => setProfilePrivate(!profilePrivate)}
@@ -124,6 +162,7 @@ export default function UserProfileScreen({ screenProps }) {
           <Button
             icon='content-save'
             mode='contained'
+            color='#385F71'
             style={{
               margin: 10,
               height: 50,

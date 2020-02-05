@@ -86,7 +86,13 @@ const MessageItem = ({
               <Card.Title
                 title={username}
                 subtitle={title}
-                left={() => <Avatar.Text size={48} label={initials} />}
+                left={() => (
+                  <Avatar.Text
+                    size={48}
+                    label={initials}
+                    style={post.post_local ? styles.local : styles.global}
+                  />
+                )}
               />
               <Divider />
               <Paragraph style={{ padding: 18 }}>{text}</Paragraph>
@@ -121,6 +127,11 @@ const MessageItem = ({
                   multiline={true}
                   numberOfLines={3}
                   value={comment}
+                  theme={{
+                    colors: {
+                      primary: '#003489',
+                    },
+                  }}
                   onChangeText={comment => setComment(comment)}
                 />
                 <Button
@@ -131,6 +142,7 @@ const MessageItem = ({
                     marginRight: 220,
                     height: 40,
                   }}
+                  color='#385F71'
                   onPress={() => sendPostComment()}
                 >
                   Comment
@@ -155,6 +167,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'blue',
   },
+  local: { backgroundColor: '#D7B377' },
+  global: { backgroundColor: '#385F71' },
 });
 
 export default MessageItem;
