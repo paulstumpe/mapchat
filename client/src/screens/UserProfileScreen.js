@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import { Button, Title, TextInput, Switch, Divider } from 'react-native-paper';
-import { updateUser } from '../Helper';
+import { updateUser, getAll } from '../Helper';
 
 export default function UserProfileScreen({ screenProps }) {
   const username = screenProps.username;
@@ -19,7 +19,6 @@ export default function UserProfileScreen({ screenProps }) {
   const [status, setStatus] = useState('');
   const [password, setPassword] = useState('');
   const [profilePrivate, setProfilePrivate] = useState(false);
-
   const clearFields = () => {
     setNewUsername('');
     setNameFirst('');
