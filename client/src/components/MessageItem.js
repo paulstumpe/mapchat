@@ -17,7 +17,13 @@ import Modal from 'react-native-modal';
 import { postComment } from '../Helper';
 import CommentsMaker from './Comment';
 
-const MessageItem = ({ post, screenProps, messagePreviewRestPosts }) => {
+const MessageItem = ({
+  post,
+  screenProps,
+  messagePreviewRestPosts,
+  toggleMessageItemModal,
+}) => {
+  const [isSending, setIsSending] = useState(false);
   const [messageModal, toggleMessageModal] = useState(false);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState(post.comments);
@@ -28,7 +34,7 @@ const MessageItem = ({ post, screenProps, messagePreviewRestPosts }) => {
     const commentData = {
       postId: post.id,
       text: comment,
-      userId: screenProps.user.id,
+      userId: post.user.id,
     };
     postComment(commentData)
       .then(({ data }) => {
