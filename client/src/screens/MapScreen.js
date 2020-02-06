@@ -47,7 +47,6 @@ export default function MapScreen({ screenProps }) {
           message.latitude = parseFloat(message.coordinate.lat);
           return message;
         });
-        console.log(allMessages, 'all messages useEffect mapScreen.js');
         setMessages(allMessages);
       })
       .catch(err => console.log(err, 'useEffect getAll'));
@@ -62,7 +61,6 @@ export default function MapScreen({ screenProps }) {
             message.latitude = parseFloat(message.coordinate.lat);
             return message;
           });
-          console.log(allMessages, 'allmessages useFocusEffect MapScreen.js');
           setMessages(allMessages);
         })
         .catch(err => console.log(err, 'getAll mapScreen useFocusEffect'));
@@ -111,7 +109,6 @@ export default function MapScreen({ screenProps }) {
                     latitude: dropMarker.latitude,
                     longitude: dropMarker.longitude,
                   });
-                  // props.navigation.navigate('Message')
                 }}
             >
               
