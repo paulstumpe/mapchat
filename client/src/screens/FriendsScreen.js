@@ -9,7 +9,6 @@ import { Avatar, Card, Divider, Text } from 'react-native-paper';
 
 const FriendsScreen = ({ screenProps }) => {
   const { user } = screenProps;
-  console.log(user);
 
   friends = [
     {

@@ -6,7 +6,6 @@ const Profile = props => {
   const { toggleProfileModal, post } = props;
   const { user } = post;
   const initials = user.name_first[0] + user.name_last[0];
-  console.log(user);
 
   const addUser = () => {
     //todo
