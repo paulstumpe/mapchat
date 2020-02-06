@@ -20,6 +20,8 @@ import { postUser } from './Helper';
 import { enableScreens } from 'react-native-screens';
 import AppNavigator from './navigation/AppNavigator';
 
+console.disableYellowBox = true;
+
 enableScreens();
 
 export default function App(props) {
