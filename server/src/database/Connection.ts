@@ -6,6 +6,7 @@ import { Posts } from './entity/Posts';
 import { Comments } from './entity/Comments';
 import { Likes } from './entity/Likes';
 import { Users } from './entity/Users';
+// import {Friends} from './entity/Friends';
 
 createConnection({
   type: 'mysql',
@@ -14,11 +15,11 @@ createConnection({
   username: 'root',
   password: '',
   database: 'test',
-  entities: [Photos, Locations, Comments, Posts, Users, Likes],
+  entities: [Photos, Locations, Comments, Posts, Users, Likes, ], //Friends
   synchronize: true,
   logging: false,
 })
-  .then(() => {})
+  .then(() => {'connected'})
   .catch(err => {
     console.log(err, 'didnt establish connection, connection.ts');
   });

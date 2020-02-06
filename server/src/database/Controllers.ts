@@ -5,7 +5,8 @@ import { Posts} from "./entity/Posts";
 import { Comments} from "./entity/Comments";
 import { Likes } from "./entity/Likes";
 import { Users } from "./entity/Users";
-import { userInfo } from "os";
+// import { Friends } from "./entity/Friends";
+import { userInfo, arch } from "os";
 const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
 const entityManager = getManager(); // you can also get it via getConnection().manager
 
@@ -136,6 +137,87 @@ const getLocation = (locationValues:any)=>{
   .then(x=>console.log(x, "getLocation controllers.ts"))
 }
 
+const createFriendship = async ()=>{
+
+  const manager = getManager();
+
+  const a1 = new Users();
+  a1.name_first = "a1";
+  a1.bio = "";
+  a1.name_last = "";
+  a1.email = "";
+  a1.password = "";
+  a1.public = false;
+  a1.status = "";
+  a1.username = "";
+
+  await manager.save(a1);
+
+  const a11 = new Users();
+  a11.name_first = "a11";
+  a11.parentFriend = a1;
+  a11.bio = "";
+  a11.name_last = "";
+  a11.email = "";
+  a11.password = "";
+  a11.public = false;
+  a11.status = "";
+  a11.username = "";
+
+  await manager.save(a11);
+
+  const a12 = new Users();
+  a12.name_first = "a12";
+  a12.parentFriend = a1;
+  a12.bio = "";
+  a12.name_last = "";
+  a12.email = "";
+  a12.password = "";
+  a12.public = false;
+  a12.status = "";
+  a12.username = "";
+
+  await manager.save(a12);
+
+  const a111 = new Users();
+  a111.name_first = "a111";
+  a111.parentFriend = a11;
+  a111.bio = "";
+  a111.name_last = "";
+  a111.email = "";
+  a111.password = "";
+  a111.public = false;
+  a111.status = "";
+  a111.username = "";
+
+  await manager.save(a111);
+
+  const a112 = new Users();
+  a112.name_first = "a112";
+  a112.parentFriend = a11;
+  a112.bio = "";
+  a112.name_last = "";
+  a112.email = "";
+  a112.password = "";
+  a112.public = false;
+  a112.status = "";
+  a112.username = "";
+
+  return await manager.save(a112);
+  
+
+
+}
+const getFriends = async ()=>{
+  const manager = getManager();
+  // const trees = await manager.getTreeRepository(Users).findTrees();
+  const a1 = new Users();
+  a1.name_first = "a1";
+  const users = await manager.getRepository(Users).find({ relations: ["myFriends"], where: { id: 5}  })
+
+  return users;
+}
+
 export {
   getLocation,
   createLocationOrFindLocation,
@@ -147,4 +229,6 @@ export {
   createUser,
   createComment,
   getUser,
+  createFriendship,
+  getFriends
 }

@@ -16,6 +16,8 @@ import {
   createUser,
   createComment,
   getUser,
+  createFriendship,
+  getFriends
 } from "./Controllers"
 const typeorm = require("typeorm"); // import * as typeorm from "typeorm";
 const entityManager = getManager(); // you can also get it via getConnection().manager
@@ -60,8 +62,12 @@ setTimeout(() => {
   // createComment(comment, 1,1).then().catch(x=>console.error(x))
   // removeLike(1,1).then(x=>console.log(x)).catch(x=>console.log(x))
   // getAllPosts().then((posts: any) => console.log(posts.map((post:any)=>{return ['comment' + post.comments[0].text, 'post'+post.text]})));
+  // createFriendship().then(x => { console.log(x) }).catch(x => console.log(x))
+  getFriends().then((x:any)=>{console.log(x[0].myFriends)}).catch(x=>console.log(x.myFriends))
 
   // addLike(1, 1).then(x=>console.log(x)).catch(x=>{console.log(x)})
   // addLike(1, 2).then(x => console.log(x)).catch(x => { console.log(x) })
   // addLike(1, 3).then(x => console.log(x)).catch(x => { console.log(x) })
+
+  
 }, 300);

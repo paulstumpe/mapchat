@@ -1,8 +1,9 @@
 import "reflect-metadata";
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import { Likes } from "./Likes";
 import { Posts } from "./Posts";
 import { Comments } from "./Comments";
+// import { Friends} from "./Friends"
 
 @Entity()
 export class Users {
@@ -50,5 +51,11 @@ export class Users {
   @OneToMany(() => Posts, (user: Posts) => user.user, {
   })
   public posts: Posts[];
+
+  @ManyToOne(type => Users, user => user.myFriends)
+  parentFriend: Users;
+
+  @OneToMany(type => Users, user => user.parentFriend)
+  myFriends: Users[];
 
 }
