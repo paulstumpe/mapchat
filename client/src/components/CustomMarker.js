@@ -1,6 +1,6 @@
 import React from 'react';
+import MapView, { Callout } from 'react-native-maps';
 
-import MapView, {Callout} from 'react-native-maps'
 class MyMarker extends React.Component {
   constructor(props) {
     super(props);
@@ -8,16 +8,19 @@ class MyMarker extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      console.log(this.marker.showCallout, "hello")
-      this.marker.showCallout()}, 1);
+      console.log(this.marker.showCallout, 'hello');
+      this.marker.showCallout();
+    }, 1);
   }
 
   render() {
     return (
       <MapView.Marker
-        title="cool"
+        title={this.props.props.post.title}
         coordinate={this.props.coords}
-        ref={ref => { this.marker = ref; }}
+        ref={ref => {
+          this.marker = ref;
+        }}
       >
         <Callout
           alphaHitTest
@@ -31,7 +34,8 @@ class MyMarker extends React.Component {
             }
             //!can make full custom callout if we need it
             //todo have on press redirect to the post.
-            console.log('callout pressed map js');
+            this.props.props.setMessageItemModal(this.props.props.post);
+            console.log(this.props.props, 'marker 37');
           }}
         />
       </MapView.Marker>
