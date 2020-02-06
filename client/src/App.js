@@ -23,12 +23,12 @@ import AppNavigator from './navigation/AppNavigator';
 enableScreens();
 
 export default function App(props) {
-  // console.log(props, 'app 26');
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [signedIn, setSignIn] = useState(false);
   const [location, setLocation] = useState('');
   const [username, setUsername] = useState('');
   const [googleId, setGoogleId] = useState('');
+  const [photoUrl, setPhotoUrl] = useState('');
   const [user, setUser] = useState({});
 
   //Authentication
@@ -42,7 +42,7 @@ export default function App(props) {
       if (result.type === 'success') {
         setSignIn('true');
         setUsername(result.user.name);
-        // setPhotoUrl(result.user.photoUrl)
+        setPhotoUrl(result.user.photoUrl);
         setGoogleId(result.user.id);
         const userObj = {
           username: 'Marc West',
@@ -73,7 +73,7 @@ export default function App(props) {
 
   const [otherLocation, setOtherLocation] = useState('');
   const otherLocationObj = { otherLocation, setOtherLocation };
-  const screenProps = { location, username, otherLocationObj, user };
+  const screenProps = { location, username, otherLocationObj, user, photoUrl };
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (

@@ -14,12 +14,10 @@ import PreviewList from '../components/PreviewList';
 import { getAll } from '../Helper';
 
 export default function MapScreen({ screenProps }) {
-  // console.log(screenProps, 'mapscreen 17');
   const { navigate } = useNavigation();
   const [messages, setMessages] = useState([]);
   const [clickedMessage, setClickedMessage] = useState({});
   const [showModal, setShowModal] = useState(false);
-
   const [displayMessagesModal, toggleDisplayMessagesModal] = useState(true);
 
   useEffect(() => {
@@ -30,7 +28,6 @@ export default function MapScreen({ screenProps }) {
           message.latitude = parseFloat(message.coordinate.lat);
           return message;
         });
-        console.log(allMessages, 'all messages useEffect mapScreen.js');
         setMessages(allMessages);
       })
       .catch(err => console.log(err, 'useEffect getAll'));
@@ -45,7 +42,6 @@ export default function MapScreen({ screenProps }) {
             message.latitude = parseFloat(message.coordinate.lat);
             return message;
           });
-          console.log(allMessages, 'allmessages useFocusEffect MapScreen.js');
           setMessages(allMessages);
         })
         .catch(err => console.log(err, 'getAll mapScreen useFocusEffect'));
@@ -89,7 +85,6 @@ export default function MapScreen({ screenProps }) {
                     latitude: dropMarker.latitude,
                     longitude: dropMarker.longitude,
                   });
-                  // props.navigation.navigate('Message')
                 }}
               >
                 <Image

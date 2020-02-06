@@ -74,6 +74,11 @@ export default function NewPostScreen({ screenProps, navigation }) {
           placeholder='title'
           mode='outlined'
           value={title}
+          theme={{
+            colors: {
+              primary: '#003489',
+            },
+          }}
           onChangeText={title => setTitle(title)}
         />
         <Button
@@ -82,6 +87,7 @@ export default function NewPostScreen({ screenProps, navigation }) {
               ? 'Use current Location instead?'
               : 'Current Location'
           }
+          color='#2B4162'
           mode='outlined'
           onPress={buttonPress}
         >
@@ -96,11 +102,17 @@ export default function NewPostScreen({ screenProps, navigation }) {
           multiline={true}
           numberOfLines={6}
           value={message}
+          theme={{
+            colors: {
+              primary: '#003489',
+            },
+          }}
           onChangeText={message => setMessage(message)}
         />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Title style={{ padding: 5 }}>Anonymous</Title>
           <Switch
+            color='#D7B377'
             value={anon}
             style={{ justifyContent: 'flex-end' }}
             onValueChange={() => setAnon(!anon)}
@@ -110,6 +122,7 @@ export default function NewPostScreen({ screenProps, navigation }) {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Title style={{ padding: 5 }}>Global</Title>
           <Switch
+            color='#D7B377'
             value={global}
             style={{ justifyContent: 'flex-end' }}
             onValueChange={() => setGlobal(!global)}
@@ -119,6 +132,7 @@ export default function NewPostScreen({ screenProps, navigation }) {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Title style={{ padding: 5 }}>Comments On</Title>
           <Switch
+            color='#D7B377'
             value={comments}
             style={{ justifyContent: 'flex-end' }}
             onValueChange={() => setComments(!comments)}
@@ -132,6 +146,7 @@ export default function NewPostScreen({ screenProps, navigation }) {
             margin: 10,
             height: 50,
           }}
+          color='#385F71'
           onPress={() => postMessage()}
         >
           Drop Message
