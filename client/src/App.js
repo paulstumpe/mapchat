@@ -40,16 +40,19 @@ export default function App(props) {
         scopes: ['profile', 'email'],
       });
       if (result.type === 'success') {
+        console.log(result, 'App 43');
+
         setSignIn('true');
         setUsername(result.user.name);
         setPhotoUrl(result.user.photoUrl);
         setGoogleId(result.user.id);
+
         const userObj = {
-          username: 'Marc West',
-          name_first: 'Marc',
-          name_last: 'West',
+          username: result.user.name,
+          name_first: result.user.givenName,
+          name_last: result.user.familyName,
           password: '',
-          email: 'marcdwest@gmail.com',
+          email: result.user.email,
           bio: 'yes',
           status: 'here',
           public: true,
