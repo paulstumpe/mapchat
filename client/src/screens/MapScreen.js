@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -12,7 +12,7 @@ import {
 import native from 'react-native'
 const NativeView = native.View;
 import MapView, { Marker, View, Callout } from 'react-native-maps';
-import { Avatar, Card } from 'react-native-paper';
+import { Avatar, Card, Title } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import Modal from 'react-native-modal';
 import {
@@ -31,9 +31,19 @@ export default function MapScreen({ screenProps }) {
   const [clickedMessage, setClickedMessage] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [profileModal, toggleProfileModal] = useState(false);
-
-
+  const leaveMessageMarker = useRef(null);
   const [displayMessagesModal, toggleDisplayMessagesModal] = useState(true);
+  const [calloutIsRendered, setCalloutIsRendered] = useState(false);
+  const markerRef = useRef(null);
+
+  const onRegionChangeComplete = () => {
+    console.log('region changed')
+    if (markerRef && markerRef.current && markerRef.current.showCallout) {
+      if (calloutIsRendered === true) return;
+      setCalloutIsRendered(true)
+      markerRef.current.showCallout();
+    }
+  };
 
   useEffect(() => {
     getAll()
@@ -74,40 +84,7 @@ export default function MapScreen({ screenProps }) {
   };
 
   const [dropMarker, setDropMarker] = useState({});
-  // if(showModal){
-  //   const { post_local, post_public, title, text, user } = clickedMessage;
-  //   const { name_first, name_last, username } = clickedMessage.user;
-  //   const initials = name_first[0] + name_last[0];
-
-  //   return (
-  //     <Card
-  //       style={post_local ? styles.local : styles.global}
-  //       onPress={() => setShowModal(true)}
-  //       key={0}
-  //     >
-  //       <Card.Title
-  //         title={title}
-  //         subtitle={username}
-  //         left={() => (
-  //           <Avatar.Text
-  //             style={styles.avatar}
-  //             color='#2B4162'
-  //             size={48}
-  //             label={initials}
-  //           />
-  //         )}
-  //       />
-  //       <MessageItem post={clickedMessage} />
-  //       <Modal
-  //         isVisible={profileModal}
-  //         onBackButtonPress={() => setShowModal(false)}
-  //       >
-  //         <Profile toggleProfileModal={showModal} />
-  //       </Modal>
-  //     </Card>
-    
-  //   )
-  // } else{
+  
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -117,14 +94,19 @@ export default function MapScreen({ screenProps }) {
           showsUserLocation={true}
           userTrackingMode={true}
           onPress={event => setDropMarker(event.nativeEvent.coordinate)}
+          onRegionChangeComplete={onRegionChangeComplete}
         >
           {dropMarker.latitude !== undefined &&
             dropMarker.longitude !== undefined && (
-              <Marker
+              <MapView.Marker
+                ref={markerRef}
+                title="Leave Message Here?"
                 coordinate={{
                   latitude: dropMarker.latitude,
                   longitude: dropMarker.longitude,
                 }}
+              draggable
+              onDragEnd={event => setDropMarker(event.nativeEvent.coordinate)}
                 key={dropMarker.key}
                 onPress={() => {
                   console.log(
@@ -138,11 +120,18 @@ export default function MapScreen({ screenProps }) {
                   // props.navigation.navigate('Message')
                 }}
             >
+              
                 <Image
                   source={require('../assets/images/message.png')}
                   style={{ height: 45, width: 35 }}
                 />
-              </Marker>
+              <Callout>
+              </Callout>
+          
+              
+
+
+              </MapView.Marker>
             )}
           {messages.map((message, i) => {
               return (
