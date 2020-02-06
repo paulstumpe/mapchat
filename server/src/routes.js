@@ -86,12 +86,16 @@ apiRouter.get('/users',(req, res)=>{
 })
 
 apiRouter.post('/users',(req, res)=>{
+  console.log(req.body)
   let user = {};
   for (let key in req.body) {
     user[key] = req.body[key];
   }
   getUser(user)
-  .catch(()=>{return createUser(user)})
+  .catch((err)=>{
+    console.log(err, '\n get user failed, creating user instead post @ /users')
+    return createUser(user)
+  })
   .then(user => {
     console.log(user, "post /users routes.js")
     res.status = 200;
