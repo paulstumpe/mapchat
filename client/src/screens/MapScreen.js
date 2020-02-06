@@ -9,7 +9,7 @@ import native, {
 } from 'react-native';
 // import native from 'react-native';
 import Modal from 'react-native-modal';
-import MapView, { Marker, View, Callout } from 'react-native-maps';
+import MapView, { Callout } from 'react-native-maps';
 import { useNavigation, useFocusEffect } from 'react-navigation-hooks';
 import { getAll } from '../Helper';
 import PreviewList from '../components/PreviewList';
@@ -19,14 +19,9 @@ import MessageItem from '../components/MessageItem';
 const NativeView = native.View;
 
 export default function MapScreen({ screenProps }) {
-  console.log(MyMarker, 'mapscreen 17');
   const { navigate } = useNavigation();
   const [messages, setMessages] = useState([]);
   const [messageItem, setMessageItem] = useState({});
-  const [clickedMessage, setClickedMessage] = useState({});
-  const [showModal, setShowModal] = useState(false);
-  const [profileModal, toggleProfileModal] = useState(false);
-  const leaveMessageMarker = useRef(null);
   const [displayMessagesModal, toggleDisplayMessagesModal] = useState(true);
   const [messageItemModal, toggleMessageItemModal] = useState(false);
   const [calloutIsRendered, setCalloutIsRendered] = useState(false);

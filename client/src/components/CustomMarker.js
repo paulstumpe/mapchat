@@ -35,7 +35,6 @@ class MyMarker extends React.Component {
             //!can make full custom callout if we need it
             //todo have on press redirect to the post.
             this.props.props.setMessageItemModal(this.props.props.post);
-            console.log(this.props.props, 'marker 37');
           }}
         />
       </MapView.Marker>

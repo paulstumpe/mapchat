@@ -9,7 +9,6 @@ import Profile from '../components/Profile';
 const MessagePreview = ({
   screenProps,
   messages,
-  setMessages,
   focusedMessageId,
   resetPosts,
 }) => {
@@ -56,7 +55,6 @@ const MessagePreview = ({
             messages={messages}
             post={message}
             screenProps={screenProps}
-            setMessages={setMessages}
             focusedMessageId={focusedMessageId}
             setFocusedMessageId={focusedMessageId}
             resetPosts={resetPosts}
