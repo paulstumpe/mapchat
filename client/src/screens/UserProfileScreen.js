@@ -14,19 +14,15 @@ export default function UserProfileScreen({ screenProps }) {
   const [newUsername, setNewUsername] = useState('');
   const [nameFirst, setNameFirst] = useState('');
   const [nameLast, setNameLast] = useState('');
-  const [email, setEmail] = useState('');
   const [bio, setBio] = useState('');
   const [status, setStatus] = useState('');
-  const [password, setPassword] = useState('');
   const [profilePrivate, setProfilePrivate] = useState(false);
   const clearFields = () => {
     setNewUsername('');
     setNameFirst('');
     setNameLast('');
-    setEmail('');
     setStatus('');
     setBio('');
-    setPassword('');
   };
 
   const saveChanges = () => {
@@ -34,8 +30,6 @@ export default function UserProfileScreen({ screenProps }) {
       username: newUsername,
       name_first: nameFirst,
       name_last: nameLast,
-      password: password,
-      email: email,
       bio: bio,
       status: status,
       public: profilePrivate,
@@ -50,7 +44,7 @@ export default function UserProfileScreen({ screenProps }) {
         console.log(err);
       });
     console.log(
-      `User - ${newUsername}, Name - ${nameFirst} ${nameLast}, Email - ${email}, Status - ${status}, Bio - ${bio}, Password - ${password}`,
+      `User - ${newUsername}, Name - ${nameFirst} ${nameLast}, Status - ${status}, Bio - ${bio}`,
     );
     clearFields();
   };
@@ -101,18 +95,7 @@ export default function UserProfileScreen({ screenProps }) {
               }}
               onChangeText={nameLast => setNameLast(nameLast)}
             />
-            <TextInput
-              label='Email'
-              placeholder='email'
-              mode='outlined'
-              value={email}
-              theme={{
-                colors: {
-                  primary: '#003489',
-                },
-              }}
-              onChangeText={email => setEmail(email)}
-            />
+
             <TextInput
               label='Bio'
               placeholder='bio'
@@ -139,19 +122,7 @@ export default function UserProfileScreen({ screenProps }) {
               }}
               onChangeText={status => setStatus(status)}
             />
-            <TextInput
-              label='Password'
-              placeholder='password'
-              mode='outlined'
-              value={password}
-              secureTextEntry={true}
-              theme={{
-                colors: {
-                  primary: '#003489',
-                },
-              }}
-              onChangeText={password => setPassword(password)}
-            />
+
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-between' }}
             >

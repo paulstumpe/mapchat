@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Card, Divider } from 'react-native-paper';
 import { Avatar } from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -21,14 +21,11 @@ const MessagePreview = ({
     setNextTick(nextTick + 1);
   };
 
-  const { photoUrl } = screenProps;
-  console.log(photoUrl, 'message preview 29');
-
   return (
     messages &&
     messages.map((message, i) => {
-      const { post_local, post_public, title, text, user } = message;
-      const { username, name_first, name_last } = user;
+      const { post_local, title, text, user } = message;
+      const { username, name_first, name_last, password } = user;
 
       if (name_first.length === 0) {
         name_first = 'not long enough';
@@ -47,18 +44,13 @@ const MessagePreview = ({
               <Avatar
                 size='large'
                 rounded
-                source={{ uri: photoUrl }}
+                source={{ uri: password }}
                 onPress={() => {
                   toggleProfileModal(true);
                 }}
               />
             )}
-          >
-            <Image
-              source={{ uri: photoUrl }}
-              style={{ height: 50, width: 50 }}
-            />
-          </Card.Title>
+          />
           <Divider />
           <MessageItem
             messages={messages}
@@ -81,9 +73,11 @@ const MessagePreview = ({
     })
   );
 };
+
 MessagePreview.navigationOptions = {
   title: 'title',
 };
+
 const styles = StyleSheet.create({
   local: {
     borderRadius: 10,
@@ -104,4 +98,5 @@ const styles = StyleSheet.create({
   titleLocal: { color: '#2B4162', marginLeft: 30 },
   titleGlobal: { color: '#F5F0F6', marginLeft: 30 },
 });
+
 export default MessagePreview;
