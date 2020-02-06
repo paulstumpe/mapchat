@@ -20,6 +20,8 @@ import { postUser } from './Helper';
 import { enableScreens } from 'react-native-screens';
 import AppNavigator from './navigation/AppNavigator';
 
+console.disableYellowBox = true;
+
 enableScreens();
 
 export default function App(props) {
@@ -40,18 +42,21 @@ export default function App(props) {
         scopes: ['profile', 'email'],
       });
       if (result.type === 'success') {
+        console.log(result, 'App 43');
+
         setSignIn('true');
         setUsername(result.user.name);
         setPhotoUrl(result.user.photoUrl);
         setGoogleId(result.user.id);
+
         const userObj = {
-          username: 'Marc West',
-          name_first: 'Marc',
-          name_last: 'West',
-          password: '',
-          email: 'marcdwest@gmail.com',
-          bio: 'yes',
-          status: 'here',
+          username: result.user.name,
+          name_first: result.user.givenName,
+          name_last: result.user.familyName,
+          password: result.user.photoUrl,
+          email: result.user.email,
+          bio: '',
+          status: '',
           public: true,
         };
         postUser(userObj)
