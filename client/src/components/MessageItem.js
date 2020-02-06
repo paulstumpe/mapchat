@@ -18,7 +18,6 @@ import { postComment } from '../Helper';
 import CommentsMaker from './Comment';
 
 const MessageItem = ({ post, screenProps, messagePreviewRestPosts }) => {
-  const [isSending, setIsSending] = useState(false);
   const [messageModal, toggleMessageModal] = useState(false);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState(post.comments);

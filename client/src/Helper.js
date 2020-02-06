@@ -1,8 +1,8 @@
 import * as axios from 'axios';
-const localIP = '172.24.12.151'; //Paul
+// const localIP = '172.24.12.151'; //Paul
 // const localIP = '10.0.0.28'; //paul home
 
-// const localIP = '172.24.13.238'; // Marc
+const localIP = '172.24.13.238'; // Marc
 
 export const getAll = () => {
   return axios.get(`http://${localIP}:8080/messages/all`);
@@ -55,7 +55,7 @@ export const updateUser = userInput => {
     bio: userInput.bio,
     status: userInput.status,
     public: userInput.public,
-    id: userInput.id
+    id: userInput.id,
   };
   return axios.patch(`http://${localIP}:8080/users`, body);
 };
