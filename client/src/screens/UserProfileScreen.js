@@ -56,124 +56,129 @@ export default function UserProfileScreen({ screenProps }) {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      {/* <SafeAreaView style={styles.container}> */}
-      <ScrollView>
-        <Title>{username}</Title>
-        <View>
-          <TextInput
-            label='Change Username'
-            placeholder='username'
-            mode='outlined'
-            value={newUsername}
-            theme={{
-              colors: {
-                primary: '#003489',
-              },
-            }}
-            onChangeText={newUsername => setNewUsername(newUsername)}
-          />
-          <TextInput
-            label='First Name'
-            placeholder='first name'
-            mode='outlined'
-            value={nameFirst}
-            theme={{
-              colors: {
-                primary: '#003489',
-              },
-            }}
-            onChangeText={nameFirst => setNameFirst(nameFirst)}
-          />
-          <TextInput
-            label='Last Name'
-            placeholder='last name'
-            mode='outlined'
-            value={nameLast}
-            theme={{
-              colors: {
-                primary: '#003489',
-              },
-            }}
-            onChangeText={nameLast => setNameLast(nameLast)}
-          />
-          <TextInput
-            label='Email'
-            placeholder='email'
-            mode='outlined'
-            value={email}
-            theme={{
-              colors: {
-                primary: '#003489',
-              },
-            }}
-            onChangeText={email => setEmail(email)}
-          />
-          <TextInput
-            label='Bio'
-            placeholder='bio'
-            mode='outlined'
-            multiline={true}
-            numberOfLines={6}
-            value={bio}
-            theme={{
-              colors: {
-                primary: '#003489',
-              },
-            }}
-            onChangeText={bio => setBio(bio)}
-          />
-          <TextInput
-            label='Status'
-            placeholder='status'
-            mode='outlined'
-            value={status}
-            theme={{
-              colors: {
-                primary: '#003489',
-              },
-            }}
-            onChangeText={status => setStatus(status)}
-          />
-          <TextInput
-            label='Password'
-            placeholder='password'
-            mode='outlined'
-            value={password}
-            theme={{
-              colors: {
-                primary: '#003489',
-              },
-            }}
-            onChangeText={password => setPassword(password)}
-          />
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-          >
-            <Title style={{ padding: 5 }}>Make Profile Private</Title>
-            <Switch
-              color='#D7B377'
-              value={profilePrivate}
-              style={{ justifyContent: 'flex-end' }}
-              onValueChange={() => setProfilePrivate(!profilePrivate)}
+    <KeyboardAvoidingView
+      behavior='height'
+      style={styles.container}
+      keyboardVerticalOffset={80}
+    >
+      <SafeAreaView>
+        <ScrollView>
+          <Title>{username}</Title>
+          <View>
+            <TextInput
+              label='Change Username'
+              placeholder='username'
+              mode='outlined'
+              value={newUsername}
+              theme={{
+                colors: {
+                  primary: '#003489',
+                },
+              }}
+              onChangeText={newUsername => setNewUsername(newUsername)}
             />
+            <TextInput
+              label='First Name'
+              placeholder='first name'
+              mode='outlined'
+              value={nameFirst}
+              theme={{
+                colors: {
+                  primary: '#003489',
+                },
+              }}
+              onChangeText={nameFirst => setNameFirst(nameFirst)}
+            />
+            <TextInput
+              label='Last Name'
+              placeholder='last name'
+              mode='outlined'
+              value={nameLast}
+              theme={{
+                colors: {
+                  primary: '#003489',
+                },
+              }}
+              onChangeText={nameLast => setNameLast(nameLast)}
+            />
+            <TextInput
+              label='Email'
+              placeholder='email'
+              mode='outlined'
+              value={email}
+              theme={{
+                colors: {
+                  primary: '#003489',
+                },
+              }}
+              onChangeText={email => setEmail(email)}
+            />
+            <TextInput
+              label='Bio'
+              placeholder='bio'
+              mode='outlined'
+              multiline={true}
+              numberOfLines={6}
+              value={bio}
+              theme={{
+                colors: {
+                  primary: '#003489',
+                },
+              }}
+              onChangeText={bio => setBio(bio)}
+            />
+            <TextInput
+              label='Status'
+              placeholder='status'
+              mode='outlined'
+              value={status}
+              theme={{
+                colors: {
+                  primary: '#003489',
+                },
+              }}
+              onChangeText={status => setStatus(status)}
+            />
+            <TextInput
+              label='Password'
+              placeholder='password'
+              mode='outlined'
+              value={password}
+              secureTextEntry={true}
+              theme={{
+                colors: {
+                  primary: '#003489',
+                },
+              }}
+              onChangeText={password => setPassword(password)}
+            />
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+            >
+              <Title style={{ padding: 5 }}>Make Profile Private</Title>
+              <Switch
+                color='#D7B377'
+                value={profilePrivate}
+                style={{ justifyContent: 'flex-end' }}
+                onValueChange={() => setProfilePrivate(!profilePrivate)}
+              />
+            </View>
+            <Divider />
+            <Button
+              icon='content-save'
+              mode='contained'
+              color='#385F71'
+              style={{
+                margin: 10,
+                height: 50,
+              }}
+              onPress={() => saveChanges()}
+            >
+              Save Changes
+            </Button>
           </View>
-          <Divider />
-          <Button
-            icon='content-save'
-            mode='contained'
-            color='#385F71'
-            style={{
-              margin: 10,
-              height: 50,
-            }}
-            onPress={() => saveChanges()}
-          >
-            Save Changes
-          </Button>
-        </View>
-      </ScrollView>
-      {/* </SafeAreaView> */}
+        </ScrollView>
+      </SafeAreaView>
     </KeyboardAvoidingView>
   );
 }
