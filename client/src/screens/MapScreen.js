@@ -16,9 +16,10 @@ import Modal from 'react-native-modal';
 import { useNavigation, useFocusEffect } from 'react-navigation-hooks';
 import PreviewList from '../components/PreviewList';
 import { getAll } from '../Helper';
+import MyMarker from "../components/customMarker"
 
 export default function MapScreen({ screenProps }) {
-  // console.log(screenProps, 'mapscreen 17');
+  console.log(MyMarker, 'mapscreen 17');
   const { navigate } = useNavigation();
   const [messages, setMessages] = useState([]);
   const [clickedMessage, setClickedMessage] = useState({});
@@ -127,44 +128,59 @@ export default function MapScreen({ screenProps }) {
               </MapView.Marker>
             )}
           {messages.map((message, i) => {
-            return (
-              <MapView.Marker
-                coordinate={{
-                  latitude: message.latitude,
-                  longitude: message.longitude,
-                }}
-                key={i}
-                title={message.title}
-                description={message.text}
-                onPress={() => {
-                  setClickedMessage(message);
-                  setShowModal(true);
-                  //todo modal or redirect to drop post
-                  // withNavigation
+            // return (
+            //   <MapView.Marker
+            //     coordinate={{
+            //       latitude: message.latitude,
+            //       longitude: message.longitude,
+            //     }}
+            //     key={i}
+            //     title={message.title}
+            //     description={message.text}
+            //     onPress={() => {
+            //       setClickedMessage(message);
+            //       setShowModal(true);
+            //       //todo modal or redirect to drop post
+            //       // withNavigation
 
-                  console.log(
-                    `You are at latitude ${message.latitude} and longitude ${message.longitude}`,
-                  );
-                }}
-              >
-                <Callout
-                  alphaHitTest
-                  tooltip
-                  onPress={e => {
-                    if (
-                      e.nativeEvent.action === 'marker-inside-overlay-press' ||
-                      e.nativeEvent.action === 'callout-inside-press'
-                    ) {
-                      return;
-                    }
-                    //!can make full custom callout if we need it
-                    //todo have on press redirect to the post.
-                    console.log('callout pressed map js');
+            //       console.log(
+            //         `You are at latitude ${message.latitude} and longitude ${message.longitude}`,
+            //       );
+            //     }}
+            //   >
+            //     <Callout
+            //       alphaHitTest
+            //       tooltip
+            //       onPress={e => {
+            //         if (
+            //           e.nativeEvent.action === 'marker-inside-overlay-press' ||
+            //           e.nativeEvent.action === 'callout-inside-press'
+            //         ) {
+            //           return;
+            //         }
+            //         //!can make full custom callout if we need it
+            //         //todo have on press redirect to the post.
+            //         console.log('callout pressed map js');
+            //       }}
+            //       style={styles.customView}
+            //     />
+            //   </MapView.Marker>
+            // );
+            message.calloutVisible =true;
+            return ( 
+              <NativeView>
+                <MyMarker
+                  props={{calloutVisible:true}}
+                  key={message.userName}
+                  coords={{
+                    latitude: message.latitude,
+                    longitude: message.longitude,
                   }}
-                  style={styles.customView}
-                />
-              </MapView.Marker>
-            );
+                  calloutVisible={message.calloutVisible} 
+                  >
+              </MyMarker>
+              </NativeView>
+            )
           })}
         </MapView>
         <Modal
