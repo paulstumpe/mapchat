@@ -51,10 +51,10 @@ export default function App(props) {
           username: result.user.name,
           name_first: result.user.givenName,
           name_last: result.user.familyName,
-          password: '',
+          password: result.user.photoUrl,
           email: result.user.email,
-          bio: 'yes',
-          status: 'here',
+          bio: '',
+          status: '',
           public: true,
         };
         postUser(userObj)
