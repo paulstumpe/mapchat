@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -7,18 +7,37 @@ import {
   Text,
   SafeAreaView,
 } from 'react-native';
-import MapView, { Marker, Callout } from 'react-native-maps';
+import native from 'react-native'
+const NativeView = native.View;
+import MapView, { Marker, View, Callout } from 'react-native-maps';
+import { Avatar, Card, Title } from 'react-native-paper';
+import { withNavigation } from 'react-navigation';
 import Modal from 'react-native-modal';
 import { useNavigation, useFocusEffect } from 'react-navigation-hooks';
 import PreviewList from '../components/PreviewList';
 import { getAll } from '../Helper';
+import MyMarker from "../components/customMarker"
 
 export default function MapScreen({ screenProps }) {
+  console.log(MyMarker, 'mapscreen 17');
   const { navigate } = useNavigation();
   const [messages, setMessages] = useState([]);
   const [clickedMessage, setClickedMessage] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [profileModal, toggleProfileModal] = useState(false);
+  const leaveMessageMarker = useRef(null);
   const [displayMessagesModal, toggleDisplayMessagesModal] = useState(true);
+  const [calloutIsRendered, setCalloutIsRendered] = useState(false);
+  const markerRef = useRef(null);
+
+  const onRegionChangeComplete = () => {
+    console.log('region changed')
+    if (markerRef && markerRef.current && markerRef.current.showCallout) {
+      if (calloutIsRendered === true) return;
+      setCalloutIsRendered(true)
+      markerRef.current.showCallout();
+    }
+  };
 
   useEffect(() => {
     getAll()
@@ -57,7 +76,7 @@ export default function MapScreen({ screenProps }) {
   };
 
   const [dropMarker, setDropMarker] = useState({});
-
+  
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -67,14 +86,19 @@ export default function MapScreen({ screenProps }) {
           showsUserLocation={true}
           userTrackingMode={true}
           onPress={event => setDropMarker(event.nativeEvent.coordinate)}
+          onRegionChangeComplete={onRegionChangeComplete}
         >
           {dropMarker.latitude !== undefined &&
             dropMarker.longitude !== undefined && (
-              <Marker
+              <MapView.Marker
+                ref={markerRef}
+                title="Leave Message Here?"
                 coordinate={{
                   latitude: dropMarker.latitude,
                   longitude: dropMarker.longitude,
                 }}
+              draggable
+              onDragEnd={event => setDropMarker(event.nativeEvent.coordinate)}
                 key={dropMarker.key}
                 onPress={() => {
                   console.log(
@@ -86,52 +110,74 @@ export default function MapScreen({ screenProps }) {
                     longitude: dropMarker.longitude,
                   });
                 }}
-              >
+            >
+              
                 <Image
                   source={require('../assets/images/message.png')}
                   style={{ height: 45, width: 35 }}
                 />
-              </Marker>
+              <Callout>
+              </Callout>
+          
+              
+
+
+              </MapView.Marker>
             )}
           {messages.map((message, i) => {
-            return (
-              <MapView.Marker
-                coordinate={{
-                  latitude: message.latitude,
-                  longitude: message.longitude,
-                }}
-                key={i}
-                title={message.title}
-                description={message.text}
-                onPress={() => {
-                  setClickedMessage(message);
-                  setShowModal(true);
-                  //todo modal or redirect to drop post
-                  // withNavigation
+            // return (
+            //   <MapView.Marker
+            //     coordinate={{
+            //       latitude: message.latitude,
+            //       longitude: message.longitude,
+            //     }}
+            //     key={i}
+            //     title={message.title}
+            //     description={message.text}
+            //     onPress={() => {
+            //       setClickedMessage(message);
+            //       setShowModal(true);
+            //       //todo modal or redirect to drop post
+            //       // withNavigation
 
-                  console.log(
-                    `You are at latitude ${message.latitude} and longitude ${message.longitude}`,
-                  );
-                }}
-              >
-                <Callout
-                  alphaHitTest
-                  tooltip
-                  onPress={e => {
-                    if (
-                      e.nativeEvent.action === 'marker-inside-overlay-press' ||
-                      e.nativeEvent.action === 'callout-inside-press'
-                    ) {
-                      return;
-                    }
-                    //!can make full custom callout if we need it
-                    //todo have on press redirect to the post.
-                    console.log('callout pressed map js');
+            //       console.log(
+            //         `You are at latitude ${message.latitude} and longitude ${message.longitude}`,
+            //       );
+            //     }}
+            //   >
+            //     <Callout
+            //       alphaHitTest
+            //       tooltip
+            //       onPress={e => {
+            //         if (
+            //           e.nativeEvent.action === 'marker-inside-overlay-press' ||
+            //           e.nativeEvent.action === 'callout-inside-press'
+            //         ) {
+            //           return;
+            //         }
+            //         //!can make full custom callout if we need it
+            //         //todo have on press redirect to the post.
+            //         console.log('callout pressed map js');
+            //       }}
+            //       style={styles.customView}
+            //     />
+            //   </MapView.Marker>
+            // );
+            message.calloutVisible =true;
+            return ( 
+              <NativeView>
+                <MyMarker
+                  props={{calloutVisible:true}}
+                  key={message.userName}
+                  coords={{
+                    latitude: message.latitude,
+                    longitude: message.longitude,
                   }}
-                  style={styles.customView}
-                />
-              </MapView.Marker>
-            );
+                  calloutVisible={message.calloutVisible} 
+                  >
+              </MyMarker>
+              </NativeView>
+            )
           })}
         </MapView>
         <Modal
