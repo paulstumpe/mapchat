@@ -21,13 +21,13 @@ const MessagePreview = ({
     setNextTick(nextTick + 1);
   };
 
-  const { photoUrl } = screenProps;
+  // const { photoUrl } = screenProps;
 
   return (
     messages &&
     messages.map((message, i) => {
-      const { post_local, post_public, title, text, user } = message;
-      const { username, name_first, name_last } = user;
+      const { post_local, title, text, user } = message;
+      const { username, name_first, name_last, password } = user;
 
       if (name_first.length === 0) {
         name_first = 'not long enough';
@@ -46,18 +46,13 @@ const MessagePreview = ({
               <Avatar
                 size='large'
                 rounded
-                source={{ uri: photoUrl }}
+                source={{ uri: password }}
                 onPress={() => {
                   toggleProfileModal(true);
                 }}
               />
             )}
-          >
-            <Image
-              source={{ uri: photoUrl }}
-              style={{ height: 50, width: 50 }}
-            />
-          </Card.Title>
+          />
           <Divider />
           <MessageItem
             messages={messages}
