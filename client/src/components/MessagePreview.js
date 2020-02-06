@@ -22,7 +22,6 @@ const MessagePreview = ({
   };
 
   const { photoUrl } = screenProps;
-  console.log(photoUrl, 'message preview 29');
 
   return (
     messages &&
