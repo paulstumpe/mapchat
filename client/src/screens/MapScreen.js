@@ -6,8 +6,6 @@ import {
   Image,
   Text,
   SafeAreaView,
-  TouchableOpacity,
-  // Overlay,
 } from 'react-native';
 import native from 'react-native'
 const NativeView = native.View;
@@ -15,17 +13,12 @@ import MapView, { Marker, View, Callout } from 'react-native-maps';
 import { Avatar, Card, Title } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import Modal from 'react-native-modal';
-import {
-  useNavigation,
-  useNavigationParam,
-  useFocusEffect,
-} from 'react-navigation-hooks';
+import { useNavigation, useFocusEffect } from 'react-navigation-hooks';
 import PreviewList from '../components/PreviewList';
-import MessageItem from '../components/MessageItem';
-import Profile from '../components/Profile';
 import { getAll } from '../Helper';
 
 export default function MapScreen({ screenProps }) {
+  // console.log(screenProps, 'mapscreen 17');
   const { navigate } = useNavigation();
   const [messages, setMessages] = useState([]);
   const [clickedMessage, setClickedMessage] = useState({});
@@ -53,10 +46,10 @@ export default function MapScreen({ screenProps }) {
           message.latitude = parseFloat(message.coordinate.lat);
           return message;
         });
-        console.log(allMessages, "all messages useEffect mapScreen.js");
+        console.log(allMessages, 'all messages useEffect mapScreen.js');
         setMessages(allMessages);
       })
-      .catch(err => console.log(err, "useEffect getAll"));
+      .catch(err => console.log(err, 'useEffect getAll'));
   }, []);
 
   useFocusEffect(
@@ -68,10 +61,10 @@ export default function MapScreen({ screenProps }) {
             message.latitude = parseFloat(message.coordinate.lat);
             return message;
           });
-          console.log(allMessages, "allmessages useFocusEffect MapScreen.js");
+          console.log(allMessages, 'allmessages useFocusEffect MapScreen.js');
           setMessages(allMessages);
         })
-        .catch(err => console.log(err, "getAll mapScreen useFocusEffect"));
+        .catch(err => console.log(err, 'getAll mapScreen useFocusEffect'));
     }, []),
   );
 
@@ -134,44 +127,44 @@ export default function MapScreen({ screenProps }) {
               </MapView.Marker>
             )}
           {messages.map((message, i) => {
-              return (
-                <MapView.Marker
-                  coordinate={{
-                    latitude: message.latitude,
-                    longitude: message.longitude,
+            return (
+              <MapView.Marker
+                coordinate={{
+                  latitude: message.latitude,
+                  longitude: message.longitude,
+                }}
+                key={i}
+                title={message.title}
+                description={message.text}
+                onPress={() => {
+                  setClickedMessage(message);
+                  setShowModal(true);
+                  //todo modal or redirect to drop post
+                  // withNavigation
+
+                  console.log(
+                    `You are at latitude ${message.latitude} and longitude ${message.longitude}`,
+                  );
+                }}
+              >
+                <Callout
+                  alphaHitTest
+                  tooltip
+                  onPress={e => {
+                    if (
+                      e.nativeEvent.action === 'marker-inside-overlay-press' ||
+                      e.nativeEvent.action === 'callout-inside-press'
+                    ) {
+                      return;
+                    }
+                    //!can make full custom callout if we need it
+                    //todo have on press redirect to the post.
+                    console.log('callout pressed map js');
                   }}
-                  key={i}
-                  title={message.title}
-                  description={message.text}
-                  onPress={() =>{
-                    setClickedMessage(message);
-                    setShowModal(true);
-                    //todo modal or redirect to drop post
-                    // withNavigation
-                    
-                    console.log(
-                      `You are at latitude ${message.latitude} and longitude ${message.longitude}`,
-                    )}
-                  }
-                >
-                  <Callout
-                    alphaHitTest
-                    tooltip
-                    onPress={e => {
-                      if (
-                        e.nativeEvent.action === 'marker-inside-overlay-press' ||
-                        e.nativeEvent.action === 'callout-inside-press'
-                      ) {
-                        return;
-                      }
-                      //!can make full custom callout if we need it
-                      //todo have on press redirect to the post.
-                      console.log('callout pressed map js');
-                    }}
-                    style={styles.customView}
-                  ></Callout>     
-                </MapView.Marker>
-              );
+                  style={styles.customView}
+                />
+              </MapView.Marker>
+            );
           })}
         </MapView>
         <Modal
@@ -182,7 +175,7 @@ export default function MapScreen({ screenProps }) {
           onBackdropPress={() => toggleDisplayMessagesModal(false)}
           style={styles.modal}
         >
-          <PreviewList screenProps={screenProps}/>
+          <PreviewList screenProps={screenProps} />
         </Modal>
       </ScrollView>
       {!displayMessagesModal && (

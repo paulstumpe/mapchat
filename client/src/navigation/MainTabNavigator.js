@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import TabBarIcon from '../components/TabBarIcon';
+import FriendsScreen from '../screens/FriendsScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import ListScreen from '../screens/ListScreen';
 import NewPostScreen from '../screens/NewPostScreen';
@@ -11,12 +12,30 @@ import MapScreen from '../screens/MapScreen';
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
-
 });
+
+const MapStack = createStackNavigator(
+  {
+    Map: MapScreen,
+  },
+  config,
+);
+
+MapStack.navigationOptions = {
+  tabBarLabel: 'Map',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'}
+    />
+  ),
+};
+
+MapStack.path = '';
 
 const UserProfileStack = createStackNavigator(
   {
-    Home: UserProfileScreen,
+    UserProfile: UserProfileScreen,
   },
   config,
 );
@@ -58,8 +77,9 @@ ListStack.path = '';
 
 const NewPostStack = createStackNavigator(
   {
-    NewPost: { screen: NewPostScreen, 
-      params:{longitude: null, latitude: null}
+    NewPost: {
+      screen: NewPostScreen,
+      params: { longitude: null, latitude: null },
     },
   },
   config,
@@ -77,30 +97,34 @@ NewPostStack.navigationOptions = {
 
 NewPostStack.path = '';
 
-const MapStack = createStackNavigator(
+const FriendsStack = createStackNavigator(
   {
-    Map: MapScreen,
+    Friends: {
+      screen: FriendsScreen,
+      params: { longitude: null, latitude: null },
+    },
   },
   config,
 );
 
-MapStack.navigationOptions = {
-  tabBarLabel: 'Map',
+FriendsStack.navigationOptions = {
+  tabBarLabel: 'Friends',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'}
+      name={Platform.OS === 'ios' ? 'ios-people' : 'md-people'}
     />
   ),
 };
 
-MapStack.path = '';
+FriendsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
-  UserProfileStack,
   ListStack,
-  NewPostStack,
   MapStack,
+  NewPostStack,
+  UserProfileStack,
+  FriendsStack,
 });
 
 tabNavigator.path = '';

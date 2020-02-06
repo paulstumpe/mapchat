@@ -21,8 +21,17 @@ import { getOne, postComment, getAll } from '../Helper';
 import useForceUpdate from 'use-force-update';
 import CommentsMaker from './comment';
 
-const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocusedMessageId, messages, resetPosts, messagePreviewRestPosts }) => {
-  const [isSending, setIsSending] = useState(false)
+const MessageItem = ({
+  post,
+  screenProps,
+  setMessages,
+  focusedMessageId,
+  setFocusedMessageId,
+  messages,
+  resetPosts,
+  messagePreviewRestPosts,
+}) => {
+  const [isSending, setIsSending] = useState(false);
   const [messageModal, toggleMessageModal] = useState(false);
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState(post.comments);
@@ -39,27 +48,27 @@ const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocu
       userId: screenProps.user.id,
     };
     postComment(commentData)
-    .then(({data})=>{
-      let newComment = data;
-      console.log('sendPostComment MessageItem.js');
-      messagePreviewRestPosts();
+      .then(({ data }) => {
+        let newComment = data;
+        console.log('sendPostComment MessageItem.js');
+        messagePreviewRestPosts();
 
-      // setCounter(counter + 1);
-      // forceUpdate();
-      return data;
-    })
-    .catch((err)=>{
-      console.log(err, "postComment messageitemJS")
-    })
+        // setCounter(counter + 1);
+        // forceUpdate();
+        return data;
+      })
+      .catch(err => {
+        console.log(err, 'postComment messageitemJS');
+      });
     setComment('');
   };
 
   useEffect(() => {
     setComments(post.comments);
-    console.log("called" + counter);
+    console.log('called' + counter);
   }, [setCounter]);
-  const {title, text} = post;
-  const { username, name_first, name_last,} = post.user;
+  const { title, text } = post;
+  const { username, name_first, name_last } = post.user;
   const initials = name_first[0] + name_last[0];
 
   return (
@@ -84,7 +93,7 @@ const MessageItem = ({ post, screenProps, setMessages, focusedMessageId, setFocu
             </Card>
             {post.comments &&
               post.comments.map((comment, i) => {
-                return <CommentsMaker commentProp={comment} />
+                return <CommentsMaker commentProp={comment} />;
                 // console.log(comment.text);
                 // return (
                 //   <Card style={{ marginTop: 10 }} key={i}>

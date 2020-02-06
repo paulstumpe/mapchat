@@ -1,14 +1,15 @@
 import React, { useState, useCallback } from 'react';
-import { View, ScrollView, StyleSheet, us } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { Button, Title, TextInput, Switch, Divider } from 'react-native-paper';
 import { postMessageHelper } from '../Helper';
-import { useNavigation, useNavigationParam, useFocusEffect } from 'react-navigation-hooks'
+import {
+  useNavigation,
+  useNavigationParam,
+  useFocusEffect,
+} from 'react-navigation-hooks';
 // import { useFocusEffect } from '@react-navigation/native';
 
-
-
-export default function NewPostScreen({ screenProps, navigation} ) {
-  
+export default function NewPostScreen({ screenProps, navigation }) {
   const username = screenProps.username;
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
@@ -19,18 +20,19 @@ export default function NewPostScreen({ screenProps, navigation} ) {
   // if (navigation.state.params.longitude){
   //   setOtherLocation(true);
   // }
-  const buttonPress = ()=>{
-      console.log('buttonpressed newpostScreen.js')
-      screenProps.otherLocationObj.setOtherLocation(false);
-  }
-  useFocusEffect(useCallback(() => {
-    console.debug("screen takes focus");
-    //component did unmount
-    return () => {
-
-      console.debug("screen loses focus")
-    };
-  }, []));
+  const buttonPress = () => {
+    console.log('buttonpressed newpostScreen.js');
+    screenProps.otherLocationObj.setOtherLocation(false);
+  };
+  useFocusEffect(
+    useCallback(() => {
+      console.debug('screen takes focus');
+      //component did unmount
+      return () => {
+        console.debug('screen loses focus');
+      };
+    }, []),
+  );
 
   const clearFields = () => {
     setTitle('');
@@ -39,21 +41,23 @@ export default function NewPostScreen({ screenProps, navigation} ) {
   };
 
   const postMessage = () => {
-    let postInput = {title, message, anon, global, comments};
+    let postInput = { title, message, anon, global, comments };
     let userId = 1;
     //todo hardcoded, fix after create profile screen
     let toPass = {
       longitude: screenProps.location.coords.longitude,
-      latitude: screenProps.location.coords.latitude
-    }
-    if (screenProps.otherLocationObj.otherLocation){
+      latitude: screenProps.location.coords.latitude,
+    };
+    if (screenProps.otherLocationObj.otherLocation) {
       toPass.longitude = navigation.state.params.longitude;
       toPass.latitude = navigation.state.params.latitude;
     }
-    postMessageHelper(postInput, toPass, screenProps.user.id)
-    .then((res)=>{
-      console.log(res, 'message posted successfully PostMessageHelper newPostScreenJS')
-    })
+    postMessageHelper(postInput, toPass, screenProps.user.id).then(res => {
+      console.log(
+        res,
+        'message posted successfully PostMessageHelper newPostScreenJS',
+      );
+    });
     console.log(
       `User - ${username}, Title - ${title}, Location - ${location}, Message - ${message}`,
     );
@@ -73,9 +77,17 @@ export default function NewPostScreen({ screenProps, navigation} ) {
           onChangeText={title => setTitle(title)}
         />
         <Button
-          label={navigation.state.params.latitude ? 'Use current Location instead?':'Current Location'}
+          label={
+            navigation.state.params.latitude
+              ? 'Use current Location instead?'
+              : 'Current Location'
+          }
           mode='outlined'
-          onPress={buttonPress}>{screenProps.otherLocationObj.otherLocation ? 'Use current Location instead?':'Current Location'}
+          onPress={buttonPress}
+        >
+          {screenProps.otherLocationObj.otherLocation
+            ? 'Use current Location instead?'
+            : 'Current Location'}
         </Button>
         <TextInput
           label='Message'
