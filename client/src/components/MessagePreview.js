@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Card, Divider } from 'react-native-paper';
 import { Avatar } from 'react-native-elements';
 import Modal from 'react-native-modal';
@@ -20,8 +20,6 @@ const MessagePreview = ({
     resetPosts();
     setNextTick(nextTick + 1);
   };
-
-  // const { photoUrl } = screenProps;
 
   return (
     messages &&
@@ -75,9 +73,11 @@ const MessagePreview = ({
     })
   );
 };
+
 MessagePreview.navigationOptions = {
   title: 'title',
 };
+
 const styles = StyleSheet.create({
   local: {
     borderRadius: 10,
@@ -98,4 +98,5 @@ const styles = StyleSheet.create({
   titleLocal: { color: '#2B4162', marginLeft: 30 },
   titleGlobal: { color: '#F5F0F6', marginLeft: 30 },
 });
+
 export default MessagePreview;
