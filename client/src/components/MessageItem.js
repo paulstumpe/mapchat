@@ -34,7 +34,7 @@ const MessageItem = ({
     const commentData = {
       postId: post.id,
       text: comment,
-      userId: post.user.id,
+      userId: screenProps.user.id,
     };
     postComment(commentData)
       .then(({ data }) => {
