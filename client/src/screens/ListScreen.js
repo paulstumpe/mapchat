@@ -18,7 +18,6 @@ const ListScreen = ({ screenProps }) => {
     });
   };
 
-  console.log('rendered');
   useFocusEffect(
     useCallback(() => {
       console.debug('screen takes focus');

@@ -19,7 +19,7 @@ const Profile = props => {
         <KeyboardAvoidingView behavior='position' enabled>
           <Card>
             <Card.Title
-              title={`${user.name_first} ${user.name_last}`}
+              title={user.username}
               subtitle={user.email}
               left={() => (
                 <Avatar.Text size={48} label={initials} style={styles.avatar} />

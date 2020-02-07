@@ -42,8 +42,6 @@ export default function App(props) {
         scopes: ['profile', 'email'],
       });
       if (result.type === 'success') {
-        console.log(result, 'App 43');
-
         setSignIn('true');
         setUsername(result.user.name);
         setPhotoUrl(result.user.photoUrl);

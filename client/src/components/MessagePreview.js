@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { Card, Divider } from 'react-native-paper';
 import { Avatar } from 'react-native-elements';
@@ -9,12 +9,19 @@ import Profile from '../components/Profile';
 const MessagePreview = ({
   screenProps,
   messages,
-  setMessages,
   focusedMessageId,
   resetPosts,
 }) => {
   const [profileModal, toggleProfileModal] = useState(false);
   const [nextTick, setNextTick] = useState(0);
+  const [allModals, setAllModals] = useState([]);
+
+  useEffect(() => {
+    let arr = messages.map(message => {
+      return false;
+    });
+    setAllModals(arr);
+  }, []);
 
   const messagePreviewRestPosts = () => {
     resetPosts();
@@ -24,15 +31,9 @@ const MessagePreview = ({
   return (
     messages &&
     messages.map((message, i) => {
-      const { post_local, title, text, user } = message;
-      const { username, name_first, name_last, password } = user;
+      const { post_local, title, user } = message;
+      const { username, password } = user;
 
-      if (name_first.length === 0) {
-        name_first = 'not long enough';
-      }
-      if (name_last.length === 0) {
-        name_last = 'not long enough';
-      }
       return (
         <Card style={post_local ? styles.local : styles.global} key={i}>
           <Card.Title
@@ -46,6 +47,12 @@ const MessagePreview = ({
                 rounded
                 source={{ uri: password }}
                 onPress={() => {
+                  let preArr = allModals.slice(0, i);
+                  let postArr = allModals.slice(i + 1);
+                  let thisModal = true;
+                  setAllModals([...preArr, thisModal, ...postArr]);
+                  console.log(preArr, postArr, 'messPreview 54');
+                  console.log(allModals, i, 'messPreview 55');
                   toggleProfileModal(true);
                 }}
               />
@@ -56,15 +63,23 @@ const MessagePreview = ({
             messages={messages}
             post={message}
             screenProps={screenProps}
-            setMessages={setMessages}
             focusedMessageId={focusedMessageId}
             setFocusedMessageId={focusedMessageId}
             resetPosts={resetPosts}
             messagePreviewRestPosts={messagePreviewRestPosts}
           />
           <Modal
-            isVisible={profileModal}
-            onBackButtonPress={() => toggleProfileModal(false)}
+            isVisible={allModals[i]}
+            onBackButtonPress={() => {
+              let preArr = allModals.slice(0, i);
+              let postArr = allModals.slice(i + 1);
+              let thisModal = true;
+              let arr = [];
+              for (let i = 0; i < allModals.length; i++) {
+                arr.push(false);
+              }
+              setAllModals(arr);
+            }}
           >
             <Profile toggleProfileModal={toggleProfileModal} post={message} />
           </Modal>
